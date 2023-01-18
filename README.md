@@ -1,2 +1,2 @@
-# Minishell
-create a simple shell. does it really simple?
+# FdF
+42cursus FdF project
