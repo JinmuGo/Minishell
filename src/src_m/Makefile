@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/21 21:43:15 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 08:49:28 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,18 @@ CPPFLAGS = -I$(TOPDIR)/includes -I./includes
 LDFLAGS = -L$(TOPDIR)/lib
 LDLIBS = -lft
 
-DIRS = draw hooks utils
+DIRS = signal lexer parser expander executor utils 
 LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 HEADS = minishell.h \
-		error.h	\
+		signal.h \
+		lexer.h \
+		parser.h \
+		expander.h \
+		executor.h \
 		declaration.h \
 		utils.h
+		error.h	\
 
 SRCS = minishell.c
 
