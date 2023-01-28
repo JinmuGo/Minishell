@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.kr>               +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/21 21:42:19 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 18:01:15 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,6 @@ include $(TOPDIR)/config/color_rules.mk
 
 MINISHELL = MINISHELL
 NAME = $(MINISHELL)
-
-CPPFLAGS = -I$(TOPDIR)/includes -I./includes
-LDFLAGS = -L$(TOPDIR)/lib
-LDLIBS = -lft
 
 DIRS = draw hooks utils
 LIBS = $(addsuffix _bonus.a, $(addprefix lib/, $(DIRS)))

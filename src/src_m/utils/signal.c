@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 17:00:09 by jgo              ###   ########.fr       */
+/*   Created: 2023/01/28 18:21:28 by jgo               #+#    #+#             */
+/*   Updated: 2023/01/28 18:41:33 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void    parser()
-{
-    lexer();
+#include "minishell.h"
 
-    // tree 작업    
+void	signal_process(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+	if (signum == SIGQUIT)
+		rl_on_new_line();
+	rl_redisplay();
 }

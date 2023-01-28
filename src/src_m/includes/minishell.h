@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 15:49:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/01/28 18:19:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 	rl_redisplay, add_history */
 # include <readline/readline.h>
 # include <readline/history.h>
+
+void rl_replace_line (const char *text, int clear_undo);
 
 /* write, read, close, access, pipe, dup, dup2, execve, fork, getcwd, chdir */
 # include <unistd.h>

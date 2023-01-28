@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 15:38:34 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 18:01:24 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,27 +19,21 @@ include $(TOPDIR)/config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 
-CPPFLAGS = -I$(TOPDIR)/includes -I./includes
-LDFLAGS = -L$(TOPDIR)/lib
-LDLIBS = -lft -lreadline
-
-DIRS = signal \
-		# lexer \
-		# parser \
-		# expander \
-		# executor \
-		# utils 
+DIRS = utils
+# lexer \
+# parser \
+# expander \
+# executor \
 
 LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 HEADS = minishell.h \
-		signal.h \
+		utils.h \
 		lexer.h \
 		parser.h \
 		expander.h \
 		executor.h \
 		defines.h \
-		utils.h \
 		error.h
 
 SRCS = minishell.c

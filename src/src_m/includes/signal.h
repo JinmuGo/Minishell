@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:56:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/25 17:57:01 by jgo              ###   ########.fr       */
+/*   Updated: 2023/01/28 17:21:54 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNAL_H
 # define SIGNAL_H
 
-
+void	signal_process(int signum);
 
 #endif
