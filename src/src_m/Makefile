@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 11:20:07 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 15:28:39 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ include $(TOPDIR)/config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 
-CPPFLAGS = -I$(TOPDIR)/includes -I./includes -I$(shell brew --prefix readline)/include
-LDFLAGS = -L$(TOPDIR)/lib -L$(shell brew --prefix readline)/lib 
-LDLIBS = -lft
+CPPFLAGS = -I$(TOPDIR)/includes -I./includes
+LDFLAGS = -L$(TOPDIR)/lib
+LDLIBS = -lft -lreadline
 
 DIRS = signal \
 		# lexer \

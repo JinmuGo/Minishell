@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 08:26:05 by jgo              ###   ########.fr       */
+/*   Updated: 2023/01/28 15:27:34 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # include <curses.h>
 # include <term.h>
 
-#include "libft.h"
+/* libft */
+# include "libft.h"
 
 #endif
