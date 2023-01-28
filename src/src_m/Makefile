@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 15:28:39 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 15:38:34 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ HEADS = minishell.h \
 		parser.h \
 		expander.h \
 		executor.h \
-		declaration.h \
+		defines.h \
 		utils.h \
 		error.h
 
