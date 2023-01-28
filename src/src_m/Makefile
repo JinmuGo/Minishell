@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 08:49:28 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 11:20:07 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,19 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-MINISHELL = MINISHELL
-NAME = $(MINISHELL)
+NAME = $(PROJECT_NAME)
 
-CPPFLAGS = -I$(TOPDIR)/includes -I./includes
-LDFLAGS = -L$(TOPDIR)/lib
+CPPFLAGS = -I$(TOPDIR)/includes -I./includes -I$(shell brew --prefix readline)/include
+LDFLAGS = -L$(TOPDIR)/lib -L$(shell brew --prefix readline)/lib 
 LDLIBS = -lft
 
-DIRS = signal lexer parser expander executor utils 
+DIRS = signal \
+		# lexer \
+		# parser \
+		# expander \
+		# executor \
+		# utils 
+
 LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 HEADS = minishell.h \
@@ -34,8 +39,8 @@ HEADS = minishell.h \
 		expander.h \
 		executor.h \
 		declaration.h \
-		utils.h
-		error.h	\
+		utils.h \
+		error.h
 
 SRCS = minishell.c
 
@@ -45,9 +50,9 @@ DEPS = $(SRCS:.c=.d)
 
 all bonus :
 		$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-		$(Q)$(call color_printf,$(YELLOW),$(MINISHELL),🎯 Start compiling)
+		$(Q)$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
 		$(MAKE) $(NAME)
-		$(Q)$(call color_printf,$(GREEN),$(MINISHELL),✨ compiled!)
+		$(Q)$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
 
 $(NAME): $(OBJS) $(LIBS)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@

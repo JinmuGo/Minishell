@@ -3,15 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Rules.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/05 14:02:20 by jgo               #+#    #+#              #
-#    Updated: 2023/01/12 21:39:16 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/28 11:20:14 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DEFAULT_ON_ERROR:
 .DEFAULT_GOAL = all
+
+PROJECT_NAME = minishell
 
 ARFLAGS = rcs
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
