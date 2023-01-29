@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Rules.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/05 14:02:20 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 18:14:47 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/29 15:35:37 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LDLIBS = -lft -lreadline
 
 # debug
 ifdef DEBUG
-	CFLAGS += -g3
+	CFLAGS = -g3 -MMD -MP
 endif
 
 # just compile
