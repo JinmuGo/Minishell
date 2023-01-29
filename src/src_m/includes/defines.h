@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 17:06:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/01/29 17:11:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ struct s_meta  // 모든 구조체를 담을 부모구조체
 	// t_history;
 };
 
-// union 활용 버전
+struct s_tree {
+	void	*value;
+	t_tree	*left;
+	t_tree	*right;
+};
+
 union u_cmd
 {
 	t_simple_cmd	*simple_cmd;
@@ -70,8 +75,9 @@ union u_cmd
 struct s_token
 {
 	t_token_type	type;
-	t_ucmd u_cmd;
+	t_ucmd cmd_type;
 };
+
 
 struct s_simple_cmd
 {
@@ -91,10 +97,5 @@ struct s_pipe
 	int	fd[2];
 };
 
-struct s_tree {
-	void			*value;
-	struct s_tree	*left;
-	struct s_tree	*right;
-};
 
 #endif
