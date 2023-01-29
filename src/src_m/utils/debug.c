@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/29 15:06:17 by jgo              ###   ########.fr       */
+/*   Created: 2023/01/29 15:13:57 by jgo               #+#    #+#             */
+/*   Updated: 2023/01/29 15:31:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "defines.h"
-#include "utils.h"
 
-int main(int argc, char **argv, char **envp)
+void    print_list(void *content)
 {
-    t_tree  *tree;
+    const char **arr = (char **)content;
+    int i = 0;
 
-    ft_bzero(get_meta(), sizeof(t_meta));
-	signal(SIGQUIT, signal_process);
-    signal(SIGINT, signal_process);
-    envp_init(envp);
-    prompt();
-    
-    return (EXIT_SUCCESS);
+    printf("key : %s |||| ", arr[0]);
+    printf("value : %s \n", arr[1]);
 }
