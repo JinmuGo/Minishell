@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/29 17:11:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/01/30 22:03:10 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # define LOOP TRUE
 # define MY_PROMPT "> "
-
+# define S_QUOTE "\'"
+# define D_QUOTE "\""
 /* enum typedef */
 
 typedef enum e_token_type t_token_type;
