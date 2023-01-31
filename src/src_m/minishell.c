@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/31 20:23:05 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/01/31 20:47:26 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main(int argc, char **argv, char **envp)
 	// signal(SIGINT, signal_process);
 	// envp_init(envp);
 	// prompt();
-	test_stack();
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

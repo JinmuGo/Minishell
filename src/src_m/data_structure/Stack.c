@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:03 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/01/31 20:20:52 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/01/31 20:46:56 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	stack_init(t_stack *stack)
 	stack->size = 0;
 	stack->push = stack_push;
 	stack->pop = stack_pop;
+	stack->peek = stack_peek;
+	stack->destory = stack_destory;
 }
 
 void	stack_push(t_stack *stack, void *value)
@@ -38,8 +40,6 @@ void	*stack_pop(t_stack *stack)
 	{
 		value = stack->arr->content;
 		tmp = stack->arr->next;
-	/*	free(stack->arr.content);
-		general한 stack라이브러리를 위해서는 content의 malloc 필요? */
 		free(stack->arr);
 		stack->arr = tmp;
 		stack->size--;
@@ -52,24 +52,15 @@ void	*stack_peek(t_stack *stack)
 	return (stack->arr->content);
 }
 
-void	test_stack(void)
+void	stack_destory(t_stack *stack)
 {
-	t_stack	stack;
-	void	*val;
+	void	*tmp;
 
-	stack_init(&stack);
-	for (int i = 0; i < 10; i++)
+	while (stack && stack->size > 0)
 	{
-		if (i % 2 == 0)
-			val = D_QUOTE;
-		else
-			val = S_QUOTE;
-		stack.push(&stack, val);
-		printf("stack_push(%d): %s\n", i, stack.arr->content);
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		val = stack.pop(&stack);
-		printf("stack_pop(%d): %s\n", i, val);
+		tmp = stack->arr;
+		stack->arr = stack->arr->next;
+		free(tmp);
+		stack->size--;
 	}
 }
