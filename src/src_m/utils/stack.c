@@ -6,32 +6,70 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:55:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/30 22:03:49 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/01/31 17:32:53 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "utils.h"
 
-struct stack
+void	stack_init(t_stack *stack)
 {
-	t_list	arr; // malloc arr.content int
-	int size;
-	// push();
-	// pop();
-	// size();
-};
+	stack->arr = NULL;
+	stack->size = 0;
+	stack->push = stack_push;
+	stack->pop = stack_pop;
+}
 
-typedef struct stack t_stack;
-
-int tokenizer()
+void	stack_push(t_stack *stack, void *value)
 {
-	t_stack stack;
-	char	*a;
+	ft_lstadd_front(&stack->arr, ft_lstnew(value));
+	stack->size++;
+}
 
-	a = D_QUOTE;
-	// stack.arr = (t_list *)malloc(sizeof(t_list));
-	stack.arr.content = (char *)malloc(sizeof(char *));
-	stack.arr.content = a;
-	printf("%s", stack.arr.content);
+void	*stack_pop(t_stack *stack)
+{
+	void	*value;
+	t_list	*tmp;
+
+	value = NULL;
+	if (stack && stack->size > 0)
+	{
+		value = stack->arr->content;
+		tmp = stack->arr->next;
+	/*	free(stack->arr.content);
+		general한 stack라이브러리를 위해서는 content의 malloc 필요? */
+		free(stack->arr);
+		stack->arr = tmp;
+		stack->size--;
+	}
+	return (value);
+}
+
+void	*stack_peek(t_stack *stack)
+{
+	return (stack->arr->content);
+}
+
+void	test_stack(void)
+{
+	t_stack	stack;
+	void	*val;
+
+	stack_init(&stack);
+	for (int i = 0; i < 10; i++)
+	{
+		if (i % 2 == 0)
+			val = D_QUOTE;
+		else
+			val = S_QUOTE;
+		stack.push(&stack, val);
+		printf("stack_push(%d): %s\n", i, stack.arr->content);
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		val = stack.pop(&stack);
+		printf("stack_pop(%d): %s\n", i, val);
+	}
 }

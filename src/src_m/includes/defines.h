@@ -6,12 +6,12 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/30 22:03:10 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/01/31 17:32:37 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DECLARATION_H
-# define DECLARATION_H
+#ifndef DEFINES_H
+# define DEFINES_H
 
 # define LOOP TRUE
 # define MY_PROMPT "> "
@@ -19,22 +19,26 @@
 # define D_QUOTE "\""
 /* enum typedef */
 
-typedef enum e_token_type t_token_type;
-typedef enum e_rdr_type t_rdr_type;
+typedef enum e_token_type	t_token_type;
+typedef enum e_rdr_type		t_rdr_type;
 
 /* struct typedef */
 
-typedef struct s_meta t_meta;
-typedef struct s_tree t_tree;
-typedef struct s_cmd t_cmd;
-typedef struct s_rdr t_rdr;
-typedef struct s_pipe t_pipe;
-typedef struct s_token t_token;
-typedef struct s_simple_cmd t_simple_cmd;
+typedef struct s_meta		t_meta;
+typedef struct s_tree		t_tree;
+typedef struct s_cmd		t_cmd;
+typedef struct s_rdr		t_rdr;
+typedef struct s_pipe		t_pipe;
+typedef struct s_token		t_token;
+typedef struct s_simple_cmd	t_simple_cmd;
 
 /* union typedef */
 
-typedef union u_cmd t_ucmd;
+typedef union u_cmd			t_ucmd;
+
+/* stack typedef */
+
+typedef struct s_stack		t_stack;
 
 enum e_token_type
 {
@@ -52,11 +56,11 @@ enum e_rdr_type
 	HEREDOC = 3
 };
 
-struct s_meta  // 모든 구조체를 담을 부모구조체
+struct s_meta	// 모든 구조체를 담을 부모구조체
 {
 	int		err;
-	t_list *envp;
-	t_list *unlink_lst; // here_doc의 예외처리를 위한 list
+	t_list	*envp;
+	t_list	*unlink_lst;	// here_doc의 예외처리를 위한 list
 	// t_history;
 };
 
@@ -76,7 +80,7 @@ union u_cmd
 struct s_token
 {
 	t_token_type	type;
-	t_ucmd cmd_type;
+	t_ucmd			cmd_type;
 };
 
 
@@ -88,9 +92,9 @@ struct s_simple_cmd
 
 struct s_rdr
 {
-	t_rdr_type rdr_type;
-	char	*file;
-	t_rdr *next;
+	t_rdr_type	rdr_type;
+	char		*file;
+	t_rdr		*next;
 };
 
 struct s_pipe
@@ -98,5 +102,12 @@ struct s_pipe
 	int	fd[2];
 };
 
+struct s_stack
+{
+	t_list	*arr; // malloc arr.content int
+	int		size;
+	void	(*push)(t_stack *, void *);
+	void	*(*pop)(t_stack *);
+};
 
 #endif
