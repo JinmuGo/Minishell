@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 18:01:24 by jgo              ###   ########.fr        #
+#    Updated: 2023/01/31 20:22:09 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ include $(TOPDIR)/config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 
-DIRS = utils
+DIRS = utils \
+	data_structure
 # lexer \
 # parser \
 # expander \
@@ -34,6 +35,7 @@ HEADS = minishell.h \
 		expander.h \
 		executor.h \
 		defines.h \
+		stack.h \
 		error.h
 
 SRCS = minishell.c

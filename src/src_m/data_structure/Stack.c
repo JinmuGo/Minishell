@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 17:55:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/31 17:32:53 by sanghwal         ###   ########seoul.kr  */
+/*   Created: 2023/01/31 20:12:03 by sanghwal          #+#    #+#             */
+/*   Updated: 2023/01/31 20:20:52 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
-#include "utils.h"
+#include "stack.h"
 
 void	stack_init(t_stack *stack)
 {
