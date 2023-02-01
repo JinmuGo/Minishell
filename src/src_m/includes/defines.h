@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/01 14:17:34 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/01 20:59:11 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ typedef struct s_rdr		t_rdr;
 typedef struct s_pipe		t_pipe;
 typedef struct s_token		t_token;
 typedef struct s_simple_cmd	t_simple_cmd;
+typedef struct s_tokenize	t_tokenize;
 
 /* union typedef */
 
 typedef union u_cmd			t_ucmd;
 
-/* stack typedef */
+/* stack struct typedef */
 
 typedef struct s_stack		t_stack;
 
@@ -83,7 +84,6 @@ struct s_token
 	t_ucmd			cmd_type;
 };
 
-
 struct s_simple_cmd
 {
 	char	*cmd;
@@ -102,9 +102,16 @@ struct s_pipe
 	int	fd[2];
 };
 
+struct s_tokenize
+{
+	t_token_type	type;
+	char			*str;
+	int				size;
+};
+
 struct s_stack
 {
-	t_list	*arr; // malloc arr.content int
+	t_list	*arr;
 	int		size;
 	void	(*push)(t_stack *, void *);
 	void	*(*pop)(t_stack *);

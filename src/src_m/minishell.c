@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/31 20:47:26 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/01 16:08:43 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int main(int argc, char **argv, char **envp)
 	t_tree  *tree;
 
 	// ft_bzero(get_meta(), sizeof(t_meta));
-	// signal(SIGQUIT, signal_process);
-	// signal(SIGINT, signal_process);
+	signal(SIGQUIT, signal_process);
+	signal(SIGINT, signal_process);
 	// envp_init(envp);
-	// prompt();
+	prompt();
 	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }
