@@ -6,11 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/30 22:04:50 by jgo              ###   ########.fr       */
-=======
-/*   Updated: 2023/01/31 20:54:18 by sanghwal         ###   ########seoul.kr  */
->>>>>>> stack
+/*   Updated: 2023/02/01 14:17:34 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +17,6 @@
 # define MY_PROMPT "> "
 # define S_QUOTE "\'"
 # define D_QUOTE "\""
-<<<<<<< HEAD
-
-=======
->>>>>>> stack
 /* enum typedef */
 
 typedef enum e_token_type	t_token_type;
