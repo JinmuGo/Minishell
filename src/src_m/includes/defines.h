@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/01 20:59:11 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/03 16:29:02 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define LOOP TRUE
 # define MY_PROMPT "> "
-# define S_QUOTE "\'"
-# define D_QUOTE "\""
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
 /* enum typedef */
 
 typedef enum e_token_type	t_token_type;
@@ -115,7 +115,7 @@ struct s_stack
 	int		size;
 	void	(*push)(t_stack *, void *);
 	void	*(*pop)(t_stack *);
-	void	(*peek)(t_stack *);
+	void	*(*peek)(t_stack *);
 	void	(*destory)(t_stack *);
 };
 

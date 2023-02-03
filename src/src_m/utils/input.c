@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/01 16:08:29 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/03 17:23:34 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 void    prompt()
 {
 	char *line;
-
+	t_list	*tk_list;
 	line = readline(MY_PROMPT);
 	if (!line || ft_strncmp(line, "exit", 5) == 0)
 		exit(EXIT_SUCCESS);
-	tokenize(line);
+	tk_list = tokenize(line);
+	ft_lstclear(&tk_list, free);
 	// parser();
 	// executor();
 	// printf("%s \n", line);
