@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 17:57:18 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/04 21:32:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef enum e_token_type t_token_type;
 typedef enum e_rdr_type t_rdr_type;
 typedef enum e_tree_edge t_tree_edge;
+typedef enum e_simple_cmd_type t_simple_cmd_type;
 
 /* struct typedef */
 
@@ -66,6 +67,18 @@ enum	e_tree_edge
 	RIGHT = 1
 };
 
+enum	e_simple_cmd_type	
+{
+	FT_ECHO = 0,
+	FT_CD = 1,
+	FT_PWD = 2,
+	FT_EXPORT = 3,
+	FT_UNSET = 4,
+	FT_ENV = 5,
+	FT_EXIT = 6,
+	FT_EXTERNAL = 7
+};
+
 struct s_meta  // 모든 구조체를 담을 부모구조체
 {
 	int		err;
@@ -104,6 +117,7 @@ struct s_token
 
 struct s_simple_cmd
 {
+	t_simple_cmd_type	type;
 	char	*cmd;
 	char	**args;
 };
