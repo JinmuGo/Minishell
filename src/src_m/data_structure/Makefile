@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/01/31 20:16:52 by sanghwal         ###   ########seoul.kr   #
+#    Updated: 2023/02/04 17:42:33 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = Stack.c
+SRCS = Stack.c Tree.c
 
 NAME = data_structure.a
 

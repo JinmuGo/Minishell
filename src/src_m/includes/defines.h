@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/01 14:17:34 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/04 17:41:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 # define DEFINES_H
 
 # define LOOP TRUE
+# define ROOT 0
 # define MY_PROMPT "> "
 # define S_QUOTE "\'"
 # define D_QUOTE "\""
 /* enum typedef */
 
-typedef enum e_token_type	t_token_type;
-typedef enum e_rdr_type		t_rdr_type;
+typedef enum e_token_type t_token_type;
+typedef enum e_rdr_type t_rdr_type;
+typedef enum e_tree_edge t_tree_edge;
 
 /* struct typedef */
 
-typedef struct s_meta		t_meta;
-typedef struct s_tree		t_tree;
-typedef struct s_cmd		t_cmd;
-typedef struct s_rdr		t_rdr;
-typedef struct s_pipe		t_pipe;
-typedef struct s_token		t_token;
-typedef struct s_simple_cmd	t_simple_cmd;
+typedef struct s_meta t_meta;
+typedef struct s_tree t_tree;
+typedef struct s_stack t_stack;
+typedef struct s_tree_node t_tree_node;
+typedef struct s_cmd t_cmd;
+typedef struct s_rdr t_rdr;
+typedef struct s_pipe t_pipe;
+typedef struct s_token t_token;
+typedef struct s_simple_cmd t_simple_cmd;
 
 /* union typedef */
 
@@ -44,7 +48,7 @@ enum e_token_type
 {
 	RDR = 0,
 	PIPE = 1,
-	CMD = 2,
+	CMD = 2, // 실제로 실행하지는 않는다.
 	WORD = 3
 };
 
@@ -56,7 +60,13 @@ enum e_rdr_type
 	HEREDOC = 3
 };
 
-struct s_meta	// 모든 구조체를 담을 부모구조체
+enum	e_tree_edge
+{
+	LEFT = 0,
+	RIGHT = 1
+};
+
+struct s_meta  // 모든 구조체를 담을 부모구조체
 {
 	int		err;
 	t_list	*envp;
@@ -64,25 +74,33 @@ struct s_meta	// 모든 구조체를 담을 부모구조체
 	// t_history;
 };
 
-struct s_tree {
+struct s_tree_node {
 	void	*value;
-	t_tree	*left;
-	t_tree	*right;
+	int		size; // 본인을 제외한 트리의 크기.
+	t_tree_node	*left;
+	t_tree_node	*right;
+};
+
+struct s_tree {
+	t_tree_node	*root;
+	void		(*insert)(t_tree_node*, t_tree_edge, t_tree_node*);
+	void		(*pre_order_traversal)(t_tree_node *, void(*f)(t_tree_node*));
+	void		(*delete_node)(t_tree_node*);
+	void		(*destroy)(t_tree *);
 };
 
 union u_cmd
 {
 	t_simple_cmd	*simple_cmd;
-	t_rdr			*rdr_type;
-	t_pipe			*pipe_type;
+	t_rdr			*rdr;
+	t_pipe			*pipe;
 };
 
 struct s_token
 {
 	t_token_type	type;
-	t_ucmd			cmd_type;
+	t_ucmd cmd_val;
 };
-
 
 struct s_simple_cmd
 {
@@ -92,9 +110,8 @@ struct s_simple_cmd
 
 struct s_rdr
 {
-	t_rdr_type	rdr_type;
-	char		*file;
-	t_rdr		*next;
+	t_rdr_type rdr_type;
+	char	*file;
 };
 
 struct s_pipe
