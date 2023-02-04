@@ -6,12 +6,12 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 17:43:01 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/04 18:05:12 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ..)
+		TOPDIR = $(abspath ../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
@@ -45,10 +45,10 @@ DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
 all bonus :
-		$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-		$(Q)$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
-		$(MAKE) $(NAME)
-		$(Q)$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
+	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
+	$(Q)$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
+	$(MAKE) $(NAME)
+	$(Q)$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
 
 $(NAME): $(OBJS) $(LIBS)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@

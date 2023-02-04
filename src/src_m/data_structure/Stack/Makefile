@@ -5,47 +5,46 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/23 13:42:33 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 18:03:59 by jgo              ###   ########.fr        #
+#    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
+#    Updated: 2023/02/04 17:51:34 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../)
+		TOPDIR = $(abspath ../../../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-NAME = data_structure.a
+SRCS = Stack.c
 
-DIRS = Stack Tree
+NAME = Stack.a
 
-LIBS = Stack.a Tree.a
+OBJS = $(SRCS:.c=.o)
+DEPS = $(SRCS:.c=.d)
+-include $(DEPS)
 
 all bonus : 
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)
 
-$(NAME): $(LIBS)
+$(NAME): $(OBJS)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),📚 archive object)
 	$(AR) $(ARFLAGS) $@ $^
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib link_files
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/data_structure link_files
 	
 clean:
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib unlink_files
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(RM) $(LIBS)
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/data_structure unlink_files
+	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove Objects && Dependency file)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
-	$(RM) $(NAME)
+		$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
+		$(RM) $(NAME)
 	
 re : fclean
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
 	$(MAKE) all
 
 .PHONY: all clean fclean re bonus

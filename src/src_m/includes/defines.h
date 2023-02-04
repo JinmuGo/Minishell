@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 17:41:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/04 17:57:18 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ struct s_stack
 	int		size;
 	void	(*push)(t_stack *, void *);
 	void	*(*pop)(t_stack *);
-	void	(*peek)(t_stack *);
+	void	*(*peek)(t_stack *);
 	void	(*destory)(t_stack *);
 };
 
