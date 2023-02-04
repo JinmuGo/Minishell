@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/31 20:55:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/04 16:43:32 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,19 @@ struct s_meta  // 모든 구조체를 담을 부모구조체
 	// t_history;
 };
 
-struct s_tree {
-	t_tree_node	root;
-	void	(*insert)(t_tree_node*, t_tree_edge, t_token*);
-	void	(*pre_order_traversal)(t_tree_node *, void(*f)(t_tree_node*));
-	void	(*delete_node)(t_tree_node*);
-	void	(*destroy)(t_tree *);
-};
-
 struct s_tree_node {
 	void	*value;
 	int		size; // 본인을 제외한 트리의 크기.
 	t_tree_node	*left;
 	t_tree_node	*right;
+};
+
+struct s_tree {
+	t_tree_node	*root;
+	void		(*insert)(t_tree_node*, t_tree_edge, t_tree_node*);
+	void		(*pre_order_traversal)(t_tree_node *, void(*f)(t_tree_node*));
+	void		(*delete_node)(t_tree_node*);
+	void		(*destroy)(t_tree *);
 };
 
 union u_cmd
@@ -114,6 +114,5 @@ struct s_pipe
 {
 	int	fd[2];
 };
-
 
 #endif
