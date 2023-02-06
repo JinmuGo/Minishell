@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 18:05:12 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/06 15:01:25 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ include $(TOPDIR)/config/color_rules.mk
 NAME = $(PROJECT_NAME)
 
 DIRS = utils \
-	data_structure
+	data_structure \
+	tokenize
 # lexer \
 # parser \
 # expander \

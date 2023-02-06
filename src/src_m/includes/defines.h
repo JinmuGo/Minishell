@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 17:57:18 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/06 15:01:45 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define LOOP TRUE
 # define ROOT 0
 # define MY_PROMPT "> "
-# define S_QUOTE "\'"
-# define D_QUOTE "\""
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
 /* enum typedef */
 
 typedef enum e_token_type t_token_type;
@@ -35,12 +35,13 @@ typedef struct s_rdr t_rdr;
 typedef struct s_pipe t_pipe;
 typedef struct s_token t_token;
 typedef struct s_simple_cmd t_simple_cmd;
+typedef struct s_tokenize	t_tokenize;
 
 /* union typedef */
 
 typedef union u_cmd			t_ucmd;
 
-/* stack typedef */
+/* stack struct typedef */
 
 typedef struct s_stack		t_stack;
 
@@ -119,9 +120,16 @@ struct s_pipe
 	int	fd[2];
 };
 
+struct s_tokenize
+{
+	t_token_type	type;
+	char			*str;
+	int				size;
+};
+
 struct s_stack
 {
-	t_list	*arr; // malloc arr.content int
+	t_list	*arr;
 	int		size;
 	void	(*push)(t_stack *, void *);
 	void	*(*pop)(t_stack *);
