@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/05 19:33:05 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/06 14:52:39 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*tokenize(char *line)
 	tk_list->content = NULL;
 	tk_list->next = NULL;
 	make_tk_list(tk_list, line, 0);
-	// print_tokenize(tk_list->next);
+	print_tokenize(tk_list->next);
 	return (tk_list);
 }
 
@@ -39,32 +39,13 @@ void	make_tk_list(t_list *tk_list, char *line, int size)
 		size++;
 	size += treat_word(tk_list, &line[size], 0, &quote);
 	if (quote.arr)
+	{
+		stack_destory(&quote);
 		perror("unclosed quote");
+	}
 	size += treat_pipe(tk_list, &line[size], 0);
 	size += treat_rdr(tk_list, &line[size], 0);
 	make_tk_list(tk_list, line, size);
-}
-
-int	treat_rdr(t_list *tk_list, char *line, t_tokenize *token)
-{
-	if (!token)
-		token = tokenize_init(token, RDR);
-	if (line[token->size] != '<' && line[token->size] != '>')
-		return (token_node_add(tk_list, line, token));
-	token->size++;
-	treat_rdr(tk_list, line, token);
-	return (token->size);
-}
-
-int	treat_pipe(t_list *tk_list, char *line, t_tokenize *token)
-{
-	if (!token)
-		token = tokenize_init(token, PIPE);
-	if (line[token->size] != '|')
-		return (token_node_add(tk_list, line, token));
-	token->size++;
-	treat_pipe(tk_list, line, token);
-	return (token->size);
 }
 
 int	treat_word(t_list *tk_list, char *line, t_tokenize *token, t_stack *qte)
@@ -81,5 +62,27 @@ int	treat_word(t_list *tk_list, char *line, t_tokenize *token, t_stack *qte)
 		return (token_node_add(tk_list, line, token));
 	token->size++;
 	treat_word(tk_list, line, token, qte);
+	return (token->size);
+}
+
+int	treat_pipe(t_list *tk_list, char *line, t_tokenize *token)
+{
+	if (!token)
+		token = tokenize_init(token, PIPE);
+	if (line[token->size] != '|')
+		return (token_node_add(tk_list, line, token));
+	token->size++;
+	treat_pipe(tk_list, line, token);
+	return (token->size);
+}
+
+int	treat_rdr(t_list *tk_list, char *line, t_tokenize *token)
+{
+	if (!token)
+		token = tokenize_init(token, RDR);
+	if (line[token->size] != '<' && line[token->size] != '>')
+		return (token_node_add(tk_list, line, token));
+	token->size++;
+	treat_rdr(tk_list, line, token);
 	return (token->size);
 }

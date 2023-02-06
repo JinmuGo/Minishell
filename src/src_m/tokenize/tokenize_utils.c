@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/05 19:32:45 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/06 14:57:11 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,13 @@ void	free_token_str(t_tokenize *content)
 
 void	print_tokenize(t_list *tk_list)
 {
-	char	*type;
+	char		*type;
+	int			cnt;
 	t_tokenize	*token;
-	t_list	*tmp = tk_list;
+	t_list		*tmp = tk_list;
+
+	printf("\n-----token_info-----\n");
+	cnt = 1;
 	while (tmp)
 	{
 		token = tmp->content;
@@ -91,9 +95,10 @@ void	print_tokenize(t_list *tk_list)
 			type = "CMD";
 		if (token->type == 3)
 			type = "WORD";
-		printf("-token_info-\ntoken_str : %s\ntoken_type: %s\ntoken_size : %d\n\n", \
-			token->str, type, token->size);
+		printf("--token_%d--\ntoken_str : %s\ntoken_type: %s\ntoken_size : %d\n\n", \
+			cnt, token->str, type, token->size);
 		tmp = tmp->next;
+		cnt++;
 	}
 	return ;
 }
