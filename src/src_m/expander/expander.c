@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/05 19:33:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/06 21:39:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ void	iter_token(t_token	*token)
 {
 	const	t_simple_cmd	*cmd = token->cmd_val.simple_cmd;
 	char	*word;
+	char	**args;
 
-	if (token->type != CMD)
+	if (token->type == PIPE)
 		return ;
-	
-	
+	shell_param_expand(word);
+	quote_removal(word);
+	while (*args)
+	{
+		shell_param_expand(*args);
+		quote_removal(*args);
+		args++;
+	}
 }
-
 
 // executor 에서 tree를 받으면서 실행한다.
 // 그리고 만약 노드의 타입이 CMD일 경우 expanding을 진행한다.
