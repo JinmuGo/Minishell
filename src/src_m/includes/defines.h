@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/06 20:52:30 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 17:58:52 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ struct s_meta  // 모든 구조체를 담을 부모구조체
 
 struct s_tree_node {
 	void	*value;
-	int		size; // 본인을 제외한 트리의 크기.
+	// int		size; // 본인을 제외한 트리의 크기.
 	t_tree_node	*left;
 	t_tree_node	*right;
 };
