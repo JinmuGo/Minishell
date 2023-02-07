@@ -6,12 +6,13 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/06 21:36:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/07 19:18:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "stack.h"
 
 // $$에 대해서는 지원하지 않도록 한다. 
 // we are not support $ var it is special parameter
@@ -47,18 +48,30 @@
 // hihihiSER 이 예시는 single quote일때는 해석하지 않는다. 
 
 // stack 자료형을 사용해야겠다. quote처리를 위해선. 
-// ' single, " double인지 확인. 
-void    shell_param_expand(char *str)
+// '(single) "(double)인지 확인. 
+t_bool	shell_param_expand(char *str)
 {
-	int	i;	
+	t_stack	stack;
+	int	i;
 
 	if (str == NULL)
-		return ;
+		return (FALSE);
 	i = 0;
+	stack_init(&stack);
 	while (str[i])
 	{
-		
+		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+		{
+			if ((char)stack.peek(&stack) == str[i])
+				stack.pop(&stack);
+			else
+				stack.push(&stack, &str[i]);
+		}
 		i++;
 	}
-
+	
+	
+	// 확장된 상태로 만들어 놓는다. return 하지 않음. 
+	printf("param expande%s\n", str);
+	return (TRUE);
 }

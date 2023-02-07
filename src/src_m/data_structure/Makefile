@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 13:42:33 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 18:03:59 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/07 20:39:15 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,31 +21,7 @@ NAME = data_structure.a
 
 DIRS = Stack Tree
 
-LIBS = Stack.a Tree.a
-
-all bonus : 
-	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
+all bonus clean fclean re : 
 	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(Q)$(MAKE) $(NAME)
-	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)
-
-$(NAME): $(LIBS)
-	$(Q)$(call color_printf,$(GREEN),$(NAME),📚 archive object)
-	$(AR) $(ARFLAGS) $@ $^
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib link_files
-	
-clean:
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib unlink_files
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(RM) $(LIBS)
-
-fclean: clean
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
-	$(RM) $(NAME)
-	
-re : fclean
-	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-	$(MAKE) all
 
 .PHONY: all clean fclean re bonus

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 21:32:46 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/07 19:17:50 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define LOOP TRUE
 # define ROOT 0
 # define MY_PROMPT "> "
-# define S_QUOTE "\'"
-# define D_QUOTE "\""
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
 /* enum typedef */
 
 typedef enum e_token_type t_token_type;
@@ -89,7 +89,7 @@ struct s_meta  // 모든 구조체를 담을 부모구조체
 
 struct s_tree_node {
 	void	*value;
-	int		size; // 본인을 제외한 트리의 크기.
+// int		size; // 본인을 제외한 트리의 크기.
 	t_tree_node	*left;
 	t_tree_node	*right;
 };
@@ -126,6 +126,7 @@ struct s_rdr
 {
 	t_rdr_type rdr_type;
 	char	*file;
+	t_bool	quote; // heredoc 때문에 적어놓음. quote가 있었는지 없었는지 확인.
 };
 
 struct s_pipe
@@ -141,6 +142,7 @@ struct s_stack
 	void	*(*pop)(t_stack *);
 	void	*(*peek)(t_stack *);
 	void	(*destory)(t_stack *);
+	t_bool	(*is_empty)(t_stack *stack);
 };
 
 #endif

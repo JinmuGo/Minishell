@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   Stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:03 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/01/31 20:46:56 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 19:06:13 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	stack_init(t_stack *stack)
 	stack->pop = stack_pop;
 	stack->peek = stack_peek;
 	stack->destory = stack_destory;
+	stack->is_empty = stack_is_empty;
 }
 
 void	stack_push(t_stack *stack, void *value)
@@ -49,6 +50,8 @@ void	*stack_pop(t_stack *stack)
 
 void	*stack_peek(t_stack *stack)
 {
+	if (stack->is_empty(stack))
+		return (NULL);
 	return (stack->arr->content);
 }
 
@@ -63,4 +66,12 @@ void	stack_destory(t_stack *stack)
 		free(tmp);
 		stack->size--;
 	}
+}
+
+t_bool	stack_is_empty(t_stack *stack)
+{
+	if (stack->size)
+		return (FALSE);
+	else
+		return (TRUE);
 }
