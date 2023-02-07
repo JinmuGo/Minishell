@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/06 20:37:08 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 15:19:32 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	prompt(void)
 	line = readline(MY_PROMPT);
 	if (!line || ft_strncmp(line, "exit", 5) == 0)
 		exit(EXIT_SUCCESS);
-	tree = parser();
+	tree = parser(line);
 	// executor();
 	// printf("%s \n", line);
 	free(line);

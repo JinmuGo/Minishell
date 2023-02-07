@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/05 18:31:00 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 15:20:28 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,8 @@ void		free_tk_list(t_list **tk_list);
 void		free_token_str(t_tokenize *content);
 
 void		print_tokenize(t_list *tk_list);
+
+/* parser.c */
+
+t_tree		*parser(char *line);
 #endif

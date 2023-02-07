@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/06 21:17:41 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 15:20:38 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 #include "parser.h"
 #include "utils.h"
 #include "defines.h"
+#include "tree.h"
 
-t_tree	*parser(void)
+t_tree	*parser(char *line)
 {
 	t_tree	*tree;
 	t_list	*tk_list;
 
-	tk_list = tokenize(tk_list);
+	tk_list = tokenize(line);
 	// 토큰리스트 를 순회하면서 bnf 확인하기
 	// 토큰종류 (pipe, rdr, s_cmd)
 	// tree노드 종류 (pipe, CMD(rdr, s_cmd))
