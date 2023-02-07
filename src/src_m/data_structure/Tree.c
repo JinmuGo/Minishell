@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 16:41:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/07 18:01:04 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_tree_node *create_node(void *value)
 	node->value = value;
 	node->left = NULL;
 	node->right = NULL;
-	node->size = 0;
 	return (node);
 }
 
