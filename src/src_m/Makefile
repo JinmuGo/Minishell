@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/08 14:42:16 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/08 20:42:01 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,12 @@ NAME = $(PROJECT_NAME)
 
 DIRS = utils \
 		Stack \
-		Tree
+		Tree \
+		expander
 # lexer \
 # parser \
 # expander \
 # executor \
-
-LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 HEADS = minishell.h \
 		utils.h \
@@ -40,6 +39,8 @@ HEADS = minishell.h \
 		error.h
 
 SRCS = minishell.c
+
+LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)

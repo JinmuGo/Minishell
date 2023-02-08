@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/07 19:17:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/08 20:22:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define MY_PROMPT "> "
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
+# define DOLLAR	 '$'
 /* enum typedef */
 
 typedef enum e_token_type t_token_type;
