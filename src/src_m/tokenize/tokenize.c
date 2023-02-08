@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/07 15:18:36 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 17:51:45 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@
 t_list	*tokenize(char *line)
 {
 	t_list	*tk_list;
+	t_list	*tmp;
 
-	tk_list = NULL;
+	tk_list = ft_malloc(sizeof(t_list));
 	make_tk_list(tk_list, line, 0);
-	print_tokenize(tk_list);
-	return (tk_list);
+	tmp = tk_list->next;
+	free(tk_list);
+	tk_list = tmp;
+	// print_tokenize(tk_list);
+	return (tmp);
 }
 
 void	make_tk_list(t_list *tk_list, char *line, int size)

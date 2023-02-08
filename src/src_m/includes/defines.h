@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/07 17:58:52 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 18:07:41 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,22 @@
 # define D_QUOTE '\"'
 /* enum typedef */
 
-typedef enum e_token_type t_token_type;
-typedef enum e_rdr_type t_rdr_type;
-typedef enum e_tree_edge t_tree_edge;
+typedef enum e_token_type	t_token_type;
+typedef enum e_rdr_type		t_rdr_type;
+typedef enum e_tree_edge	t_tree_edge;
 
 /* struct typedef */
 
-typedef struct s_meta t_meta;
-typedef struct s_tree t_tree;
-typedef struct s_stack t_stack;
-typedef struct s_tree_node t_tree_node;
-typedef struct s_cmd t_cmd;
-typedef struct s_rdr t_rdr;
-typedef struct s_pipe t_pipe;
-typedef struct s_token t_token;
-typedef struct s_simple_cmd t_simple_cmd;
+typedef struct s_meta		t_meta;
+typedef struct s_tree		t_tree;
+typedef struct s_stack		t_stack;
+typedef struct s_deque		t_deque;
+typedef struct s_tree_node	t_tree_node;
+typedef struct s_cmd		t_cmd;
+typedef struct s_rdr		t_rdr;
+typedef struct s_pipe		t_pipe;
+typedef struct s_token		t_token;
+typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
 
 /* union typedef */
@@ -66,8 +67,8 @@ enum	e_tree_edge
 	LEFT = 0,
 	RIGHT = 1
 };
-
-struct s_meta  // 모든 구조체를 담을 부모구조체
+// 모든 구조체를 담을 부모구조체
+struct s_meta
 {
 	int		err;
 	t_list	*envp;
@@ -76,7 +77,7 @@ struct s_meta  // 모든 구조체를 담을 부모구조체
 };
 
 struct s_tree_node {
-	void	*value;
+	void		*value;
 	// int		size; // 본인을 제외한 트리의 크기.
 	t_tree_node	*left;
 	t_tree_node	*right;
@@ -85,9 +86,28 @@ struct s_tree_node {
 struct s_tree {
 	t_tree_node	*root;
 	void		(*insert)(t_tree_node*, t_tree_edge, t_tree_node*);
-	void		(*pre_order_traversal)(t_tree_node *, void(*f)(t_tree_node*));
+	void		(*pre_order_traversal)(t_tree_node *, void (*f)(t_tree_node*));
 	void		(*delete_node)(t_tree_node*);
 	void		(*destroy)(t_tree *);
+};
+
+struct s_stack
+{
+	t_list	*arr;
+	int		size;
+	void	(*push)(t_stack *, void *);
+	void	*(*pop)(t_stack *);
+	void	*(*peek)(t_stack *);
+	void	(*destory)(t_stack *);
+};
+
+struct s_deque
+{
+	size_t	capacity;
+	size_t	front;
+	size_t	rear;
+	size_t	use_size;
+	void	**nodes;
 };
 
 union u_cmd
@@ -100,7 +120,7 @@ union u_cmd
 struct s_token
 {
 	t_token_type	type;
-	t_ucmd cmd_val;
+	t_ucmd			cmd_val;
 };
 
 struct s_simple_cmd
@@ -111,8 +131,8 @@ struct s_simple_cmd
 
 struct s_rdr
 {
-	t_rdr_type rdr_type;
-	char	*file;
+	t_rdr_type	rdr_type;
+	char		*file;
 };
 
 struct s_pipe
@@ -125,16 +145,6 @@ struct s_tokenize
 	t_token_type	type;
 	char			*str;
 	int				size;
-};
-
-struct s_stack
-{
-	t_list	*arr;
-	int		size;
-	void	(*push)(t_stack *, void *);
-	void	*(*pop)(t_stack *);
-	void	*(*peek)(t_stack *);
-	void	(*destory)(t_stack *);
 };
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 17:51:34 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/08 17:31:54 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = Stack.c
+SRCS = Tree.c \
+	constructor.c
 
-NAME = Stack.a
+NAME = Tree.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
@@ -33,10 +34,10 @@ all bonus :
 $(NAME): $(OBJS)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),📚 archive object)
 	$(AR) $(ARFLAGS) $@ $^
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/data_structure link_files
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib link_files
 	
 clean:
-	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/data_structure unlink_files
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/src/src_m/lib unlink_files
 	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove Objects && Dependency file)
 	$(RM) $(OBJS) $(DEPS)
 

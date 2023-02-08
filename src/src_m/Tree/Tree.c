@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/07 15:11:50 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 17:32:31 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_tree_node	*create_node(void *value)
 	node->value = value;
 	node->left = NULL;
 	node->right = NULL;
-	node->size = 0;
 	return (node);
 }
 

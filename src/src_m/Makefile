@@ -6,7 +6,7 @@
 #    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/06 15:01:25 by sanghwal         ###   ########seoul.kr   #
+#    Updated: 2023/02/08 17:38:28 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,11 @@ include $(TOPDIR)/config/color_rules.mk
 NAME = $(PROJECT_NAME)
 
 DIRS = utils \
-	data_structure \
-	tokenize
+	tokenize \
+	parser \
+	Stack \
+	Tree \
+	Deque
 # lexer \
 # parser \
 # expander \

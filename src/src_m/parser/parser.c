@@ -6,15 +6,16 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/07 20:40:29 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 18:18:47 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "defines.h"
 #include "parser.h"
 #include "utils.h"
-#include "defines.h"
 #include "tree.h"
+#include "deque.h"
 
 t_tree	*parser(char *line)
 {
@@ -38,16 +39,32 @@ t_tree	*parser(char *line)
 
 void	make_tree(t_tree *tree, t_list *tk_list)
 {
-	t_list	 *cur_list;
+	t_list	*cur_list;
+	t_deque	*dque;
 
 	cur_list = tk_list;
 	insert_root(tree);
+	svae_dque(tk_list, cur_list, dque);
 }
 
-// void	insert_root(t_tree *tree)
-// {
-// 	tree->root = 
-// }
+void	insert_root(t_tree *tree)
+{
+	t_tree_node	*root;
+	t_token		*value;
+
+	value = ft_malloc(sizeof(t_token));
+	value->type = PIPE;
+	value->cmd_val.pipe->fd[0] = 0;
+	value->cmd_val.pipe->fd[1] = 0;
+	root = create_node(value);
+	tree->root = root;
+}
+
+void	save_dque(t_list *tk_list, t_list *cur_list, t_deque *dque)
+{
+	
+}
+
 // 트리에 넣을 노드를 tk_list로 전달받아야한다. -> delte_lst_node 를 위해서는 head 의 주소가 필요하다;;;
 t_token	*make_value(t_list *tk_list, t_tokenize *token, t_list *cur_list)
 {
@@ -91,7 +108,8 @@ void	set_pipe(t_list *tk_list, t_list *cur_list, t_tokenize *token , t_token *va
 	value->type = PIPE;
 	value->cmd_val.pipe->fd[0] = 0;
 	value->cmd_val.pipe->fd[1] = 0;
-	delete_lst_node(tk_list, token);
+	if (token)
+		delete_lst_node(tk_list, token);
 }
 
 void	delete_lst_node(t_list *tk_list, t_tokenize *token)
