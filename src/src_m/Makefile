@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/04 18:05:12 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/08 14:42:16 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ include $(TOPDIR)/config/color_rules.mk
 NAME = $(PROJECT_NAME)
 
 DIRS = utils \
-	data_structure
+		Stack \
+		Tree
 # lexer \
 # parser \
 # expander \
