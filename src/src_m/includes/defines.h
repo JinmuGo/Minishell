@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 18:07:41 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 19:51:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ struct s_deque
 	size_t	rear;
 	size_t	use_size;
 	void	**nodes;
+	void	(*push_front)(t_deque *, void *);
+	void	(*push_rear)(t_deque *, void *);
+	void	*(*pop_front)(t_deque *);
+	void	*(*pop_rear)(t_deque *);
 };
 
 union u_cmd

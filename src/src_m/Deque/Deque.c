@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 17:59:40 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 19:54:46 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "defines.h"
 #include "deque.h"
 
-t_deque	*deque_creat(size_t size)
+t_deque	*deque_init(size_t size)
 {
 	t_deque	*dque;
 
@@ -24,6 +24,10 @@ t_deque	*deque_creat(size_t size)
 	dque->rear = 0;
 	dque->use_size = 0;
 	dque->nodes = ft_malloc(sizeof(void *) * dque->capacity);
+	dque->push_front = dq_push_front;
+	dque->push_rear = dq_push_rear;
+	dque->pop_front = dq_pop_front;
+	dque->pop_rear = dq_pop_rear;
 	return (dque);
 }
 

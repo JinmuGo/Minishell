@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 17:50:08 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 20:44:20 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void		print_tokenize(t_list *tk_list);
 /* parser.c */
 
 t_tree		*parser(char *line);
-void		make_tree(t_tree *tree, t_list *tk_list);
+void		make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 18:18:47 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 22:06:08 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tree	*parser(char *line)
 	tk_list = tokenize(line);
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
-	make_tree(tree, tk_list);
+	make_tree(tree, tk_list, 0, 0);
 	// tree->value == (t_token *)
 	// 토큰종류 (pipe, rdr, s_cmd)
 	// tree노드 종류 (pipe, CMD(rdr, s_cmd))
@@ -37,14 +37,19 @@ t_tree	*parser(char *line)
 	return (tree);
 }
 
-void	make_tree(t_tree *tree, t_list *tk_list)
+void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
-	t_list	*cur_list;
-	t_deque	*dque;
+	t_deque		*dque;
 
-	cur_list = tk_list;
-	insert_root(tree);
-	svae_dque(tk_list, cur_list, dque);
+	if (!cur_list)
+		cur_list = tk_list;
+	if (!tree->root)
+		insert_root(tree);
+	if (!cur_node)
+		cur_node = tree->root;
+	save_dque(tk_list, &cur_list, dque);
+	dque_to_tree(tree, tk_list, cur_node, dque);
+	//0208 - root의 오른쪽에 붙는다.
 }
 
 void	insert_root(t_tree *tree)
@@ -62,7 +67,18 @@ void	insert_root(t_tree *tree)
 
 void	save_dque(t_list *tk_list, t_list *cur_list, t_deque *dque)
 {
-	
+	if (!dque)
+		deque_init(ft_lstsize(tk_list));
+	if (((t_tokenize *)cur_list->content)->type == PIPE || !cur_list)
+	{
+		if (((t_tokenize *)cur_list->content)->type == PIPE)
+			dque->push_front(dque, cur_list);
+		return ;
+	}
+	dque->push_rear(dque, cur_list);
+	cur_list = cur_list->next;
+	save_dque(tk_list, cur_list, dque);
+	return ;
 }
 
 // 트리에 넣을 노드를 tk_list로 전달받아야한다. -> delte_lst_node 를 위해서는 head 의 주소가 필요하다;;;
@@ -82,7 +98,7 @@ t_token	*make_value(t_list *tk_list, t_tokenize *token, t_list *cur_list)
 // 인자로 받는 tk_list는 트리에 넣을 해당 노드이다.
 void	set_rdr(t_list *tk_list, t_list *cur_list, t_tokenize *token , t_token *value)
 {
-	t_tokenize *next_token;
+	t_tokenize	*next_token;
 
 	if (token->str == '<')
 		value->cmd_val.rdr->rdr_type = IN;
