@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 20:22:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/09 20:46:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_rdr t_rdr;
 typedef struct s_pipe t_pipe;
 typedef struct s_token t_token;
 typedef struct s_simple_cmd t_simple_cmd;
+typedef struct s_envp t_envp;
+
 
 /* union typedef */
 
@@ -79,6 +81,14 @@ enum	e_simple_cmd_type
 	FT_EXIT = 6,
 	FT_EXTERNAL = 7
 };
+
+struct s_envp
+{
+	char *key;
+	char *val;
+	int	val_len;
+};
+
 
 struct s_meta  // 모든 구조체를 담을 부모구조체
 {
