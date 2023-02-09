@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 19:51:51 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/09 21:13:12 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ enum e_token_type
 	RDR = 0,
 	PIPE = 1,
 	CMD = 2, // 실제로 실행하지는 않는다.
-	WORD = 3
+	WORD = 3,
+	S_CMD = 4
 };
 
 enum e_rdr_type
