@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/09 20:46:41 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/09 21:28:57 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,19 @@ enum	e_simple_cmd_type
 	FT_EXTERNAL = 7
 };
 
+enum	e_envp_request
+{
+	INIT = 0,
+	GET = 1,
+	
+};
+
 struct s_envp
 {
 	char *key;
 	char *val;
 	int	val_len;
 };
-
 
 struct s_meta  // 모든 구조체를 담을 부모구조체
 {

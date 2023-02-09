@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   meta_controller.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/09 20:58:35 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/09 20:56:59 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/09 20:57:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "defines.h"
-#include "utils.h"
 
+t_meta  *get_meta(void)
+{
+	static t_meta *meta;
+
+	if (meta != NULL)
+		return (meta);
+	meta = ft_malloc(sizeof(t_meta));
+	return (meta);
+}
