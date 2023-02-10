@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 20:44:20 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/10 18:20:06 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,24 @@ void		print_tokenize(t_list *tk_list);
 
 t_tree		*parser(char *line);
 void		make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node);
+void	dque_to_tree(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+void	make_left(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+void	make_right(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*make_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*make_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*make_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*make_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*insert_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*insert_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node	*insert_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+t_tree_node *insert_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
+void	insert_root(t_tree *tree);
+t_deque	*save_dque(t_list *tk_list, t_list *cur_list, t_deque *dque);
+t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque);
+void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value);
+void	set_pipe(t_list *tk_list, t_tokenize *token , t_token *value);
+void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *value);
+void	delete_lst_node(t_list *tk_list, t_tokenize *token);
+void	search_rdr(t_deque *dque);
+void	print_tree_node(t_tree_node *node);
 #endif
