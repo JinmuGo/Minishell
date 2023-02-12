@@ -1,50 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp_controller_init.c                             :+:      :+:    :+:   */
+/*   envp_receiver_init.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:58:23 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/09 20:59:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/12 12:05:12 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "meta_command.h"
+#include "envp_command.h"
 
-char	**split_envp(char *envp_elem)
+static char	*get_envp_key(char *envp_elem)
 {
 	int	i;
-	char **rv;
+	char *key;
 
 	i = -1;
 	while (envp_elem[++i])
 		if (envp_elem[i] == '=')
 			break;
-	rv = ft_malloc(sizeof(char *) * 2);
-	rv[0] = ft_substr(envp_elem, 0, i);
-	rv[1] = ft_strchr(envp_elem, '=');
-	rv[1] += 1;
-	return (rv);
+	key = ft_substr(envp_elem, 0, i);
+	return (key);
+}
+
+static char	*get_envp_val(char *envp_elem)
+{
+	char *tmp;
+	char *val;
+
+	tmp = ft_strchr(envp_elem, '=');
+	tmp += 1;
+	val = ft_strdup(tmp);
+	return (val);
 }
 
 void	envp_init(char **envp)
 {
-	t_meta *meta;
-	t_envp	*envp_tmp;
-	char **arr;
+	char *key;
+	char *val;
 	int	i;
 
-	meta = get_meta();
 	i = -1;
 	while(envp[++i])
 	{
-		arr = split_envp(envp[i]);
-		envp_tmp = ft_malloc(sizeof(t_envp));
-		envp_tmp->key = arr[0];
-		envp_tmp->val = arr[1];
-		envp_tmp->val_len = ft_strlen(envp_tmp->val);
-		ft_lstadd_back(&meta->envp, ft_lstnew(envp_tmp));
+		key = get_envp_key(envp[i]);
+		val = get_envp_val(envp[i]);
+		set_envp_elem(key, val);
 	}
 }

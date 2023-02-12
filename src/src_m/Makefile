@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/08 20:42:01 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/12 12:48:20 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ include $(TOPDIR)/config/color_rules.mk
 NAME = $(PROJECT_NAME)
 
 DIRS = utils \
-		Stack \
-		Tree \
-		expander
+		data_structure \
+		envp_command \
+		meta_command
 # lexer \
 # parser \
 # expander \
@@ -35,7 +35,7 @@ HEADS = minishell.h \
 		expander.h \
 		executor.h \
 		defines.h \
-		stack.h \
+		data_structure.h \
 		error.h
 
 SRCS = minishell.c

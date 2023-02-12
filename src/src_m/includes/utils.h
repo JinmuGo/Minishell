@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/31 20:20:34 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/12 12:27:09 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-/* utils.c */
+/* singleton.c */
 
-t_meta	*get_meta(void);
-void	envp_init(char **envp);
+t_meta	*singleton(void);
 
 /* input.c */
 

@@ -6,14 +6,14 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/09 20:32:10 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/12 12:45:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "utils.h"
-#include "stack.h"
+#include "data_structure.h"
 
 // 확장 부분.
 // echo "\"$USER\"\"SHELL\""
@@ -24,7 +24,7 @@
 // jgo=/bin/zsh
 int	expand_variable(char *str)
 {
-	const t_list *envp = get_meta()->envp;
+	// const t_list *envp = get_envp();  아마 안쓸듯. 이미 get_envp가 있으니
 	int	len;
 	int	i;
 

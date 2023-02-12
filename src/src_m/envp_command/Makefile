@@ -6,26 +6,30 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/07 20:39:47 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/12 12:46:59 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../../)
+		TOPDIR = $(abspath ../../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = Stack.c
+SRCS = envp_invoker.c \
+		envp_receiver_init.c \
+		envp_receiver_method.c \
+		envp_receiver_utils.c \
+		envp_receiver.c
 
-NAME = Stack.a
+NAME = envp_command.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
-all bonus : 
+all bonus :
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)
