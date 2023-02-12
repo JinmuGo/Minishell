@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/10 22:29:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/12 17:07:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ t_deque *deque_init(size_t size)
     dque->front = 0;
     dque->rear = 0;
     dque->use_size = 0;
-    dque->nodes = ft_malloc(sizeof(void *) * dque->capacity);
-    ft_bzero(dque->nodes, sizeof(dque->nodes));
+    dque->nodes = ft_calloc(sizeof(void *) * dque->capacity);
     dque->push_front = dq_push_front;
     dque->push_rear = dq_push_rear;
     dque->pop_front = dq_pop_front;
     dque->pop_rear = dq_pop_rear;
+    dque->peek_front = dq_peek_front;
+    dque->peek_rear = dq_peek_rear;
     return (dque);
 }
 
@@ -95,4 +96,14 @@ void    *dq_pop_rear(t_deque *dque)
         dque->rear = tmp;
     dque->use_size--;
     return (data);
+}
+
+void    *dq_peek_front(t_deque *dque)
+{
+    return (dque->nodes[dque->front]);
+}
+
+void    *dq_peek_rear(t_deque *dque)
+{
+    return (dque->nodes[dque->rear]);
 }

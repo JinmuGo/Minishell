@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 22:27:09 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/10 22:28:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/12 17:07:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void    dq_push_front(t_deque *dque, void *data);
 void    dq_push_rear(t_deque *dque, void *data);
 void    *dq_pop_front(t_deque *dque);
 void    *dq_pop_rear(t_deque *dque);
+void    *dq_peek_front(t_deque *dque);
+void    *dq_peek_rear(t_deque *dque);
 
 
 #endif
