@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/09 20:32:37 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/13 18:09:25 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	*dq_pop_front(t_deque *dque)
 	else
 		tmp = dque->front + 1;
 	data = dque->nodes[dque->front];
-	dque->nodes[dque->front] = NULL;
 	if (dque->front != dque->rear)
 		dque->front = tmp;
 	dque->use_size--;
@@ -90,7 +89,6 @@ void	*dq_pop_rear(t_deque *dque)
 	else
 		tmp = dque->rear - 1;
 	data = dque->nodes[dque->rear];
-	dque->nodes[dque->rear] = NULL;
 	if (dque->front != dque->rear)
 		dque->rear = tmp;
 	dque->use_size--;
