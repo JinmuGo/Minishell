@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:45:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 12:37:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:33:54 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void    free_bucket(t_hash_table *ht)
 	free(ht->bucket);
 }
 
-t_bool  hash_put(t_hash_elem *elem, char *key, char *val)
+t_bool  hash_put(t_hash_elem *elem, const char *key,const char *val)
 {
 	if (elem->val == NULL || is_same_key(elem->key, key))
 	{
-		elem->key = key;
-		elem->val = val;
+		elem->key = (char *)key;
+		elem->val = (char *)val;
 		elem->val_len = ft_strlen(val);
 		return (FT_TRUE);
 	}
 	return(FT_FALSE);
 }
 
-t_bool  is_same_key(char *origin, char *judge)
+t_bool  is_same_key(const char *origin, const char *judge)
 {
 	if (ft_strncmp(origin, judge, ft_strlen(origin)))
 		return (FT_FALSE);
@@ -50,7 +50,7 @@ t_bool  is_same_key(char *origin, char *judge)
 		return (FT_TRUE);
 }
 
-t_hash_asset    hash_asset_init(t_hash_table *ht, char *str)
+t_hash_asset    hash_asset_init(t_hash_table *ht, const char *str)
 {
 	t_hash_asset rv;
 	const int   key = ft_add_all_ascii(str);

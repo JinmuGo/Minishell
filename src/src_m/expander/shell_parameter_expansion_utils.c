@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:16:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 10:25:18 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:54:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool is_shell_var(char c)
 {
     if (c == '_')
         return (FT_TRUE);
-    if (ft_isspecial(c))
+    if (ft_isspecial(c) || c == '\0')
         return (FT_FALSE);
     return (FT_TRUE);
 }

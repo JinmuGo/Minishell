@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/12 13:17:52 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/13 14:22:57 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ NAME = $(PROJECT_NAME)
 DIRS = utils \
 		data_structure \
 		envp_command \
-		meta_command
+		meta_command \
+		expander
 # lexer \
 # parser \
 # expander \

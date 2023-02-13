@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 13:00:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:48:02 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ int main(int argc, char **argv, char **envp)
 	char *token_3 = "$HOME";
 	char *token_4 = "\'";
 	char *test = "\"$SHELL\"\"$USER\"";
-	char *test2 = "asdfasdf$";
+	char *test1 = "\"$SHELL\"sdfsdf\"$USER\"";
+	char *test2 = "\"$SHELLasdsfasdf\"\"$USER\"";
 
-	// signal(SIGQUIT, signal_process);
-	// signal(SIGINT, signal_process);
 	envp_init(envp);
-	display(get_envp());
-	// prompt();
-
+	// display(get_envp());
+	signal(SIGQUIT, signal_process);
+	signal(SIGINT, signal_process);
+	prompt();
+	// printf("please: %s\n", shell_param_expand(test));
+	// printf("please: %s\n", shell_param_expand(test1));
 	// shell_param_expand(test2);
 	// shell_param_expand(token_1);
 	// shell_param_expand(token_2);

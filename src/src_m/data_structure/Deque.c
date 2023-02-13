@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/12 17:07:41 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:21:48 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_deque *deque_init(size_t size)
     dque->front = 0;
     dque->rear = 0;
     dque->use_size = 0;
-    dque->nodes = ft_calloc(sizeof(void *) * dque->capacity);
+    dque->nodes = ft_calloc(sizeof(void *), dque->capacity);
     dque->push_front = dq_push_front;
     dque->push_rear = dq_push_rear;
     dque->pop_front = dq_pop_front;

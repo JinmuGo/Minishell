@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 12:49:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:31:43 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "defines.h"
 #include "envp_command.h"
 
-t_hash_elem *hash_get(t_hash_table *ht, char *key)
+t_hash_elem *hash_get(t_hash_table *ht,const char *key)
 {
 	const   t_hash_asset asset = hash_asset_init(ht, key);
 	int idx;
@@ -31,7 +31,7 @@ t_hash_elem *hash_get(t_hash_table *ht, char *key)
 }
 
 
-void    hash_insert(t_hash_table *ht, char *key, char *val)
+void    hash_insert(t_hash_table *ht,const char *key,const char *val)
 {
 	const   t_hash_asset asset = hash_asset_init(ht, key);
 	int idx;
@@ -79,7 +79,7 @@ void    hash_resize(t_hash_table *ht)
 	}
 }
 
-void	hash_delete(t_hash_table *ht, char *key)
+void	hash_delete(t_hash_table *ht,const char *key)
 {
 	t_hash_elem *target;
 

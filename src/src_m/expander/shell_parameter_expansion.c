@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 11:09:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 14:58:09 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,31 @@ int	expand_and_dup(char *dst, char *key, int j)
 	else
 		expanded = get_envp_elem(key)->val;
 	free(key);
+	if (expanded == NULL)
+		return (1);
 	i = 0;
 	while (expanded[i])
 		dst[j++] = expanded[i++];
-	free(expanded);
+	if (key[0] == DOLLAR)
+		free(expanded);
 	return (j);
 }
 
-int	expand_variable(char *dst, char *str)
+int		expand_start_check(int tmp, char *src, int i)
+{
+	if (tmp > 1)
+		if (src[i] == '\'' && src[tmp - 2] == '\'')
+			tmp--;
+	return (tmp);
+}
+
+char *expand_variable(char *dst, char *str)
 {
 	int	tmp;
 	int	i;
 	int	j;
 
+	i = 0;
 	j = 0;
 	while (str[i])
 	{
@@ -59,7 +71,7 @@ int	expand_variable(char *dst, char *str)
 			while (is_shell_var(str[i]))
 				i++;
 			tmp = expand_start_check(tmp, str, i);
-			j = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
+			j += expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 		}
 		else
 			dst[j++] = str[i - 1];
@@ -70,11 +82,10 @@ int	expand_variable(char *dst, char *str)
 
 int	try_expand_and_cal_len(char *str, int i, int tmp)
 {
-	const char *tmp = ft_substr(str, tmp, i - tmp);
-	const t_hash_elem	*expanded = get_envp_elem(tmp);
-	const int	len = ft_strlen(expanded->val);
+	const char *dst = ft_substr(str, tmp, i - tmp);
+	const int	len = get_envp_elem(dst)->val_len;
 
-	free(tmp);
+	free((void *)dst);
 	return (len);
 }
 
@@ -112,12 +123,12 @@ int	cal_expand_len(char *str)
 		// 0		8
 // echo "$SHELL$USER" /bin/zshjgo
 // echo $USER
-t_bool	shell_param_expand(char *str)
+char *shell_param_expand(char *str)
 {
 	const int	expand_len = cal_expand_len(str);
 	char *dst;
 
 	dst = ft_malloc(sizeof(char) * (expand_len + 1));
 	dst = expand_variable(dst, str);
-	return (TRUE);
+	return (dst);
 }
