@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/13 14:22:57 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/17 15:24:47 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ ifndef TOPDIR
 		TOPDIR = $(abspath ../../)
 endif
 
-include $(TOPDIR)/make_config/Rules.mk
-include $(TOPDIR)/make_config/color_rules.mk
+include $(TOPDIR)/config/Rules.mk
+include $(TOPDIR)/config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 

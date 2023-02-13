@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:58:09 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/13 20:24:04 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ char *expand_variable(char *dst, char *str)
 			tmp = i;
 			while (is_shell_var(str[i]))
 				i++;
-			tmp = expand_start_check(tmp, str, i);
-			j += expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
+			j = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 		}
 		else
 			dst[j++] = str[i - 1];
@@ -105,13 +104,14 @@ int	cal_expand_len(char *str)
 			tmp = i;
 			while (is_shell_var(str[i]))
 				i++;
-			len += try_expand_and_cal_len(str, i, tmp);			
+			len += try_expand_and_cal_len(str, i, tmp);
 		}
 		else
 			len++;
 	}
 	return (len);
 }
+
 
 // $$
 // ''

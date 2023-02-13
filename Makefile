@@ -6,12 +6,12 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 20:10:46 by jgo               #+#    #+#              #
-#    Updated: 2023/02/12 13:17:52 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/17 15:24:47 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include ./make_config/Rules.mk
-include ./make_config/color_rules.mk
+include ./config/Rules.mk
+include ./config/color_rules.mk
 
 MINISHELL = MINISHELL
 NAME = $(MINISHELL)
