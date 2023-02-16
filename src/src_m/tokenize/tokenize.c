@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 17:51:45 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/16 17:22:59 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_list	*tokenize(char *line)
 	tmp = tk_list->next;
 	free(tk_list);
 	tk_list = tmp;
-	// print_tokenize(tk_list);
+	print_tokenize(tk_list);
 	return (tmp);
 }
 

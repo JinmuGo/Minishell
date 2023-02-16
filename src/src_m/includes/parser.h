@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/10 18:20:06 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/16 17:34:53 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_tree_node	*insert_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 t_tree_node	*insert_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
 t_tree_node *insert_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque);
 void	insert_root(t_tree *tree);
-t_deque	*save_dque(t_list *tk_list, t_list *cur_list, t_deque *dque);
+t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque);
 t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque);
 void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value);
 void	set_pipe(t_list *tk_list, t_tokenize *token , t_token *value);

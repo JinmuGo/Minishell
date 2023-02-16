@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 18:12:00 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/16 17:45:42 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur
 		cur_node = tree->root;
 	if (!cur_node)
 		return ;
-	dque = save_dque(tk_list, cur_list, NULL);
+	dque = save_dque(tk_list, &cur_list, NULL);
 	if (dque->use_size > 0)
-		dque_to_tree(tree, tk_list, cur_node, dque);
+		dque_to_tree(tree, &tk_list, cur_node, dque);
 	free(dque->nodes);
 	free(dque);
 	make_tree(tree, tk_list, cur_list, cur_node->right);
@@ -237,20 +237,20 @@ void	insert_root(t_tree *tree)
 	tree->root = root;
 }
 
-t_deque	*save_dque(t_list *tk_list, t_list *cur_list, t_deque *dque)
+t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
 	if (dque == NULL)
 		dque = deque_init(ft_lstsize(tk_list));
-	if (!cur_list)
+	if (!(*cur_list))
 		return (dque);
-	if (((t_tokenize *)cur_list->content)->type == PIPE)
+	if (*cur_list && ((t_tokenize *)(*cur_list)->content)->type == PIPE)
 	{
-		if (((t_tokenize *)cur_list->content)->type == PIPE)
-			dque->push_front(dque, cur_list);
+		if (((t_tokenize *)(*cur_list)->content)->type == PIPE)
+			dque->push_front(dque, *cur_list);
 		return (dque);
 	}
-	dque->push_rear(dque, cur_list);
-	cur_list = cur_list->next;
+	dque->push_rear(dque, *cur_list);
+	*cur_list = (*cur_list)->next;
 	save_dque(tk_list, cur_list, dque);
 	return (dque);
 }
@@ -359,8 +359,11 @@ void	delete_lst_node(t_list *tk_list, t_tokenize *token)
 			head_tmp = head_tmp->next;
 		pre_tmp = head_tmp;
 		pre_tmp->next = head_tmp->next->next;
-		free_token_str(head_tmp->next->content);
-		free(head_tmp->next);
+		if (head_tmp->next != NULL)
+		{
+			free_token_str(head_tmp->next->content);
+			free(head_tmp->next);
+		}
 	}
 }
 
@@ -368,10 +371,13 @@ void	search_rdr(t_deque *dque)
 {
 	t_list	*token;
 	int		cnt;
-
+	char	*token_str;
+	int		token_type;
 	cnt = dque->use_size;
 	while (cnt > 0)
 	{
+		token_str = ((t_tokenize *)(t_list *)dque->nodes[dque->front])->str;
+		token_type = ((t_tokenize *)(t_list *)dque->nodes[dque->front])->type;
 		if (((t_tokenize *)(t_list *)dque->nodes[dque->front])->type == RDR)
 			return ;
 		token = dque->pop_front(dque);

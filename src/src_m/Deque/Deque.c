@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/13 18:09:25 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/16 17:56:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_deque	*deque_init(size_t size)
 {
 	t_deque	*dque;
 
+	if (size == 0)
+		return (NULL);
 	dque = (t_deque *)ft_malloc(sizeof(t_deque));
 	dque->capacity = size;
 	dque->front = 0;
