@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 20:35:38 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 20:49:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 // echo "$1" positional parameter도 확장한다. export 할때 envp에 넣지만 않으면됨. 
 // jgo=/bin/zsh
 // $USER$1
-
 int	expand_and_dup(char *dst, char *key, int j)
 {
 	int	i;
@@ -47,14 +46,6 @@ int	expand_and_dup(char *dst, char *key, int j)
 	return (j);
 }
 
-int		expand_start_check(int tmp, char *src, int i)
-{
-	if (tmp > 1)
-		if (src[i] == S_QUOTE && src[tmp - 2] == S_QUOTE)
-			tmp--;
-	return (tmp);
-}
-
 void	double_dollar(char *dst, char *str, int *i, int *j)
 {
 	if (dst && str)
@@ -70,7 +61,6 @@ void	double_dollar(char *dst, char *str, int *i, int *j)
 	}
 }
 
-
 int	try_expand_and_cal_len(char *str, int i, int tmp)
 {
 	const char *dst = ft_substr(str, tmp, i - tmp);
@@ -80,31 +70,6 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	return (len);
 }
 
-void	quote_control(const t_deque *deque, char c)
-{
-	char	*tmp;
-
-	if (c == S_QUOTE || c == D_QUOTE)
-	{
-		tmp = ((char *)(deque->peek_front((t_deque *)deque)));
-		if (tmp == NULL || *tmp != c)
-		{
-			tmp = ft_malloc(sizeof(char));
-			*tmp = c;
-			deque->push_front((t_deque *)deque, tmp);
-		}
-		else
-		{
-			tmp = (char *)deque->pop_front((t_deque *)deque);
-			if (tmp)
-				free(tmp);
-		}
-	}
-}
-
-//  $var$var"a" 이거 문제있다. 
-// 그런데 위를 고치면 $USER$SHHH이런 케이스는 expanding이 안됨. 
-// echo "'$HOME'" 이거 확장되어야함. 가장 바깥에 있는 quote가 double이기 때문에 .
 t_bool	dollar_control(char c, char *rear)
 {
 	if (c == DOLLAR)

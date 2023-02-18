@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:16:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:54:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 20:48:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,26 @@ t_bool is_shell_var(char c)
     if (ft_isspecial(c) || c == '\0')
         return (FT_FALSE);
     return (FT_TRUE);
+}
+
+void	quote_control(const t_deque *deque, char c)
+{
+	char	*tmp;
+
+	if (c == S_QUOTE || c == D_QUOTE)
+	{
+		tmp = ((char *)(deque->peek_front((t_deque *)deque)));
+		if (tmp == NULL || *tmp != c)
+		{
+			tmp = ft_malloc(sizeof(char));
+			*tmp = c;
+			deque->push_front((t_deque *)deque, tmp);
+		}
+		else
+		{
+			tmp = (char *)deque->pop_front((t_deque *)deque);
+			if (tmp)
+				free(tmp);
+		}
+	}
 }
