@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 17:06:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 16:19:37 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ struct s_deque
     void    (*push_rear)(t_deque *, void *);
     void    *(*pop_front)(t_deque *);
     void    *(*pop_rear)(t_deque *);
-	void	*(*peek_front)(t_deque *);
-	void	*(*peek_rear)(t_deque *);
+	void	*(*peek_front)(const t_deque *);
+	void	*(*peek_rear)(const t_deque *);
 };
 
 struct s_stack

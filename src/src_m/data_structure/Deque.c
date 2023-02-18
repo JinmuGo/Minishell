@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/13 14:21:48 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 16:25:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void    *dq_pop_rear(t_deque *dque)
     return (data);
 }
 
-void    *dq_peek_front(t_deque *dque)
+void    *dq_peek_front(const t_deque *dque)
 {
     return (dque->nodes[dque->front]);
 }
 
-void    *dq_peek_rear(t_deque *dque)
+void    *dq_peek_rear(const t_deque *dque)
 {
     return (dque->nodes[dque->rear]);
 }
