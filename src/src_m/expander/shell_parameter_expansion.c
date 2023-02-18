@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/17 17:12:46 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 16:23:31 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,36 +72,51 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	return (len);
 }
 
-void	quote_control(t_bool *quote, char c)
+void	quote_control(const t_deque *deque, char c)
 {
-	if (c != S_QUOTE)
-		return ;
-	*quote = !(*quote);
+	char	*tmp;
+
+	if (c == S_QUOTE || c == D_QUOTE)
+	{
+		tmp = ((char *)(deque->peek_front((t_deque *)deque)));
+		if (tmp == NULL || *tmp != c)
+		{
+			tmp = ft_malloc(sizeof(char));
+			tmp[0] = c;
+			deque->push_front((t_deque *)deque, tmp);
+
+		}
+		else
+		{
+			deque->pop_front((t_deque *)deque);
+		}
+	}
 }
 
-//  $var$var"a 이거 문제있다. 
+//  $var$var"a" 이거 문제있다. 
+// 그런데 위를 고치면 $USER$SHHH이런 케이스는 expanding이 안됨. 
+// echo "'$HOME'" 이거 확장되어야함. 가장 바깥에 있는 quote가 double이기 때문에 .
 char *expand_variable(char *dst, char *str)
 {
+	const t_deque *deque = deque_init(ft_strlen(str));
 	int	tmp;
 	int	i;
 	int	j;
-	t_bool quote;
 
 	i = 0;
 	j = 0;
-	quote = FT_FALSE;
 	while (str[i])
 	{
 		i++;
-		quote_control(&quote, str[i - 1]);
-		if  (str[i - 1] == DOLLAR && !quote)
+		quote_control(deque, str[i - 1]);
+		if  (str[i - 1] == DOLLAR)
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
 				i++;
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
-			if (tmp > 0)
-				j += tmp;
+			if (tmp != 0)
+				j = tmp;
 		}
 		else if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(dst, str, &i, &j);
@@ -114,19 +129,18 @@ char *expand_variable(char *dst, char *str)
 
 int	cal_expand_len(char *str)
 {
+	const t_deque *deque = deque_init(ft_strlen(str));
 	int	len;
 	int	tmp;
 	int	i;
-	t_bool quote;
 
 	len = 0;
 	i = 0;
-	quote = FT_FALSE;
 	while (str[i])
 	{
 		i++;
-		quote_control(&quote, str[i - 1]);
-		if (str[i - 1] == DOLLAR && !quote)
+		quote_control(deque, str[i - 1]);
+		if (str[i - 1] == DOLLAR && ((char *)deque->peek_rear(deque) != NULL && *((char *)deque->peek_rear(deque)) != S_QUOTE))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
