@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 22:27:09 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 16:21:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 17:33:39 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void    *dq_pop_front(t_deque *dque);
 void    *dq_pop_rear(t_deque *dque);
 void    *dq_peek_front(const t_deque *dque);
 void    *dq_peek_rear(const t_deque *dque);
+void    dq_free(const t_deque *dque);
 
 
 #endif

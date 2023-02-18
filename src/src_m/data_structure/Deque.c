@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/18 16:25:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 17:49:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_deque *deque_init(size_t size)
 {
     t_deque *dque;
 
-    dque = (t_deque *)ft_malloc(sizeof(t_deque));
+    dque = ft_malloc(sizeof(t_deque));
     dque->capacity = size;
     dque->front = 0;
     dque->rear = 0;
@@ -74,7 +74,6 @@ void    *dq_pop_front(t_deque *dque)
     else
         tmp = dque->front + 1;
     data = dque->nodes[dque->front];
-    dque->nodes[dque->front] = NULL;
     if (dque->front != dque->rear)
         dque->front = tmp;
     dque->use_size--;
@@ -91,7 +90,6 @@ void    *dq_pop_rear(t_deque *dque)
     else
         tmp = dque->rear - 1;
     data = dque->nodes[dque->rear];
-    dque->nodes[dque->rear] = NULL;
     if (dque->front != dque->rear)
         dque->rear = tmp;
     dque->use_size--;
@@ -106,4 +104,15 @@ void    *dq_peek_front(const t_deque *dque)
 void    *dq_peek_rear(const t_deque *dque)
 {
     return (dque->nodes[dque->rear]);
+}
+
+void    dq_free(const t_deque *dque)
+{
+    int i;
+
+    i = 0;
+    while (i < dque->capacity)
+        free(dque->nodes[i++]);
+    free(dque->nodes);
+    free((void *)dque);
 }
