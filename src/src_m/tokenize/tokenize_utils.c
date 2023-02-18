@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 17:50:15 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/18 20:16:38 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	free_token_str(t_tokenize *content)
 		if (content->str)
 		{
 			free(content->str);
-			content->str = 0;
+			content->str = NULL;
 		}
 		free(content);
-		content = 0;
+		content = NULL;
 	}
 }
 

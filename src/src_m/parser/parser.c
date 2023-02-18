@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/16 17:45:42 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/18 21:17:35 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ t_tree	*parser(char *line)
 	tk_list = tokenize(line);
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
-	make_tree(tree, tk_list, NULL, NULL);
+	make_tree(tree, tk_list, tk_list, NULL);
 	pre_order_traversal(tree->root, print_tree_node);
-	free_tk_list(&tk_list);
+	// free_tk_list(&tk_list);
 	return (tree);
 }
 
 void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
-
-	if (!cur_list && tk_list)
-		cur_list = tk_list;
+	t_tokenize	*token;
+	t_tokenize	*token2;
+	t_tokenize	*token3;
+	if (!cur_list)
+		return ;
 	if (!tree->root)
 		insert_root(tree);
 	if (!cur_node && tree->root)
@@ -45,7 +47,7 @@ void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur
 		return ;
 	dque = save_dque(tk_list, &cur_list, NULL);
 	if (dque->use_size > 0)
-		dque_to_tree(tree, &tk_list, cur_node, dque);
+		dque_to_tree(tree, tk_list, cur_node, dque);
 	free(dque->nodes);
 	free(dque);
 	make_tree(tree, tk_list, cur_list, cur_node->right);
@@ -134,18 +136,14 @@ t_tree_node	*make_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node,
 t_tree_node	*make_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
-
+	t_tokenize *data;
 	if (dque->use_size > 0)
 	{
 		search_rdr(dque);
-		token = (t_list *)(dque->pop_front(dque));
+		token = (t_list *)(dque->nodes[dque->front]);
+		data  = token->content;
 		if (((t_tokenize *)(token->content))->type == RDR)
-		{
-			dque->push_front(dque, token);
 			return(insert_rdr_node(tree, tk_list, cur_node, dque));
-		}
-		else
-			dque->push_front(dque, token);
 	}
 	return (cur_node);
 }
@@ -156,14 +154,9 @@ t_tree_node	*make_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 
 	if (dque->use_size > 0)
 	{
-		token = (t_list *)(dque->pop_front(dque));
+		token = (t_list *)(dque->nodes[dque->front]);
 		if (((t_tokenize *)(token->content))->type == WORD)
-		{
-			dque->push_front(dque, token);
 			return(insert_s_cmd_node(tree, tk_list, cur_node, dque));
-		}
-		else
-			dque->push_front(dque, token);
 	}
 	return (cur_node);
 }
@@ -191,7 +184,7 @@ t_tree_node	*insert_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 	value = ft_malloc(sizeof(t_token));
 	value->type = CMD;
 	new_node = create_node(value);
-	if (cur_node->left == NULL)
+	if (cur_node->left == NULL && cur_node != tree->root)
 		insert(cur_node, LEFT, new_node);
 	else
 		insert(cur_node, RIGHT, new_node);
@@ -239,6 +232,8 @@ void	insert_root(t_tree *tree)
 
 t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
+	char *token_str;
+	t_token_type type;
 	if (dque == NULL)
 		dque = deque_init(ft_lstsize(tk_list));
 	if (!(*cur_list))
@@ -249,6 +244,8 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 			dque->push_front(dque, *cur_list);
 		return (dque);
 	}
+	token_str = ((t_tokenize *)((*cur_list)->content))->str;
+	type = ((t_tokenize *)((*cur_list)->content))->type;
 	dque->push_rear(dque, *cur_list);
 	*cur_list = (*cur_list)->next;
 	save_dque(tk_list, cur_list, dque);
@@ -259,8 +256,7 @@ t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque)
 {
 	t_token	*value;
 
-	value = malloc(sizeof(t_token));
-	ft_bzero(value, sizeof(value));
+	value = ft_calloc(1, sizeof(t_token));
 	if (!token || token->type == PIPE)
 	{
 		value->cmd_val.pipe = ft_malloc(sizeof(t_pipe));
@@ -283,7 +279,11 @@ void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value)
 {
 	t_list		*next_list;
 	t_tokenize	*next_token;
-
+	t_tokenize	*token1;
+	t_tokenize	*token2;
+	t_tokenize	*token3;
+	char *token_str;
+	t_token_type token_type;
 	next_list = NULL;
 	next_token = NULL;
 	if (!ft_strncmp(token->str, "<", 2))
@@ -294,13 +294,19 @@ void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value)
 		value->cmd_val.rdr->rdr_type = APPEND;
 	else if (!ft_strncmp(token->str, "<<", 3))
 		value->cmd_val.rdr->rdr_type = HEREDOC;
-	delete_lst_node(tk_list, token);
-	if (((t_tokenize *)((t_list *)(dque->nodes[dque->front])))->type == WORD)
+	token1 = ((t_list *)(dque->nodes[0]))->content;
+	token2 = ((t_list *)(dque->nodes[1]))->content;
+	token3 = ((t_list *)(dque->nodes[2]))->content;
+	tk_list = delete_lst_node(&tk_list, token);
+	token1 = ((t_list *)(dque->nodes[0]))->content;
+	token2 = ((t_list *)(dque->nodes[1]))->content;
+	token3 = ((t_list *)(dque->nodes[2]))->content;
+	if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == WORD)
 	{
 		next_list = dque->pop_front(dque);
 		next_token = next_list->content;
 		value->cmd_val.rdr->file = ft_strdup(next_token->str);
-		delete_lst_node(tk_list, next_token);
+		tk_list = delete_lst_node(&tk_list, next_token);
 		return ;
 	}
 	value->cmd_val.rdr->file = NULL;
@@ -312,7 +318,7 @@ void	set_pipe(t_list *tk_list, t_tokenize *token , t_token *value)
 	value->cmd_val.pipe->fd[0] = 0;
 	value->cmd_val.pipe->fd[1] = 0;
 	if (token)
-		delete_lst_node(tk_list, token);
+		tk_list = delete_lst_node(&tk_list, token);
 }
 
 void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *value)
@@ -322,7 +328,7 @@ void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *
 	value->type = S_CMD;
 	value->cmd_val.simple_cmd->cmd = ft_strdup(token->str);
 	value->cmd_val.simple_cmd->args = NULL;
-	delete_lst_node(tk_list, token);
+	tk_list = delete_lst_node(&tk_list, token);
 	if (dque->use_size > 0)
 	{
 		value->cmd_val.simple_cmd->args = ft_malloc(sizeof(char *) * (dque->use_size + 2));
@@ -331,8 +337,8 @@ void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *
 		while (dque->use_size != 0)
 		{
 			token = ((t_list *)(dque->pop_rear(dque)))->content;
-			((t_simple_cmd *)value->cmd_val.simple_cmd)->args[dque->use_size] = ft_strdup(token->str);
-			delete_lst_node(tk_list, token);
+			((t_simple_cmd *)value->cmd_val.simple_cmd)->args[dque->use_size + 1] = ft_strdup(token->str);
+			tk_list = delete_lst_node(&tk_list, token);
 		}
 		return ;
 	}
@@ -341,46 +347,52 @@ void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *
 	value->cmd_val.simple_cmd->args[1] = NULL;
 }
 
-void	delete_lst_node(t_list *tk_list, t_tokenize *token)
+t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token)
 {
-	t_list	*head_tmp;
-	t_list	*pre_tmp;
+	t_list	*del_node;
+	t_list	*pre_node;
 
-	head_tmp = tk_list;
-	if (head_tmp->content == token)
+	if ((*tk_list)->content == token)
 	{
-		tk_list = head_tmp->next;
-		free_token_str(head_tmp->content);
-		free(head_tmp);
+		del_node = *tk_list;
+		*tk_list = (*tk_list)->next;
+		free_token_str(del_node->content);
+		free(del_node);
 	}
 	else
 	{
-		while (head_tmp->next->content != token)
-			head_tmp = head_tmp->next;
-		pre_tmp = head_tmp;
-		pre_tmp->next = head_tmp->next->next;
-		if (head_tmp->next != NULL)
-		{
-			free_token_str(head_tmp->next->content);
-			free(head_tmp->next);
-		}
+		pre_node = *tk_list;
+		while (pre_node->next->content != token)
+			pre_node = pre_node->next;
+		del_node = pre_node->next;
+		pre_node->next = del_node->next;
+		free_token_str(del_node->content);
+		free(del_node);
 	}
+	return (*tk_list);
 }
-
+// cat < a -e : 옵션이 리다이렉션 뒤에 나올떄 처리 방법 구상 필요
 void	search_rdr(t_deque *dque)
 {
 	t_list	*token;
 	int		cnt;
-	char	*token_str;
-	int		token_type;
+	t_tokenize *data;
+	t_tokenize *token1;
+	t_tokenize *token2;
+	t_tokenize *token3;
 	cnt = dque->use_size;
+	token1 = ((t_list *)(dque->nodes[0]))->content;
+	token2 = ((t_list *)(dque->nodes[2]))->content;
+	token3 = ((t_list *)(dque->nodes[1]))->content;
 	while (cnt > 0)
 	{
-		token_str = ((t_tokenize *)(t_list *)dque->nodes[dque->front])->str;
-		token_type = ((t_tokenize *)(t_list *)dque->nodes[dque->front])->type;
-		if (((t_tokenize *)(t_list *)dque->nodes[dque->front])->type == RDR)
+		token1 = ((t_list *)(dque->nodes[0]))->content;
+		token2 = ((t_list *)(dque->nodes[2]))->content;
+		token3 = ((t_list *)(dque->nodes[1]))->content;
+		if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == RDR)
 			return ;
 		token = dque->pop_front(dque);
+		data = token->content;
 		dque->push_rear(dque, token);
 		cnt--;
 	}
@@ -388,19 +400,17 @@ void	search_rdr(t_deque *dque)
 
 void	print_tree_node(t_tree_node *node)
 {
-	t_tree_node	*cur_node;
-
 	if (((t_token *)(node->value))->type == RDR)
-		printf("cur_node: %p\nvalue: rdr_type: %s file: %s\nleft_node: %p\nright_node: %p\n\n", cur_node, (t_rdr_type)((t_token *)(node->value))->cmd_val.rdr->rdr_type, ((t_token *)(node->value))->cmd_val.rdr->file, cur_node->left, cur_node->right);
+		printf("RDRnode: %p\nvalue: rdr_type: %u file: %s\nleft_node: %p\nright_node: %p\n\n", node, (t_rdr_type)((t_token *)(node->value))->cmd_val.rdr->rdr_type, ((t_token *)(node->value))->cmd_val.rdr->file, node->left, node->right);
 	else if(((t_token *)(node->value))->type == PIPE)
-		printf("cur_node: %p\nvalue: fd0:%d fd1:%d\nleft_node: %p\nright_node: %p\n\n", cur_node, ((t_token *)(node->value))->cmd_val.pipe->fd[0], ((t_token *)(node->value))->cmd_val.pipe->fd[1], cur_node->left, cur_node->right);
+		printf("PIPEnode: %p\nvalue: fd0:%d fd1:%d\nleft_node: %p\nright_node: %p\n\n", node, ((t_token *)(node->value))->cmd_val.pipe->fd[0], ((t_token *)(node->value))->cmd_val.pipe->fd[1], node->left, node->right);
 	else if(((t_token *)(node->value))->type == CMD)
-		printf("cur_node: %p\nvalue: type: %s\nleft_node: %p\nright_node: %p\n\n", cur_node, ((t_token *)(node->value))->type, cur_node->left, cur_node->right);
+		printf("CMDnode: %p\nvalue: type: %u\nleft_node: %p\nright_node: %p\n\n", node, ((t_token *)(node->value))->type, node->left, node->right);
 	else if(((t_token *)(node->value))->type == S_CMD)
 	{
-		printf("cur_node: %p\nvalue: cmd: %s\n", cur_node, ((t_token *)(node->value))->cmd_val.simple_cmd->cmd);
+		printf("S_CMDnode: %p\nvalue: cmd: %s\n", node, ((t_token *)(node->value))->cmd_val.simple_cmd->cmd);
 		int i = 0;
-		printf("values: args: ");
+		printf("S_CMDvalues: args: ");
 		while (((t_token *)(node->value))->cmd_val.simple_cmd->args[i] != 0)
 			printf("%s\n", ((t_token *)(node->value))->cmd_val.simple_cmd->args[i++]);
 	}
