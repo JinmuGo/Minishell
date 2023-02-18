@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/18 17:49:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 20:24:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,18 @@ void    *dq_pop_rear(t_deque *dque)
 
 void    *dq_peek_front(const t_deque *dque)
 {
-    return (dque->nodes[dque->front]);
+    if (dque->use_size)
+        return (dque->nodes[dque->front]);
+    else
+        return (NULL);
 }
 
 void    *dq_peek_rear(const t_deque *dque)
 {
-    return (dque->nodes[dque->rear]);
+    if (dque->use_size)
+        return (dque->nodes[dque->rear]);
+    else
+        return (NULL);
 }
 
 void    dq_free(const t_deque *dque)
@@ -111,8 +117,11 @@ void    dq_free(const t_deque *dque)
     int i;
 
     i = 0;
-    while (i < dque->capacity)
-        free(dque->nodes[i++]);
+    while (i < dque->use_size)
+    {
+        free(dque->nodes[(i + dque->front) % dque->capacity]);
+        i++;
+    }
     free(dque->nodes);
     free((void *)dque);
 }

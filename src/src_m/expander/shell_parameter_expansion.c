@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 16:23:31 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 20:35:38 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,17 @@ int		expand_start_check(int tmp, char *src, int i)
 
 void	double_dollar(char *dst, char *str, int *i, int *j)
 {
-	dst[(*j)++] = str[*i - 1];
-	(*i)++;
-	dst[(*j)++] = str[*i - 1];
+	if (dst && str)
+	{
+		dst[(*j)++] = str[*i - 1];
+		(*i)++;
+		dst[(*j)++] = str[*i - 1];
+	}
+	else
+	{
+		(*j) += 2;
+		(*i)++;
+	}
 }
 
 
@@ -82,13 +90,14 @@ void	quote_control(const t_deque *deque, char c)
 		if (tmp == NULL || *tmp != c)
 		{
 			tmp = ft_malloc(sizeof(char));
-			tmp[0] = c;
+			*tmp = c;
 			deque->push_front((t_deque *)deque, tmp);
-
 		}
 		else
 		{
-			deque->pop_front((t_deque *)deque);
+			tmp = (char *)deque->pop_front((t_deque *)deque);
+			if (tmp)
+				free(tmp);
 		}
 	}
 }
@@ -96,6 +105,18 @@ void	quote_control(const t_deque *deque, char c)
 //  $var$var"a" 이거 문제있다. 
 // 그런데 위를 고치면 $USER$SHHH이런 케이스는 expanding이 안됨. 
 // echo "'$HOME'" 이거 확장되어야함. 가장 바깥에 있는 quote가 double이기 때문에 .
+t_bool	dollar_control(char c, char *rear)
+{
+	if (c == DOLLAR)
+	{
+		if (rear != NULL && *rear != S_QUOTE)
+			return (FT_TRUE);
+		else if (rear == NULL)
+			return (FT_TRUE);
+	}
+	return (FT_FALSE);
+}
+
 char *expand_variable(char *dst, char *str)
 {
 	const t_deque *deque = deque_init(ft_strlen(str));
@@ -103,13 +124,14 @@ char *expand_variable(char *dst, char *str)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
-	while (str[i])
+	i = 0;
+	while (str[i++])
 	{
-		i++;
 		quote_control(deque, str[i - 1]);
-		if  (str[i - 1] == DOLLAR)
+		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
+			double_dollar(dst, str, &i, &j);
+		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
@@ -118,12 +140,11 @@ char *expand_variable(char *dst, char *str)
 			if (tmp != 0)
 				j = tmp;
 		}
-		else if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
-			double_dollar(dst, str, &i, &j);
 		else
 			dst[j++] = str[i - 1];
 	}
 	dst[j] = '\0';
+	dq_free(deque);
 	return (dst);
 }
 
@@ -136,11 +157,12 @@ int	cal_expand_len(char *str)
 
 	len = 0;
 	i = 0;
-	while (str[i])
+	while (str[i++])
 	{
-		i++;
 		quote_control(deque, str[i - 1]);
-		if (str[i - 1] == DOLLAR && ((char *)deque->peek_rear(deque) != NULL && *((char *)deque->peek_rear(deque)) != S_QUOTE))
+		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
+			double_dollar(NULL, NULL, &i, &len);
+		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
@@ -149,14 +171,10 @@ int	cal_expand_len(char *str)
 			if (tmp > 0)
 				len += tmp;
 		}
-		else if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
-		{
-			len += 2;
-			i++;
-		}
 		else
 			len++;
 	}
+	dq_free(deque);
 	return (len);
 }
 
