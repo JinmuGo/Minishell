@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 18:00:25 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 18:41:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ void	prompt(void);
 
 void	signal_process(int signum);
 
-// debug.c
-
+// debug.c 나중에 삭제 할 것
 void	print_list(void *content);
 
 /* utils.c */
 void	set_status(int n);
+char	*get_cur_dir(void);
+
+/* prompt. c*/
+char *make_prompt(void);
 
 #endif
