@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 20:37:55 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 16:53:58 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void    prompt()
 	// parser();
 	// executor();
 	tmp = shell_param_expand(line);
+	printf("%s\n", tmp);
 	tmp = quote_removal(tmp);
 	printf("%s\n", tmp);
 	free(line);
+	free(tmp);
 	prompt();
 }

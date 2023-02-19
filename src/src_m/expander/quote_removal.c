@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:42:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 21:05:31 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 16:58:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,38 @@
 #include "defines.h"
 #include "data_structure.h"
 
-t_bool    is_same_quote(t_bool quote, char c, char *tmp)
+
+// ls'$HOME'"$HOME"
+//  ' "$USER" '
+char    is_same_quote(char quote, char c, int *len)
 {
-    if (*tmp == c)
-        return (quote);
-    else
+    if (quote != 1)
     {
-        *tmp = c;
-        return (!quote);
+        if (quote == c)
+            return (1);
+        else
+        {
+            (*len)++;
+            return (quote);
+        }
     }
+    else
+        return (c);
 }
 
 int cal_remove_len(char *str)
 {
-    t_bool quote;
-    char tmp;
+    char quote;
     int len;
     int i;
 
     len = 0;
     i = -1;
-    quote = FT_FALSE;
-    tmp = 0;
+    quote = 1;
     while(str[++i])
     {
         if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-            quote = is_same_quote(quote, str[i], &tmp);
+            quote = is_same_quote(quote, str[i], &len);
         else
         {
             if (quote)
@@ -49,10 +55,51 @@ int cal_remove_len(char *str)
     return (len);
 }
 
+char    check_quote(char quote, char c, char *dst, int *j)
+{
+    if (quote != 1)
+    {
+        if (quote == c)
+            return (1);
+        else
+        {
+            dst[(*j)++] = c;
+            return (quote);
+        }
+    }
+    else
+        return (c);
+}
+
+char *remove_quote(char *dst, char *str)
+{
+    char quote;
+    int j;
+    int i;
+
+    j = 0;
+    i = -1;
+    quote = 1;
+    while(str[++i])
+    {
+        if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+            quote = check_quote(quote, str[i], dst, &j);
+        else
+        {
+            if (quote)
+                dst[j++] = str[i];
+        }
+    }
+    return (dst);    
+}
+
 char *quote_removal(char *str)
 {
     const int len = cal_remove_len(str);
+    char *dst;
 
-    printf("quote_removal len : %d\n", len);
-    return (str);
+    dst = ft_malloc(sizeof(char) * (len + 1));
+    dst = remove_quote(dst, str);
+    free(str);
+    return (dst);
 }
