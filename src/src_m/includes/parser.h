@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/18 20:48:26 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 15:05:25 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value)
 void	set_pipe(t_list *tk_list, t_tokenize *token , t_token *value);
 void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *value);
 t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token);
-void	search_rdr(t_deque *dque);
+int		search_rdr(t_deque *dque);
+void	recover_dque(t_deque *dque, int re_cnt);
 void	print_tree_node(t_tree_node *node);
 #endif
