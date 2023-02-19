@@ -6,12 +6,22 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/07 17:58:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/10 22:29:24 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "data_structure.h"
+
+void	tree_init(t_tree *tree)
+{
+	tree->root = NULL;
+	tree->delete_node = delete_node;
+	tree->destroy = destroy;
+	tree->insert = insert;
+	tree->pre_order_traversal = pre_order_traversal;
+}
 
 t_tree_node *create_node(void *value)
 {
@@ -51,3 +61,4 @@ void	destroy(t_tree *tree)
 {
 	pre_order_traversal(tree->root, delete_node);
 };
+

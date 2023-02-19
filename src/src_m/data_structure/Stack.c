@@ -6,13 +6,13 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:03 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/07 19:06:13 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/10 22:28:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
-#include "stack.h"
+#include "data_structure.h"
 
 void	stack_init(t_stack *stack)
 {

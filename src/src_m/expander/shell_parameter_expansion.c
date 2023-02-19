@@ -6,74 +6,158 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 22:09:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/18 20:49:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "utils.h"
-#include "stack.h"
-
-// stack에들어 있는게 single이 아니라면 expand
-
+#include "data_structure.h"
+#include "envp_command.h"
+#include "expander.h"
 
 // 확장 부분.
-// 
-void	expand_variable(char *str)
+// echo "\"$USER\"\"SHELL\""
+// 확장된 문자와 $이후의 문자의 len차이만큼 return 한다. 
+// valid 체크는 export에서 한다. 여기서는 envp에 있는지만 판단하고 없으면 \0을 리턴한다. 
+// echo "$USERk$SHELL" ???
+// echo "$USER=$SHELL"
+// echo "$1" positional parameter도 확장한다. export 할때 envp에 넣지만 않으면됨. 
+// jgo=/bin/zsh
+// $USER$1
+int	expand_and_dup(char *dst, char *key, int j)
 {
-	
+	int	i;
+	char	*expanded;
+
+	if (key[0] == DOLLAR)
+		expanded = ft_strdup(key);
+	else
+		expanded = get_envp_elem(key)->val;
+	free(key);
+	if (expanded == NULL)
+		return (0);
+	i = 0;
+	while (expanded[i])
+		dst[j++] = expanded[i++];
+	if (key[0] == DOLLAR)
+		free(expanded);
+	return (j);
 }
+
+void	double_dollar(char *dst, char *str, int *i, int *j)
+{
+	if (dst && str)
+	{
+		dst[(*j)++] = str[*i - 1];
+		(*i)++;
+		dst[(*j)++] = str[*i - 1];
+	}
+	else
+	{
+		(*j) += 2;
+		(*i)++;
+	}
+}
+
+int	try_expand_and_cal_len(char *str, int i, int tmp)
+{
+	const char *dst = ft_substr(str, tmp, i - tmp);
+	const int	len = get_envp_elem(dst)->val_len;
+
+	free((void *)dst);
+	return (len);
+}
+
+t_bool	dollar_control(char c, char *rear)
+{
+	if (c == DOLLAR)
+	{
+		if (rear != NULL && *rear != S_QUOTE)
+			return (FT_TRUE);
+		else if (rear == NULL)
+			return (FT_TRUE);
+	}
+	return (FT_FALSE);
+}
+
+char *expand_variable(char *dst, char *str)
+{
+	const t_deque *deque = deque_init(ft_strlen(str));
+	int	tmp;
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (str[i++])
+	{
+		quote_control(deque, str[i - 1]);
+		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
+			double_dollar(dst, str, &i, &j);
+		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
+		{
+			tmp = i;
+			while (is_shell_var(str[i]))
+				i++;
+			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
+			if (tmp != 0)
+				j = tmp;
+		}
+		else
+			dst[j++] = str[i - 1];
+	}
+	dst[j] = '\0';
+	dq_free(deque);
+	return (dst);
+}
+
+int	cal_expand_len(char *str)
+{
+	const t_deque *deque = deque_init(ft_strlen(str));
+	int	len;
+	int	tmp;
+	int	i;
+
+	len = 0;
+	i = 0;
+	while (str[i++])
+	{
+		quote_control(deque, str[i - 1]);
+		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
+			double_dollar(NULL, NULL, &i, &len);
+		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
+		{
+			tmp = i;
+			while (is_shell_var(str[i]))
+				i++;
+			tmp = try_expand_and_cal_len(str, i, tmp);
+			if (tmp > 0)
+				len += tmp;
+		}
+		else
+			len++;
+	}
+	dq_free(deque);
+	return (len);
+}
+
 
 // $$
 // ''
-// $1
-void	dollar_control(char *str, char c)
-{
-	if (c == S_QUOTE || !str[1])
-		return ;
-	if (str[1] == DOLLAR)
-		return ;
-	if (ft_isdigit(str[1]))
-		return ;
-	if (str[1] == '?')
-		// confirm_last_return_val(); // $?
-	expand_variable(str);
-}
-
-// ft_strtrim 사용. 
-// $$ <- 하지않음.
+//  echo "$$SHELL>>$USER" 얘는 우리 쉘에선 $$SHELL>>jgo 이렇게 되어야함.
+// 	echo "$1??$USER" 얘도 우리 쉘에선 "??jgo" $1은 expanding했지만 없기 때문에 \0이 됨.
 		// 0		8
-// echo "$SHELL""$USER" $SHELL
+// echo "$SHELL$USER" /bin/zshjgo
 // echo $USER
-t_bool	shell_param_expand(char *str)
+// $"U""S""E""R"
+char *shell_param_expand(char *str)
 {
-	const t_meta *meta = get_meta();
-	t_stack	stack; // idx를 저장하자! quote의 idx
-	char *tmp; // 이 변수에 expand된 문자열을 할당하고 매개변수로 들어온 str에 대입한다. 
-	// quote가 있으면 tmp에 넣어두고 만약 stack의 짝을 찾으면 expand를 진행한다.
-	int	i;
+	const int	expand_len = cal_expand_len(str);
+	char *dst;
 
-	if (str == NULL)
-		return (FALSE);
-	i = 0;
-	stack_init(&stack);
-	while (str[i])
-	{
-		if (str[i] == DOLLAR)
-			dollar_control(&str[i], str[(int)stack.peek(&stack)]);
-		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-		{
-			if (!stack.is_empty(&stack) && str[*(int *)stack.peek(&stack)] == str[i])
-				stack.pop(&stack);
-			else
-				stack.push(&stack, &i);
-		}
-		i++;
-	}
-	
-	// quote_removal(str); // 같이 해줘야 겟다. 
-	// 확장된 상태로 만들어 놓는다. return 하지 않음. 
-	printf("param expand %s\n", str);
-	return (TRUE);
+	dst = ft_malloc(sizeof(char) * (expand_len + 1));
+	dst = expand_variable(dst, str);
+	return (dst);
 }

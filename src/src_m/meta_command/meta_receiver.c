@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   meta_receiver.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 17:59:56 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/12 11:16:11 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/12 12:49:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
-#include "utils.h"
 #include "envp_command.h"
-#include "meta_command.h"
+#include "utils.h"
 
-void	set_status(int n)
+void    *meta_receiver(t_meta_flags flag)
 {
-	t_meta *meta;
-	char	*nb;
-	char	*res;
+    t_meta *meta;
 
-	meta = get_meta();
-	nb = ft_itoa(n);
-	meta->status = n;
-	set_envp_elem("?", nb);
+    meta = singleton();
+    if (flag == META)
+        return (meta);
+    else if (flag == ERR_NUM)
+        return (&meta->err);
+    else if (flag == ENVP)
+        return (meta->envp);
+    else if (flag == UNLINK)
+        return (meta->unlink_lst);
+    return (NULL);
 }

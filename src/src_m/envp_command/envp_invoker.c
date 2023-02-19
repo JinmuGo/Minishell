@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   envp_invoker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 15:48:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/04 16:27:02 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/09 20:53:58 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/13 14:30:32 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
+#include "minishell.h"
+#include "defines.h"
+#include "envp_command.h"
 
-t_tree_node *create_node(void *value);
-void		insert(t_tree_node *node, t_tree_edge edge, t_tree_node *child);
-void		pre_order_traversal(t_tree_node *node, void(*f)(t_tree_node*));
-void		delete_node(t_tree_node *node);
-void		destroy(t_tree *tree);
+void	set_envp_elem(const char *key,const char *val)
+{
+	envp_receiver(SET, key, val);
+}
 
-#endif
+t_hash_elem	*get_envp_elem(const char *key)
+{
+	return (envp_receiver(GET, key, NULL));
+}
+
+void	del_envp_elem(const char *key)
+{
+	envp_receiver(DEL, key, NULL);
+}

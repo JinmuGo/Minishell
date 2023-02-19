@@ -6,26 +6,28 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/07 20:40:00 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/17 15:24:47 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../../)
+		TOPDIR = $(abspath ../../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = Tree.c
+SRCS = Deque.c \
+		Stack.c \
+		Tree.c
 
-NAME = Tree.a
+NAME = data_structure.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
-all bonus : 
+all bonus :
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)

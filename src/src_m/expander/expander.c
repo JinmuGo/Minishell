@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/08 20:29:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 16:59:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,23 @@
 void	rdr_expander(t_rdr	*rdr)
 {
 	if (rdr->rdr_type != HEREDOC)
-		shell_param_expand(rdr->file);
-	// rdr->quote = quote_removal(rdr->file);
+	{
+		rdr->file = shell_param_expand(rdr->file);
+		rdr->file = quote_removal(rdr->file);
+	}
 }
 
 void	cmd_expander(t_simple_cmd	*cmd)
 {
 	char	**args;
 
-	shell_param_expand(cmd->cmd);
+	cmd->cmd = shell_param_expand(cmd->cmd);
+	cmd->cmd = quote_removal(cmd->cmd);
 	args = cmd->args;
 	while (*args)
 	{
-		shell_param_expand(*args);
+		*args = shell_param_expand(*args);
+		*args = quote_removal(*args);
 		args++;
 	}
 }

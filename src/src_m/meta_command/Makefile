@@ -17,13 +17,10 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = expander.c \
-		is_built_in_cmd.c \
-		quote_removal.c \
-		shell_parameter_expansion.c \
-		shell_parameter_expansion_utils.c
+SRCS = meta_invoker.c \
+		meta_receiver.c
 
-NAME = expander.a
+NAME = meta_command.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
