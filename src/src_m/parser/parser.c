@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 15:16:34 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 15:30:48 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tree	*parser(char *line)
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
 	make_tree(tree, tk_list, tk_list, NULL);
-	// pre_order_traversal(tree->root, print_tree_node);
+	pre_order_traversal(tree->root, print_tree_node);
 	// free_tk_list(&tk_list);
 	return (tree);
 }
@@ -34,7 +34,8 @@ t_tree	*parser(char *line)
 void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
-
+	char		*token_str;
+	t_token_type token_type;
 	if (!cur_list)
 		return ;
 	if (!tree->root)
@@ -48,7 +49,6 @@ void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur
 		dque_to_tree(tree, tk_list, cur_node, dque);
 	free(dque->nodes);
 	free(dque);
-	pre_order_traversal(tree->root, print_tree_node);
 	make_tree(tree, tk_list, cur_list, cur_node->right);
 }
 //  dque의 내용들을 t_token형태로 만들고 t_tree_node의 value에 연결해준다.
@@ -240,8 +240,8 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 		return (dque);
 	if (*cur_list && ((t_tokenize *)(*cur_list)->content)->type == PIPE)
 	{
-		if (((t_tokenize *)(*cur_list)->content)->type == PIPE)
-			dque->push_front(dque, *cur_list);
+		dque->push_front(dque, *cur_list);
+		*cur_list = (*cur_list)->next;
 		return (dque);
 	}
 	token_str = ((t_tokenize *)((*cur_list)->content))->str;
