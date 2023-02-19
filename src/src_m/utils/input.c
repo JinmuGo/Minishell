@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 16:53:58 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 21:08:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void    prompt()
 {
 	char *line;
 	char *tmp;
+	const char *_prompt = make_prompt();
 
-	line = readline(MY_PROMPT);
+	line = readline(_prompt);
 	if (!line || ft_strncmp(line, "exit", 5) == 0)
 		exit(EXIT_SUCCESS);
 	// parser();
@@ -31,5 +32,6 @@ void    prompt()
 	printf("%s\n", tmp);
 	free(line);
 	free(tmp);
+	free((void *)_prompt);
 	prompt();
 }

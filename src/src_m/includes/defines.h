@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 17:54:19 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 21:03:57 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,20 @@
 
 # define LOOP TRUE
 # define ROOT 0
-# define MY_PROMPT "> "
+# define MY_PROMPT " > "
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
 # define DOLLAR	 '$'
+
+/* color */
+# define BOLD "\e[1m"
+# define MAGENTA "\e[35m"
+# define CYAN "\e[36m"
+# define GREEN "\e[92m"
+# define GRAY "\e[90m"
+# define RED "\e[91m"
+# define BLUE "\e[94m"
+# define RESET "\e[0m"
 
 #define H_INITIAL_SIZE 100
 #define H_GROWTH_FACTOR 2
