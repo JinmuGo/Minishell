@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:48:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 18:00:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char **argv, char **envp)
 
 	envp_init(envp);
 	// display(get_envp());
+	set_status(0);
 	signal(SIGQUIT, signal_process);
 	signal(SIGINT, signal_process);
 	prompt();

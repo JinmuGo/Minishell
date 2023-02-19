@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 16:19:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/19 17:54:19 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ enum	e_meta_flags
 struct s_meta  // 모든 구조체를 담을 부모구조체
 {
 	int		err;
+	int		status;
 	t_hash_table	*envp;
 	t_list	*unlink_lst;	// here_doc의 예외처리를 위한 list
 	// t_history;
