@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 18:43:05 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/19 18:26:12 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/19 19:12:26 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "utils.h"
-#include "envp_command.h"
-#include "meta_command.h"
 
-void	set_status(int n)
+char *make_git_prompt(char *cur_dir, int fd)
 {
-	t_meta *meta;
-	char	*nb;
-	char	*res;
-
-	meta = get_meta();
-	nb = ft_itoa(n);
-	meta->status = n;
-	set_envp_elem("?", nb);
+	const char *line = get_next_line(fd);
 }
 
-char *get_cur_dir(void)
+char	*make_normal_prompt(char *cur_dir)
 {
-	char	buffer[1000];
-	char	*dst;
+	
+}
 
-	getcwd(buffer, 1000);
-	dst = ft_strdup(buffer);
-	return (dst);
+char *make_prompt(void)
+{
+	const char *cur_dir = get_cur_dir();
+	const int fd = open(".git/HEAD", O_RDONLY);
+	char *prompt;
+	
+	if (fd)
+		prompt = make_git_prompt(cur_dir, fd);
+	else
+		prompt = make_normal_prompt(cur_dir);
+	close(fd);
+	free((void *)cur_dir);
+	return (prompt);
 }
