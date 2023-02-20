@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/18 20:16:38 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 20:54:23 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	in_quote(char *line, t_tokenize *token, t_stack *qte)
 		qte->pop(qte);
 }
 
-int	token_node_add(t_list *tk_list, char *line, t_tokenize *token)
+int	token_node_add(t_list **tk_list, char *line, t_tokenize *token)
 {
 	if (token->size == 0)
 	{
@@ -33,7 +33,7 @@ int	token_node_add(t_list *tk_list, char *line, t_tokenize *token)
 	}
 	token->str = ft_malloc(sizeof(char) * (token->size + 1));
 	ft_strlcpy(token->str, line, token->size + 1);
-	ft_lstadd_back(&tk_list, ft_lstnew(token));
+	ft_lstadd_back(tk_list, ft_lstnew(token));
 	return (token->size);
 }
 

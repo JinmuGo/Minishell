@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/16 17:22:59 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 20:54:00 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ t_list	*tokenize(char *line)
 	t_list	*tk_list;
 	t_list	*tmp;
 
-	tk_list = ft_malloc(sizeof(t_list));
-	make_tk_list(tk_list, line, 0);
+	tk_list = ft_calloc(sizeof(t_list), 1);
+	make_tk_list(&tk_list, line, 0);
 	tmp = tk_list->next;
 	free(tk_list);
 	tk_list = tmp;
 	print_tokenize(tk_list);
-	return (tmp);
+	return (tk_list);
 }
 
-void	make_tk_list(t_list *tk_list, char *line, int size)
+void	make_tk_list(t_list **tk_list, char *line, int size)
 {
 	t_stack	quote;
 
@@ -50,7 +50,7 @@ void	make_tk_list(t_list *tk_list, char *line, int size)
 	make_tk_list(tk_list, line, size);
 }
 
-int	treat_word(t_list *tk_list, char *line, t_tokenize *token, t_stack *qte)
+int	treat_word(t_list **tk_list, char *line, t_tokenize *token, t_stack *qte)
 {
 	if (!token)
 		token = tokenize_init(token, WORD);
@@ -67,7 +67,7 @@ int	treat_word(t_list *tk_list, char *line, t_tokenize *token, t_stack *qte)
 	return (token->size);
 }
 
-int	treat_pipe(t_list *tk_list, char *line, t_tokenize *token)
+int	treat_pipe(t_list **tk_list, char *line, t_tokenize *token)
 {
 	if (!token)
 		token = tokenize_init(token, PIPE);
@@ -78,7 +78,7 @@ int	treat_pipe(t_list *tk_list, char *line, t_tokenize *token)
 	return (token->size);
 }
 
-int	treat_rdr(t_list *tk_list, char *line, t_tokenize *token)
+int	treat_rdr(t_list **tk_list, char *line, t_tokenize *token)
 {
 	if (!token)
 		token = tokenize_init(token, RDR);

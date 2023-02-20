@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 18:30:45 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 21:39:29 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_tree	*parser(char *line)
 	tk_list = tokenize(line);
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
-	make_tree(tree, tk_list, tk_list, NULL);
+	make_tree(tree, &tk_list, tk_list, NULL);
 	pre_order_traversal(tree->root, print_tree_node);
 	// free_tk_list(&tk_list);
 	return (tree);
 }
 
-void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur_node)
+void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
 	char		*token_str;
@@ -49,7 +49,7 @@ void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur
 		token_str = ((t_tokenize *)(cur_list->content))->str;
 		token_type = ((t_tokenize *)(cur_list->content))->type;
 	}
-	dque = save_dque(tk_list, &cur_list, NULL);
+	dque = save_dque(*tk_list, &cur_list, NULL);
 	if (dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
 	if (cur_list)
@@ -86,7 +86,7 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 	return (dque);
 }
 //  dque의 내용들을 t_token형태로 만들고 t_tree_node의 value에 연결해준다.
-void	dque_to_tree(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+void	dque_to_tree(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	if (dque->use_size > 0 && cur_node->left == NULL)
 		make_left(tree, tk_list, cur_node, dque);
@@ -94,7 +94,7 @@ void	dque_to_tree(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque 
 		make_right(tree, tk_list, cur_node, dque);
 }
 
-void	make_left(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+void	make_left(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_tree_node	*next_node;
 
@@ -111,7 +111,7 @@ void	make_left(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dq
 	return ;
 }
 
-void	make_right(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+void	make_right(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_tree_node	*next_node;
 
@@ -129,7 +129,7 @@ void	make_right(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *d
 		dque_to_tree(tree, tk_list, next_node, dque);
 }
 
-t_tree_node	*make_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_pipe_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
 
@@ -147,7 +147,7 @@ t_tree_node	*make_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node
 	return (cur_node);
 }
 
-t_tree_node	*make_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list		*token;
 
@@ -165,7 +165,7 @@ t_tree_node	*make_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node,
 	return (cur_node);
 }
 
-t_tree_node	*make_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list		*token;
 	t_tokenize	*data;
@@ -185,7 +185,7 @@ t_tree_node	*make_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node,
 	return (cur_node);
 }
 
-t_tree_node	*make_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_s_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
 
@@ -198,7 +198,7 @@ t_tree_node	*make_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 	return (cur_node);
 }
 
-t_tree_node	*insert_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*insert_pipe_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token		*value;
 	t_tokenize	*token;
@@ -211,7 +211,7 @@ t_tree_node	*insert_pipe_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_no
 	return(new_node);
 }
 
-t_tree_node	*insert_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*insert_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token		*value;
 	t_tokenize	*token;
@@ -227,7 +227,7 @@ t_tree_node	*insert_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 	return (new_node);
 }
 
-t_tree_node	*insert_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*insert_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token	*value;
 	t_tokenize	*token;
@@ -240,7 +240,7 @@ t_tree_node	*insert_rdr_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_nod
 	return (new_node);
 }
 
-t_tree_node *insert_s_cmd_node(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node *insert_s_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token	*value;
 	t_tokenize	*token;
@@ -266,7 +266,7 @@ void	insert_root(t_tree *tree)
 	tree->root = root;
 }
 
-t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque)
+t_token	*make_value(t_list **tk_list, t_tokenize *token, t_deque *dque)
 {
 	t_token	*value;
 
@@ -289,7 +289,7 @@ t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque)
 	return (value);
 }
 
-void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value)
+void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token , t_token *value)
 {
 	t_list		*next_list;
 	t_tokenize	*next_token;
@@ -304,35 +304,35 @@ void	set_rdr(t_list *tk_list, t_deque *dque, t_tokenize *token , t_token *value)
 		value->cmd_val.rdr->rdr_type = APPEND;
 	else if (!ft_strncmp(token->str, "<<", 3))
 		value->cmd_val.rdr->rdr_type = HEREDOC;
-	tk_list = delete_lst_node(&tk_list, token);
+	*tk_list = delete_lst_node(tk_list, token);
 	if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == WORD)
 	{
 		next_list = dque->pop_front(dque);
 		next_token = next_list->content;
 		value->cmd_val.rdr->file = ft_strdup(next_token->str);
-		tk_list = delete_lst_node(&tk_list, next_token);
+		*tk_list = delete_lst_node(tk_list, next_token);
 		return ;
 	}
 	value->cmd_val.rdr->file = NULL;
 }
 
-void	set_pipe(t_list *tk_list, t_tokenize *token , t_token *value)
+void	set_pipe(t_list **tk_list, t_tokenize *token , t_token *value)
 {
 	value->type = PIPE;
 	value->cmd_val.pipe->fd[0] = 0;
 	value->cmd_val.pipe->fd[1] = 0;
 	if (token)
-		tk_list = delete_lst_node(&tk_list, token);
+		*tk_list = delete_lst_node(tk_list, token);
 }
 
-void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *value)
+void	set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 {
 	t_tokenize	*tmp;
 
 	value->type = S_CMD;
 	value->cmd_val.simple_cmd->cmd = ft_strdup(token->str);
 	value->cmd_val.simple_cmd->args = NULL;
-	tk_list = delete_lst_node(&tk_list, token);
+	*tk_list = delete_lst_node(tk_list, token);
 	if (dque->use_size > 0)
 	{
 		value->cmd_val.simple_cmd->args = ft_malloc(sizeof(char *) * (dque->use_size + 2));
@@ -342,7 +342,7 @@ void	set_simple_cmd(t_list *tk_list, t_deque *dque, t_tokenize *token, t_token *
 		{
 			token = ((t_list *)(dque->pop_rear(dque)))->content;
 			((t_simple_cmd *)value->cmd_val.simple_cmd)->args[dque->use_size + 1] = ft_strdup(token->str);
-			tk_list = delete_lst_node(&tk_list, token);
+			*tk_list = delete_lst_node(tk_list, token);
 		}
 		return ;
 	}
