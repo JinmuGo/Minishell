@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 21:03:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/20 14:45:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define LOOP TRUE
 # define ROOT 0
-# define MY_PROMPT " > "
+# define MY_PROMPT " ❯ "
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
 # define DOLLAR	 '$'
