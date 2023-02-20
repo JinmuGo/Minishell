@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 18:19:38 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/20 22:07:38 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ int	expand_and_dup(char *dst, char *key, int j)
 	int	i;
 	char	*expanded;
 
-	if (key[0] == DOLLAR)
-		expanded = ft_strdup(key);
-	else
-		expanded = get_envp_elem(key)->val;
+	expanded = get_envp_elem(key)->val;
 	free(key);
 	if (expanded == NULL)
 		return (0);
 	i = 0;
 	while (expanded[i])
 		dst[j++] = expanded[i++];
-	if (key[0] == DOLLAR)
-		free(expanded);
 	return (j);
 }
 
@@ -163,3 +158,4 @@ char *shell_param_expand(char *str)
 	dst = expand_variable(dst, str);
 	return (dst);
 }
+
