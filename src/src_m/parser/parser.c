@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 15:30:48 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 18:30:45 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,61 @@ void	make_tree(t_tree *tree, t_list *tk_list, t_list *cur_list, t_tree_node *cur
 		cur_node = tree->root;
 	if (!cur_node)
 		return ;
+	if (cur_list)
+	{
+		token_str = ((t_tokenize *)(cur_list->content))->str;
+		token_type = ((t_tokenize *)(cur_list->content))->type;
+	}
 	dque = save_dque(tk_list, &cur_list, NULL);
 	if (dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
+	if (cur_list)
+	{
+		token_str = ((t_tokenize *)(cur_list->content))->str;
+		token_type = ((t_tokenize *)(cur_list->content))->type;		
+	}
 	free(dque->nodes);
+	dque->nodes = NULL;
 	free(dque);
+	dque = NULL;
 	make_tree(tree, tk_list, cur_list, cur_node->right);
+}
+// cat < a -e | echo "hi" 확인필요
+t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
+{
+	char *token_str;
+	t_token_type type;
+	if (dque == NULL)
+		dque = deque_init(ft_lstsize(tk_list));
+	if (!(*cur_list))
+		return (dque);
+	if (*cur_list && ((t_tokenize *)(*cur_list)->content)->type == PIPE)
+	{
+		dque->push_front(dque, *cur_list);
+		*cur_list = (*cur_list)->next;
+		return (dque);
+	}
+	token_str = ((t_tokenize *)((*cur_list)->content))->str;
+	type = ((t_tokenize *)((*cur_list)->content))->type;
+	dque->push_rear(dque, *cur_list);
+	*cur_list = (*cur_list)->next;
+	save_dque(tk_list, cur_list, dque);
+	return (dque);
 }
 //  dque의 내용들을 t_token형태로 만들고 t_tree_node의 value에 연결해준다.
 void	dque_to_tree(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
 {
-	make_left(tree, tk_list, cur_node, dque);
-	make_right(tree, tk_list, cur_node, dque);
+	if (dque->use_size > 0 && cur_node->left == NULL)
+		make_left(tree, tk_list, cur_node, dque);
+	if (dque->use_size > 0 && cur_node->right == NULL)
+		make_right(tree, tk_list, cur_node, dque);
 }
 
 void	make_left(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_tree_node	*next_node;
 
-	if (cur_node == tree->root)
+	if (cur_node == tree->root || ((t_token *)(cur_node->value))->type == S_CMD)
 		return ;
 	if (((t_token *)(cur_node->value))->type == PIPE)
 		next_node = make_cmd_node(tree, tk_list, cur_node, dque);
@@ -79,7 +115,7 @@ void	make_right(t_tree *tree, t_list *tk_list, t_tree_node *cur_node, t_deque *d
 {
 	t_tree_node	*next_node;
 
-	if (((t_token *)(cur_node->value))->type == RDR)
+	if (((t_token *)(cur_node->value))->type == RDR || ((t_token *)(cur_node->value))->type == S_CMD)
 		return ;
 	if (((t_token *)(cur_node->value))->type == PIPE)
 	{
@@ -229,28 +265,6 @@ void	insert_root(t_tree *tree)
 	root = create_node(value);
 	tree->root = root;
 }
-// cat < a -e | echo "hi" 확인필요
-t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
-{
-	char *token_str;
-	t_token_type type;
-	if (dque == NULL)
-		dque = deque_init(ft_lstsize(tk_list));
-	if (!(*cur_list))
-		return (dque);
-	if (*cur_list && ((t_tokenize *)(*cur_list)->content)->type == PIPE)
-	{
-		dque->push_front(dque, *cur_list);
-		*cur_list = (*cur_list)->next;
-		return (dque);
-	}
-	token_str = ((t_tokenize *)((*cur_list)->content))->str;
-	type = ((t_tokenize *)((*cur_list)->content))->type;
-	dque->push_rear(dque, *cur_list);
-	*cur_list = (*cur_list)->next;
-	save_dque(tk_list, cur_list, dque);
-	return (dque);
-}
 
 t_token	*make_value(t_list *tk_list, t_tokenize *token, t_deque *dque)
 {
@@ -341,23 +355,27 @@ t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token)
 {
 	t_list	*del_node;
 	t_list	*pre_node;
-
+	t_tokenize *token1;
+	token1 = (t_tokenize *)((*tk_list)->content);
 	if ((*tk_list)->content == token)
 	{
 		del_node = *tk_list;
 		*tk_list = (*tk_list)->next;
 		free_token_str(del_node->content);
 		free(del_node);
+		del_node = NULL;
 	}
 	else
 	{
 		pre_node = *tk_list;
+		token1 = (t_tokenize *)((*tk_list)->content);
 		while (pre_node->next->content != token)
 			pre_node = pre_node->next;
 		del_node = pre_node->next;
 		pre_node->next = del_node->next;
 		free_token_str(del_node->content);
 		free(del_node);
+		del_node = NULL;
 	}
 	return (*tk_list);
 }
