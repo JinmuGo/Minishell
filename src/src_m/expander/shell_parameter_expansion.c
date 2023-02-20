@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 20:49:10 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/20 18:19:38 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	return (len);
 }
 
-t_bool	dollar_control(char c, char *rear)
+t_bool	dollar_control(char c, char *rear, char next)
 {
 	if (c == DOLLAR)
 	{
 		if (rear != NULL && *rear != S_QUOTE)
 			return (FT_TRUE);
+		else if (next == ' ' || next == '\0')
+			return (FT_FALSE);
 		else if (rear == NULL)
 			return (FT_TRUE);
 	}
@@ -96,7 +98,7 @@ char *expand_variable(char *dst, char *str)
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(dst, str, &i, &j);
-		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
+		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
@@ -127,7 +129,7 @@ int	cal_expand_len(char *str)
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(NULL, NULL, &i, &len);
-		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque)))
+		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
