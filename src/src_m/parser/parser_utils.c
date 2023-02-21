@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/21 17:19:33 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/21 18:29:27 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_tree_node(t_tree_node *node, int level)
 {
 	if (node == NULL)
 		return ;
-	printf("%*s", level * 4, "");
+	printf("%*s", level * 4, "|");
 	if (((t_token *)(node->value))->type == RDR)
 		printf("_RDR_node_\nrdr_type: %u, file: %s", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file);
 	else if(((t_token *)(node->value))->type == PIPE)
