@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:53:25 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 20:17:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_bool	dollar_control(char c, char *rear, char next)
 			return (FT_FALSE);
 		else if (rear == NULL)
 			return (FT_TRUE);
+		// else if (next == '?')
+		// 	expand_question();
 	}
 	return (FT_FALSE);
 }
@@ -132,7 +134,7 @@ int	cal_expand_len(char *str)
 }
 
 
-// $$
+// $$ 
 // ''
 //  echo "$$SHELL>>$USER" 얘는 우리 쉘에선 $$SHELL>>jgo 이렇게 되어야함.
 // 	echo "$1??$USER" 얘도 우리 쉘에선 "??jgo" $1은 expanding했지만 없기 때문에 \0이 됨.
@@ -140,6 +142,7 @@ int	cal_expand_len(char *str)
 // echo "$SHELL$USER" /bin/zshjgo
 // echo $USER
 // $"U""S""E""R"
+// $? 는 meta->exit status를 확장한다. 
 char *shell_param_expand(char *str)
 {
 	const int	expand_len = cal_expand_len(str);

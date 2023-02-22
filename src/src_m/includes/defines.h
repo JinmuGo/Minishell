@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:25:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 20:16:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_tree_edge t_tree_edge;
 typedef enum e_simple_cmd_type t_simple_cmd_type;
 typedef enum e_envp_flags t_envp_flags;
 typedef enum e_meta_flags t_meta_flags;
+typedef enum e_err_type t_err_type;
 
 /* struct typedef */
 
@@ -121,12 +122,22 @@ enum	e_meta_flags
 	UNLINK = 3
 };
 
+enum	e_err_type
+{
+	// 100 번대 parsing
+	
+	// 200 번대 heredoc
+	
+	// 300 번대 executor
+
+};
+
 struct s_meta
 {
-	int		err;
-	int		status;
+	t_err_type		err;
 	t_hash_table	*envp;
-	t_list	*unlink_lst;	// here_doc의 예외처리를 위한 list
+	t_list			*unlink_lst;	// here_doc의 예외처리를 위한 list
+	int				exit_status;
 	// t_history;
 };
 
