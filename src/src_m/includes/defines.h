@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 14:45:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 15:25:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,17 @@ typedef enum e_meta_flags t_meta_flags;
 
 /* struct typedef */
 
-typedef struct s_meta t_meta;
-typedef struct s_envp t_envp;
-typedef struct s_cmd t_cmd;
-typedef struct s_rdr t_rdr;
-typedef struct s_pipe t_pipe;
-typedef struct s_token t_token;
-typedef struct s_simple_cmd t_simple_cmd;
-typedef struct s_tree_node t_tree_node;
+typedef struct s_meta		t_meta;
+typedef struct s_tree		t_tree;
+typedef struct s_stack		t_stack;
+typedef struct s_deque		t_deque;
+typedef struct s_tree_node	t_tree_node;
+typedef struct s_cmd		t_cmd;
+typedef struct s_rdr		t_rdr;
+typedef struct s_pipe		t_pipe;
+typedef struct s_token		t_token;
+typedef struct s_simple_cmd	t_simple_cmd;
+typedef struct s_tokenize	t_tokenize;
 
 /* union typedef */
 
@@ -64,7 +67,6 @@ typedef struct s_stack t_stack;
 typedef struct s_tree t_tree;
 
 /* hash_table typedef */
-
 typedef struct s_hash_table t_hash_table;
 typedef struct s_hash_asset t_hash_asset;
 typedef struct s_hash_elem  t_hash_elem;
@@ -74,7 +76,8 @@ enum e_token_type
 	RDR = 0,
 	PIPE = 1,
 	CMD = 2, // 실제로 실행하지는 않는다.
-	WORD = 3
+	WORD = 3,
+	S_CMD = 4
 };
 
 enum e_rdr_type
@@ -118,7 +121,7 @@ enum	e_meta_flags
 	UNLINK = 3
 };
 
-struct s_meta  // 모든 구조체를 담을 부모구조체
+struct s_meta
 {
 	int		err;
 	int		status;
@@ -134,6 +137,37 @@ struct s_envp
 	int	val_len;
 };
 
+struct s_tree_node {
+	void		*value;
+	// int		size; // 본인을 제외한 트리의 크기.
+	t_tree_node	*left;
+	t_tree_node	*right;
+};
+
+struct s_tree {
+	t_tree_node	*root;
+	void		(*insert)(t_tree_node*, t_tree_edge, t_tree_node*);
+	void		(*pre_order_traversal)(t_tree_node *, void (*f)(t_tree_node*));
+	void		(*delete_node)(t_tree_node*);
+	void		(*destroy)(t_tree *);
+};
+
+struct s_deque
+{
+	size_t	capacity;
+	size_t	front;
+	size_t	rear;
+	size_t	use_size;
+	void	**nodes;
+	void	(*push_front)(t_deque *, void *);
+	void	(*push_rear)(t_deque *, void *);
+	void	*(*pop_front)(t_deque *);
+	void	*(*pop_rear)(t_deque *);
+	void	*(*peek_front)(const t_deque *);
+	void	*(*peek_rear)(const t_deque *);
+
+};
+
 union u_cmd
 {
 	t_simple_cmd	*simple_cmd;
@@ -144,7 +178,7 @@ union u_cmd
 struct s_token
 {
 	t_token_type	type;
-	t_ucmd cmd_val;
+	t_ucmd			cmd_val;
 };
 
 struct s_simple_cmd
@@ -166,27 +200,6 @@ struct s_pipe
 	int	fd[2];
 };
 
-struct s_tree_node {
-	void	*value;
-// int		size; // 본인을 제외한 트리의 크기.
-	t_tree_node	*left;
-	t_tree_node	*right;
-};
-
-struct s_deque
-{
-    size_t  capacity;
-    size_t  front;
-    size_t  rear;
-    size_t  use_size;
-    void    **nodes;
-    void    (*push_front)(t_deque *, void *);
-    void    (*push_rear)(t_deque *, void *);
-    void    *(*pop_front)(t_deque *);
-    void    *(*pop_rear)(t_deque *);
-	void	*(*peek_front)(const t_deque *);
-	void	*(*peek_rear)(const t_deque *);
-};
 
 struct s_stack
 {
@@ -197,14 +210,6 @@ struct s_stack
 	void	*(*peek)(t_stack *);
 	void	(*destory)(t_stack *);
 	t_bool	(*is_empty)(t_stack *stack);
-};
-
-struct s_tree {
-	t_tree_node	*root;
-	void		(*insert)(t_tree_node*, t_tree_edge, t_tree_node*);
-	void		(*pre_order_traversal)(t_tree_node *, void(*f)(t_tree_node*));
-	void		(*delete_node)(t_tree_node*);
-	void		(*destroy)(t_tree *);
 };
 
 struct	s_hash_table
@@ -227,6 +232,13 @@ struct s_hash_elem
     char *key;
     char *val;
     int   val_len;
+};
+
+struct s_tokenize
+{
+	t_token_type	type;
+	char			*str;
+	int				size;
 };
 
 #endif

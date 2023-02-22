@@ -3,31 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/22 15:28:58 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/21 15:48:34 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../)
+		TOPDIR = $(abspath ../../../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = Deque.c \
-		Stack.c \
-		Tree.c
+SRCS = parser.c \
+	make_left_right.c \
+	make_node.c \
+	insert_node.c \
+	set_node.c \
+	parser_utils.c
 
-NAME = data_structure.a
+NAME = parser.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
-all bonus :
+all bonus : 
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)

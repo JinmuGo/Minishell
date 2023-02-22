@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_left_right.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/21 15:39:49 by sanghwal          #+#    #+#             */
+/*   Updated: 2023/02/22 15:22:42 by jgo              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include "defines.h"
+#include "parser.h"
+#include "utils.h"
+#include "data_structure.h"
+
+void	make_left(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+{
+	t_tree_node	*next_node;
+
+	if (cur_node == tree->root || ((t_token *)(cur_node->value))->type == S_CMD)
+		return ;
+	if (((t_token *)(cur_node->value))->type == PIPE)
+		next_node = make_cmd_node(tree, tk_list, cur_node, dque);
+	else if (((t_token *)(cur_node->value))->type == CMD)
+		next_node = make_rdr_node(tree, tk_list, cur_node, dque);
+	else if (((t_token *)(cur_node->value))->type == RDR)
+		next_node = make_rdr_node(tree, tk_list, cur_node, dque);
+	if (next_node != cur_node)
+		dque_to_tree(tree, tk_list, next_node, dque);
+	return ;
+}
+
+void	make_right(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+{
+	t_tree_node	*next_node;
+
+	if (((t_token *)(cur_node->value))->type == RDR || ((t_token *)(cur_node->value))->type == S_CMD)
+		return ;
+	if (((t_token *)(cur_node->value))->type == PIPE)
+	{
+		next_node = make_pipe_node(tree, tk_list, cur_node, dque);
+		if (next_node == cur_node)
+			next_node = make_cmd_node(tree, tk_list, cur_node, dque);
+	}
+	else if (((t_token *)(cur_node->value))->type == CMD)
+		next_node = make_s_cmd_node(tree, tk_list, cur_node, dque);
+	if (next_node != cur_node)
+		dque_to_tree(tree, tk_list, next_node, dque);
+}

@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   meta_command.h                                     :+:      :+:    :+:   */
+/*   deque.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 15:48:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:13:40 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/08 17:10:04 by sanghwal          #+#    #+#             */
+/*   Updated: 2023/02/08 19:54:56 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef META_MVP_H
-# define META_MVP_H
+#ifndef DEQUE_H
+# define DEQUE_H
 
-/* meta_receiver/c */
-void    *meta_receiver(t_meta_flags flag);
-
-/* meta_invoker.c */
-t_meta *get_meta(void);
-int     get_err_num(void);
-t_hash_table *get_envp(void);
-t_list  *get_unlink_lst(void);
+t_deque	*deque_init(size_t size);
+void	dq_push_front(t_deque *dque, void *data);
+void	dq_push_rear(t_deque *dque, void *data);
+void	*dq_pop_front(t_deque *dque);
+void	*dq_pop_rear(t_deque *dque);
 
 #endif

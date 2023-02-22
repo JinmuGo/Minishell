@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 16:59:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 15:54:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	rdr_expander(t_rdr	*rdr)
 {
+	if (rdr == NULL)
+		return ;
 	if (rdr->rdr_type != HEREDOC)
 	{
 		rdr->file = shell_param_expand(rdr->file);
@@ -27,6 +29,8 @@ void	cmd_expander(t_simple_cmd	*cmd)
 {
 	char	**args;
 
+	if (cmd == NULL)
+		return ;
 	cmd->cmd = shell_param_expand(cmd->cmd);
 	cmd->cmd = quote_removal(cmd->cmd);
 	args = cmd->args;
@@ -45,10 +49,12 @@ void	cmd_expander(t_simple_cmd	*cmd)
  */
 void	iter_token(t_token	*token)
 {
-	// RDR OR CMD만 확장한다.
+	if (token == NULL)
+		return ;
+	// RDR OR S_CMD만 확장한다.
 	if (token->type == RDR)
 		rdr_expander(token->cmd_val.rdr); // 모든 rdr을 확장한다.
-	else if (token->type == CMD)
+	else if (token->type == S_CMD)
 		cmd_expander(token->cmd_val.simple_cmd);
 }
 
@@ -65,7 +71,6 @@ void	iter_token(t_token	*token)
  */
 void    expander(t_tree_node *node)
 {
-	
 	if (node == NULL)
 		return ;	
 	iter_token(node->value);

@@ -6,12 +6,15 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 20:48:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 15:38:03 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
+
+/* expander.c */
+void    expander(t_tree_node *node);
 
 /* expander_utils.c */
 

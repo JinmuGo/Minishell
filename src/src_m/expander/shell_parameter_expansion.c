@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 22:07:38 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 15:53:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 #include "envp_command.h"
 #include "expander.h"
 
-// 확장 부분.
-// echo "\"$USER\"\"SHELL\""
-// 확장된 문자와 $이후의 문자의 len차이만큼 return 한다. 
-// valid 체크는 export에서 한다. 여기서는 envp에 있는지만 판단하고 없으면 \0을 리턴한다. 
-// echo "$USERk$SHELL" ???
-// echo "$USER=$SHELL"
-// echo "$1" positional parameter도 확장한다. export 할때 envp에 넣지만 않으면됨. 
-// jgo=/bin/zsh
-// $USER$1
 int	expand_and_dup(char *dst, char *key, int j)
 {
 	int	i;
@@ -156,6 +147,7 @@ char *shell_param_expand(char *str)
 
 	dst = ft_malloc(sizeof(char) * (expand_len + 1));
 	dst = expand_variable(dst, str);
+	free(str);
 	return (dst);
 }
 
