@@ -6,13 +6,14 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 17:53:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 16:01:31 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
+t_simple_cmd_type	is_built_in_cmd(char *cmd);
 
 /* exit status */
 # define EXIT_COM_NOT_FOUND 127

@@ -6,20 +6,27 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 18:37:45 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 16:12:27 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
-
+#include "executor.h"
 // RDR = 0,
 // PIPE = 1,
-// CMD = 2,
+// S_CMD = 4,
 void    rdr_executor(t_)
 
-void    executor(t_tree *tree)
+void    executor(t_tree_node *node)
 {
-    // RDR, PIPE, CMD로 나누어서 실행할 것들을 나누자. 
-    // 
+    if (node == NULL)
+        return ;
+
+    
+    if (is_built_in_cmd())
+
+
+    executor(node->left);
+    executor(node->right);
 }

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:51:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/05 09:49:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 15:58:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_simple_cmd_type	is_built_in_cmd(char *cmd)
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(cmd, built_in[i], ft_strlen(cmd)))
+		if (ft_strncmp(cmd, built_in[i], ft_strlen(cmd)) == 0)
 			return (i);
 		i++;
 	}
