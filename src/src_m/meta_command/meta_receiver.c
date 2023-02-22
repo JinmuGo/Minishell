@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:16:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 12:49:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 21:16:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void    *meta_receiver(t_meta_flags flag)
         return (meta->envp);
     else if (flag == UNLINK)
         return (meta->unlink_lst);
+    else if (flag == EXIT_STATUS)
+        return (&meta->exit_status);
     return (NULL);
 }

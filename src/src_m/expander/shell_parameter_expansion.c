@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:17:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 21:18:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,30 @@
 #include "data_structure.h"
 #include "envp_command.h"
 #include "expander.h"
+#include "meta_command.h"
+
+char	*question_expand(const char *key)
+{
+	return (ft_itoa(get_exit_status()));
+}
 
 int	expand_and_dup(char *dst, char *key, int j)
 {
 	int	i;
 	char	*expanded;
 
-	expanded = get_envp_elem(key)->val;
+	if (key[0] == '?')
+		expanded = question_expand(key);
+	else
+		expanded = get_envp_elem(key)->val;
 	free(key);
 	if (expanded == NULL)
 		return (0);
 	i = 0;
 	while (expanded[i])
 		dst[j++] = expanded[i++];
+	if (key[0] == '?')
+		free(expanded);
 	return (j);
 }
 
@@ -50,8 +61,16 @@ void	double_dollar(char *dst, char *str, int *i, int *j)
 int	try_expand_and_cal_len(char *str, int i, int tmp)
 {
 	const char *dst = ft_substr(str, tmp, i - tmp);
-	const int	len = get_envp_elem(dst)->val_len;
+	char *tmp_str;
+	int	len;
 
+	len = get_envp_elem(dst)->val_len;
+	if (len == 0 && dst[0] == '?')
+	{
+		tmp_str = question_expand(dst);
+		len = ft_strlen(tmp_str);
+		free((void *)tmp_str);
+	}
 	free((void *)dst);
 	return (len);
 }
@@ -66,8 +85,6 @@ t_bool	dollar_control(char c, char *rear, char next)
 			return (FT_FALSE);
 		else if (rear == NULL)
 			return (FT_TRUE);
-		// else if (next == '?')
-		// 	expand_question();
 	}
 	return (FT_FALSE);
 }

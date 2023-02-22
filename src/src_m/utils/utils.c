@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:15:24 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 20:31:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,6 @@
 #include "utils.h"
 #include "envp_command.h"
 #include "meta_command.h"
-
-void	set_status(int n)
-{
-	t_meta *meta;
-	char	*nb;
-	char	*res;
-
-	meta = get_meta();
-	nb = ft_itoa(n);
-	meta->status = n;
-	set_envp_elem("?", nb);
-}
 
 char *get_cur_dir(void)
 {

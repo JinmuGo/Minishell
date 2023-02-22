@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:16:42 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 21:13:18 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,16 @@ enum	e_envp_flags
 enum	e_meta_flags
 {
 	META = 0,
-	ERR_NUM = 1,
-	ENVP = 2,
-	UNLINK = 3
+	ENVP = 1,
+	UNLINK = 2,
+	ERR_NUM = 3,
+	EXIT_STATUS = 4
 };
 
 enum	e_err_type
 {
 	// 100 번대 parsing
-	
+	ERR_PARSE = 100
 	// 200 번대 heredoc
 	
 	// 300 번대 executor
