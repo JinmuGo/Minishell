@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 18:26:12 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/19 21:05:24 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 19:23:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char *make_prompt(void)
 	const int fd = open(".git/HEAD", O_RDONLY);
 	char *prompt;
 	
-	if (fd)
+	if (fd != -1)
 		prompt = make_git_prompt(cur_dir, fd);
 	else
 		prompt = make_normal_prompt(cur_dir);
