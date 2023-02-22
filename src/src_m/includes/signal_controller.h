@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   signal_controller.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:39:23 by jgo              ###   ########.fr       */
+/*   Created: 2023/01/25 17:56:45 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/22 21:52:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef SIGNAL_CONTROLLER_H
+# define SIGNAL_CONTROLLER_H
 
-/* singleton.c */
 
-t_meta	*singleton(void);
+/* signal_init.c */
+void	signal_init(void);
 
-/* input.c */
-
-void	prompt(void);
-
-// debug.c 나중에 삭제 할 것
-void	print_list(void *content);
-
-/* utils.c */
-char	*get_cur_dir(void);
-
-/* prompt. c*/
-char *make_prompt(void);
+/* signal_controller.c */
+void    signal_controller(t_signal_flags flag);
 
 #endif

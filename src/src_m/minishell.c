@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:31:23 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 21:52:27 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "expander.h"
 #include "meta_command.h"
 #include "envp_command.h"
+#include "signal_controller.h"
 
 int main(int argc, char **argv, char **envp)
 {
@@ -30,9 +31,7 @@ int main(int argc, char **argv, char **envp)
 	char *test2 = "\"$SHELLasdsfasdf\"\"$USER\"";
 
 	envp_init(envp);
-	// display(get_envp());
-	signal(SIGQUIT, signal_process);
-	signal(SIGINT, signal_process);
+	signal_controller(SIG_INIT);
 	prompt();
 	// printf("please: %s\n", shell_param_expand(test));
 	// printf("please: %s\n", shell_param_expand(test1));

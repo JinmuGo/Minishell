@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 18:21:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 18:41:33 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/22 21:56:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_process(int signum)
+void    set_signal_init(int signum)
 {
-	if (signum == SIGINT)
+    if (signum == SIGINT)
 	{
 		printf("\n");
 		rl_on_new_line();
@@ -23,4 +23,10 @@ void	signal_process(int signum)
 	if (signum == SIGQUIT)
 		rl_on_new_line();
 	rl_redisplay();
+}
+
+void    signal_init(void)
+{
+    signal(SIGQUIT, set_signal_init);
+	signal(SIGINT, set_signal_init);
 }
