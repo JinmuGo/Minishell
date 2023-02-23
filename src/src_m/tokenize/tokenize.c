@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 19:50:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:20:09 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	make_tk_list(t_list **tk_list, char *line, int size)
 	{
 		stack_destory(&quote);
 		// int error_handler(ERR_SYN_QUOTE);
+		perror("unclosed quote");
 	}
 	size += treat_pipe(tk_list, &line[size], 0);
 	size += treat_rdr(tk_list, &line[size], 0);

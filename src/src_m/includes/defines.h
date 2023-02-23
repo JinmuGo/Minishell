@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 19:22:18 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/23 21:56:06 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef enum e_err_type t_err_type;
 /* struct typedef */
 
 typedef struct s_meta		t_meta;
-typedef struct s_here_doc	t_here_doc;
 typedef struct s_tree		t_tree;
 typedef struct s_stack		t_stack;
 typedef struct s_deque		t_deque;
@@ -56,6 +55,7 @@ typedef struct s_pipe		t_pipe;
 typedef struct s_token		t_token;
 typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
+typedef struct s_here_doc	t_here_doc;
 
 /* union typedef */
 
