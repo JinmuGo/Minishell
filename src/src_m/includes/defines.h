@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:16:42 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 19:22:18 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum e_err_type t_err_type;
 /* struct typedef */
 
 typedef struct s_meta		t_meta;
+typedef struct s_here_doc	t_here_doc;
 typedef struct s_tree		t_tree;
 typedef struct s_stack		t_stack;
 typedef struct s_deque		t_deque;
@@ -95,7 +96,7 @@ enum	e_tree_edge
 	RIGHT = 1
 };
 
-enum	e_simple_cmd_type	
+enum	e_simple_cmd_type
 {
 	FT_ECHO = 0,
 	FT_CD = 1,
@@ -125,11 +126,10 @@ enum	e_meta_flags
 enum	e_err_type
 {
 	// 100 번대 parsing
-	
+	ERR_RDR = 0
 	// 200 번대 heredoc
 	
 	// 300 번대 executor
-
 };
 
 struct s_meta
@@ -146,6 +146,12 @@ struct s_envp
 	char *key;
 	char *val;
 	int	val_len;
+};
+
+struct s_here_doc
+{
+	char	*file;
+	int		fd;
 };
 
 struct s_tree_node {

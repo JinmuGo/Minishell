@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:23:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:10:34 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:54:30 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ t_meta  *singleton(void)
 	if (meta != NULL)
 		return (meta);
 	meta = ft_calloc(1, sizeof(t_meta));
-    meta->envp = ft_malloc(sizeof(t_hash_table));
+	meta->envp = ft_malloc(sizeof(t_hash_table));
 	meta->exit_status = EXIT_SUCCESS;
-    init_hash_table(meta->envp);
+	meta->unlink_lst = NULL;
+	init_hash_table(meta->envp);
 	return (meta);
 }

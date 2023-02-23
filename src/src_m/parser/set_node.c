@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:43:01 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:23:43 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 19:21:10 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token , t_token *value
 	else if (!ft_strncmp(token->str, ">>", 3))
 		value->cmd_val.rdr->rdr_type = APPEND;
 	else if (!ft_strncmp(token->str, "<<", 3))
+	{
 		value->cmd_val.rdr->rdr_type = HEREDOC;
+		// here_doc(tk_list, dque, value);
+	}
 	*tk_list = delete_lst_node(tk_list, token);
 	if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == WORD)
 	{
