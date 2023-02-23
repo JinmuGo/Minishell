@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:13:18 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:43:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_simple_cmd_type t_simple_cmd_type;
 typedef enum e_envp_flags t_envp_flags;
 typedef enum e_meta_flags t_meta_flags;
 typedef enum e_err_type t_err_type;
+typedef enum e_signal_flags t_signal_flags;
 
 /* struct typedef */
 
@@ -120,7 +121,9 @@ enum	e_meta_flags
 	ENVP = 1,
 	UNLINK = 2,
 	ERR_NUM = 3,
-	EXIT_STATUS = 4
+	EXIT_STATUS = 4,
+	SET_ERR_NUM = 5,
+	SET_EXIT_STATUS = 6
 };
 
 enum	e_err_type
@@ -131,6 +134,12 @@ enum	e_err_type
 	
 	// 300 번대 executor
 
+};
+
+enum	e_signal_flags
+{
+	SIG_INIT = 0,
+	SIG_CHILD = 1
 };
 
 struct s_meta

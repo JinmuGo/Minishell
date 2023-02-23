@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:21:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/28 18:41:33 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:52:12 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "defines.h"
+#include "signal_controller.h"
 
-void	signal_process(int signum)
+void    signal_controller (struct sigaction *s_int, struct sigaction *s_quit, t_signal_flags flag, ...)
 {
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	if (signum == SIGQUIT)
-		rl_on_new_line();
-	rl_redisplay();
+	va_list	ap;
+	int	pid;
+
+	va_start(ap, flag);
+	pid = va_arg(ap, int);
+	if (flag == SIG_INIT)
+		signal_init(s_int, s_quit);
+	else if (flag = SIG_CHILD)
+		signal_child(pid);
+	va_end(ap);
 }

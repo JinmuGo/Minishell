@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:18:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/22 21:41:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "expander.h"
 #include "meta_command.h"
 
-char	*question_expand(const char *key)
+char	*question_expand()
 {
 	return (ft_itoa(get_exit_status()));
 }
@@ -29,7 +29,7 @@ int	expand_and_dup(char *dst, char *key, int j)
 	char	*expanded;
 
 	if (key[0] == '?')
-		expanded = question_expand(key);
+		expanded = question_expand();
 	else
 		expanded = get_envp_elem(key)->val;
 	free(key);
@@ -67,7 +67,7 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	len = get_envp_elem(dst)->val_len;
 	if (len == 0 && dst[0] == '?')
 	{
-		tmp_str = question_expand(dst);
+		tmp_str = question_expand();
 		len = ft_strlen(tmp_str);
 		free((void *)tmp_str);
 	}
