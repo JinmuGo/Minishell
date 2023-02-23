@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/22 21:42:57 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/23 19:16:00 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,9 @@ DIRS = utils \
 		expander \
 		tokenize \
 		parser \
-		signal_controller
-# executor \
+		signal_controller \
+		executor \
+		built_in
 
 HEADS = minishell.h \
 		utils.h \
@@ -73,4 +74,5 @@ re: fclean
 	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
 	$(MAKE)
 
-.PHONY: all clean fclean re bonus
+
+.PHONY: all clean fclean re bonus 

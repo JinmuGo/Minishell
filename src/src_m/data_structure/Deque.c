@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 16:13:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:24:40 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 19:10:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void    *dq_peek_rear(const t_deque *dque)
 
 void    dq_free(const t_deque *dque)
 {
-    int i;
+    size_t i;
 
     i = 0;
     while (i < dque->use_size)

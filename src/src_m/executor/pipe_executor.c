@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pipe_executor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 19:13:14 by jgo              ###   ########.fr       */
+/*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
+/*   Updated: 2023/02/23 18:53:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
-#include "utils.h"
-#include "data_structure.h"
-#include "expander.h"
-#include "meta_command.h"
-#include "envp_command.h"
-#include "signal_controller.h"
-#include "error.h"
 
-int main(int argc, char **argv, char **envp)
+void	pipe_executor(t_pipe *pipe)
 {
-	(void)argv;
-	if (argc != 1)
-		print_error(ERR_ARGS);
-	envp_init(envp);
-	prompt();
-	return (EXIT_SUCCESS);
+
 }
+

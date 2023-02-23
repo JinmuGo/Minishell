@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 19:15:25 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/23 19:15:51 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,10 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = executor.c \
-		is_built_in_cmd.c \
-		pipe_executor.c \
-		rdr_executor.c \
-		s_cmd_executor.c
+SRCS = built_in.c \
+		ft_export.c
 
-NAME = executor.a
+NAME = built_in.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:54:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:32:50 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void	cmd_expander(t_simple_cmd	*cmd)
  * 
  * @param token 
  */
-void	iter_token(t_token	*token)
+void	expander_classify_token(t_tree_node	*node)
 {
+	const t_token *token = (t_token *)(node->value);
+
 	if (token == NULL)
 		return ;
 	// RDR OR S_CMD만 확장한다.
@@ -69,11 +71,7 @@ void	iter_token(t_token	*token)
  * 
  * @param node // 트리안의 모든 노드를 돈다.
  */
-void    expander(t_tree_node *node)
+void    expander(t_tree *tree)
 {
-	if (node == NULL)
-		return ;	
-	iter_token(node->value);
-	expander(node->right);
-	expander(node->left);
+	tree->pre_order_traversal(tree->root, expander_classify_token);
 }

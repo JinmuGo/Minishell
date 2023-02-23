@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:22:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 19:25:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cu
 
 t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
-	char	*token_str;
-
 	if (dque == NULL)
 		dque = deque_init(ft_lstsize(tk_list));
 	if (!(*cur_list))

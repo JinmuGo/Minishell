@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 13:42:33 by jgo               #+#    #+#              #
-#    Updated: 2023/02/17 15:24:47 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/23 19:05:00 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ include $(TOPDIR)/config/color_rules.mk
 bonus :
 	$(MAKE) TOPDIR=$(TOPDIR) -C src_b $@
 
-all : 
+all $(PROJECT_NAME):
 	$(MAKE) TOPDIR=$(TOPDIR) -C src_m $@
 
 clean fclean :

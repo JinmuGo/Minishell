@@ -6,20 +6,23 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 19:46:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:27:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
+void    executor(t_tree *tree);
+
 /* is_built_in_cmd.c */
 
 t_simple_cmd_type	is_built_in_cmd(char *cmd);
 
-/* built_in.c */
-
-void    built_in(t_simple_cmd *simple_cmd);
+/* $(TYPE)_executor.c */
+void    rdr_executor(t_rdr *rdr);
+void	pipe_executor(t_pipe *pipe);
+void	s_cmd_executor(t_simple_cmd *simple_cmd);
 
 /* exit status */
 # define EXIT_COM_NOT_FOUND 127

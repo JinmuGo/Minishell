@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:43:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:56:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_pipe		t_pipe;
 typedef struct s_token		t_token;
 typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
+typedef struct s_here_doc	t_here_doc;
 
 /* union typedef */
 
@@ -72,6 +73,10 @@ typedef struct s_tree t_tree;
 typedef struct s_hash_table t_hash_table;
 typedef struct s_hash_asset t_hash_asset;
 typedef struct s_hash_elem  t_hash_elem;
+
+/* func_ptr typedef */
+typedef int	(*t_built_in_func)(t_simple_cmd *);
+typedef int	(*t_rdr_func)(t_rdr *);
 
 enum e_token_type
 {
@@ -156,6 +161,12 @@ struct s_envp
 	char *key;
 	char *val;
 	int	val_len;
+};
+
+struct s_here_doc
+{
+	char	*file;
+	int		fd;
 };
 
 struct s_tree_node {

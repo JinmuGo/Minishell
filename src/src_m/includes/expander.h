@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:38:03 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:27:35 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXPANDER_H
 
 /* expander.c */
-void    expander(t_tree_node *node);
+void    expander(t_tree *tree);
 
 /* expander_utils.c */
 

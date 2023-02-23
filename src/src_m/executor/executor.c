@@ -6,45 +6,42 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 19:57:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 21:33:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "executor.h"
-// RDR = 0,
-// PIPE = 1,
-// S_CMD = 4,
-void    rdr_executor(t_rdr *rdr)
-{
 
+void	executor_classify_token(t_tree_node	*node)
+{
+	const t_token *token = (t_token *)(node->value);
+
+	if (token->type == RDR)
+		rdr_executor(token->cmd_val.rdr);
+	else if (token->type == PIPE)
+		pipe_executor(token->cmd_val.pipe);
+	else if (token->type == S_CMD)
+		s_cmd_executor(token->cmd_val.simple_cmd);
 }
 
-void	pipe_executor(t_pipe *pipe)
+t_bool	is_single_built_in(t_tree_node *root)
 {
+	const t_token_type type = ((t_token *)(root->right->value))->type;
 
+	if (type == PIPE)
+		return (FT_FALSE);
+	else
+		return (FT_TRUE);
 }
 
-void	s_cmd_executor(t_simple_cmd *simple_cmd)
+void    executor(t_tree *tree)
 {
-	const t_simple_cmd_type type = is_built_in_cmd(simple_cmd->cmd);
+	const t_bool s_built_in = is_single_built_in(tree->root);
 
-	if (type != FT_EXTERNAL)
-	{
-		
-	}
-		
-}
-
-void    executor(t_tree_node *node)
-{
-	if (node == NULL)
-		return ;
-
-	
-
-
-	executor(node->left);
-	executor(node->right);
+	if (s_built_in)
+		tree->pre_order_traversal(tree->root->right, executor_classify_token);
+	else
+		tree->pre_order_traversal(tree->root, executor_classify_token);
 }
