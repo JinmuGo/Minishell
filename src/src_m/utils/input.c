@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:51:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 15:15:19 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	prompt(void)
 	line = readline(_prompt);
 	if (!line || ft_strncmp(line, "exit", 5) == 0)
 		exit(EXIT_SUCCESS);
+	add_history(line);
 	tree = parser(line);
 	// executor();
 	expander(tree->root);
