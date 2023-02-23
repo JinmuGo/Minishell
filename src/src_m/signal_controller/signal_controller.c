@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:21:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:52:12 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 18:34:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    signal_controller (struct sigaction *s_int, struct sigaction *s_quit, t_
 	pid = va_arg(ap, int);
 	if (flag == SIG_INIT)
 		signal_init(s_int, s_quit);
-	else if (flag = SIG_CHILD)
+	else if (flag == SIG_CHILD)
 		signal_child(pid);
 	va_end(ap);
 }
