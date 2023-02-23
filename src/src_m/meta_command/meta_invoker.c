@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:08:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:13:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:45:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,35 @@
 
 t_meta *get_meta(void)
 {
-    return ((t_meta *)meta_receiver(META));
+    return ((t_meta *)meta_receiver(META, NULL));
 }
 
 int     get_err_num(void)
 {
-    return (*(int *)meta_receiver(ERR_NUM));
+    return (*(int *)meta_receiver(ERR_NUM, NULL));
 }
 
 int     get_exit_status(void)
 {
-    return (*(int *)meta_receiver(EXIT_STATUS));
+    return (*(int *)meta_receiver(EXIT_STATUS, NULL));
 }
 
 t_hash_table *get_envp(void)
 {
-    return ((t_hash_table *)meta_receiver(ENVP));
+    return ((t_hash_table *)meta_receiver(ENVP, NULL));
 }
 
 t_list  *get_unlink_lst(void)
 {
-    return ((t_list *)meta_receiver(UNLINK));
+    return ((t_list *)meta_receiver(UNLINK, NULL));
+}
+
+void    set_err_num(int arg)
+{
+    meta_receiver(SET_ERR_NUM, arg);
+}
+
+void    set_exit_status(int arg)
+{
+    meta_receiver(SET_EXIT_STATUS, arg);
 }

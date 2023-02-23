@@ -6,11 +6,13 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:56:46 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:30:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "error.h"
+#include <errno.h>
 
 void    set_signal_init(int signum)
 {
@@ -25,8 +27,17 @@ void    set_signal_init(int signum)
 	rl_redisplay();
 }
 
-void    signal_init(void)
+void    signal_init(struct sigaction *s_int, struct sigaction *s_quit)
 {
-    signal(SIGQUIT, set_signal_init);
-	signal(SIGINT, set_signal_init);
+	sigset_t	mask;
+
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGINT);
+	sigaddset(&mask, SIGQUIT);
+	s_int->sa_mask = mask;
+	s_int->sa_handler = set_signal_init;
+	s_quit->sa_mask = mask;
+	s_quit->sa_handler = SIG_IGN;
+	sigaction(SIGINT, s_int, NULL);
+	sigaction(SIGQUIT, s_quit, NULL);
 }

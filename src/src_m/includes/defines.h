@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:44:29 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/23 17:43:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ enum	e_meta_flags
 	ENVP = 1,
 	UNLINK = 2,
 	ERR_NUM = 3,
-	EXIT_STATUS = 4
+	EXIT_STATUS = 4,
+	SET_ERR_NUM = 5,
+	SET_EXIT_STATUS = 6
 };
 
 enum	e_err_type
@@ -137,6 +139,7 @@ enum	e_err_type
 enum	e_signal_flags
 {
 	SIG_INIT = 0,
+	SIG_CHILD = 1
 };
 
 struct s_meta
