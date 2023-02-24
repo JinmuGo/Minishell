@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/05 14:02:20 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 18:59:41 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/24 15:00:15 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ LF				= --suppressions=readline.supp \
 # debug
 ifdef DEBUG
 	CFLAGS = -g3 -MMD -MP
+	LDFLAGS += -g3
 endif
 
 # just compile

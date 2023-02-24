@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:55:00 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:34:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 17:25:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_hash_elem *envp_receiver(t_envp_flags flag, const char *key, const char *val);
 
 /* envp_receiver_init.c*/
 void	envp_init(char **envp);
+char	*get_envp_key(char *envp_elem);
+char	*get_envp_val(char *envp_elem);
 
 /* envp_invoker.c */
 void	set_envp_elem(const char *key,const char *val);

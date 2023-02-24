@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:58:23 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/12 12:05:12 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 17:25:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "meta_command.h"
 #include "envp_command.h"
 
-static char	*get_envp_key(char *envp_elem)
+char	*get_envp_key(char *envp_elem)
 {
 	int	i;
 	char *key;
@@ -28,7 +28,7 @@ static char	*get_envp_key(char *envp_elem)
 	return (key);
 }
 
-static char	*get_envp_val(char *envp_elem)
+char	*get_envp_val(char *envp_elem)
 {
 	char *tmp;
 	char *val;

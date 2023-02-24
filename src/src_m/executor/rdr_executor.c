@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 21:56:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 14:19:37 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void    rdr_heredoc(t_rdr *rdr)
 
 void    rdr_executor(t_rdr *rdr)
 {
-    const t_rdr_func fp = {rdr_in, rdr_out, rdr_append, rdr_heredoc};
+    const t_rdr_func fp[4] = {rdr_in, rdr_out, rdr_append, rdr_heredoc};
 
     fp[rdr->rdr_type](rdr);
 }

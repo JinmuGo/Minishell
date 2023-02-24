@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 21:32:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 15:22:33 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	expander_classify_token(t_tree_node	*node)
  */
 void    expander(t_tree *tree)
 {
+	if (tree == NULL || tree->root == NULL)
+		return ;
 	tree->pre_order_traversal(tree->root, expander_classify_token);
 }

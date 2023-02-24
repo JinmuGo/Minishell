@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 21:33:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 15:20:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ t_bool	is_single_built_in(t_tree_node *root)
 
 void    executor(t_tree *tree)
 {
-	const t_bool s_built_in = is_single_built_in(tree->root);
+	t_bool s_built_in;
 
+	if (tree == NULL || tree->root == NULL)
+		return ;
+	s_built_in = is_single_built_in(tree->root);
 	if (s_built_in)
 		tree->pre_order_traversal(tree->root->right, executor_classify_token);
 	else
