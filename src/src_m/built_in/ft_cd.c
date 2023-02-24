@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 17:41:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/24 20:25:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ t_bool  exec_cd(char *cur_path)
     {
         path = get_envp_elem("HOME")->val;
         if (path == NULL)
-            return (print_built_in_err("cd","HOME", "not set"));
+            return (print_built_in_err("cd","HOME", ERR_NOT_SET));
     }
     else if (ft_strncmp(cur_path, "-", ft_strlen(cur_path)) == 0)
     {
         path = get_envp_elem("OLDPWD")->val;
         if (path == NULL)
-            return (print_built_in_err("cd", "OLDPWD","not set"));
+            return (print_built_in_err("cd", "OLDPWD", ERR_NOT_SET));
     }
     else
         path = cur_path;
