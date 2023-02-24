@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:43:01 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/23 19:21:10 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/24 17:04:27 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_token	*make_value(t_list **tk_list, t_tokenize *token, t_deque *dque)
 	return (value);
 }
 
-void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token , t_token *value)
+void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 {
 	t_list		*next_list;
 	t_tokenize	*next_token;
@@ -55,7 +55,9 @@ void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token , t_token *value
 	else if (!ft_strncmp(token->str, "<<", 3))
 	{
 		value->cmd_val.rdr->rdr_type = HEREDOC;
-		// here_doc(tk_list, dque, value);
+		here_doc(tk_list, dque, value);
+		*tk_list = delete_lst_node(tk_list, token);
+		return ;
 	}
 	*tk_list = delete_lst_node(tk_list, token);
 	if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == WORD)
@@ -69,7 +71,7 @@ void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token , t_token *value
 	value->cmd_val.rdr->file = NULL;
 }
 
-void	set_pipe(t_list **tk_list, t_tokenize *token , t_token *value)
+void	set_pipe(t_list **tk_list, t_tokenize *token, t_token *value)
 {
 	value->type = PIPE;
 	value->cmd_val.pipe->fd[0] = 0;
