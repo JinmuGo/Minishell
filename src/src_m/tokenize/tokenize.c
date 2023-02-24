@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/23 21:20:09 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/24 21:09:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ int	treat_word(t_list **tk_list, char *line, t_tokenize *token, t_stack *qte)
 		in_quote(line, token, qte);
 	if ((qte->size == 0 && (line[token->size] == '|' || \
 		line[token->size] == '<' || \
-		line[token->size] == '>' || (9 <= line[token->size] && \
-		line[token->size] <= 13) || line[token->size] == 32)) || \
-		line[token->size] == '\0')
+		line[token->size] == '>' || ft_isspace(line[token->size])) || \
+		line[token->size] == '\0'))
 		return (token_node_add(tk_list, line, token));
 	token->size++;
 	treat_word(tk_list, line, token, qte);
