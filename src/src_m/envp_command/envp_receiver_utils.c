@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:45:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:33:54 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 16:51:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,4 @@ t_hash_asset    hash_asset_init(t_hash_table *ht, const char *str)
 	rv.hash = hash;
 	rv.d_hash = d_hash;
 	return (rv);
-}
-
-// debug
-void display(t_hash_table *ht)
-{
-	printf("\nelements in the hash table are \n");
-	for (int i = 0; i < ht->size; i++)
-		printf("\nat index %d \t key = %s value =  %s\n", i, ht->bucket[i].key,ht->bucket[i].val);
-
-	printf("ht size : %d\n", ht->size);
-	printf("ht cnt : %d\n", ht->cnt);
 }

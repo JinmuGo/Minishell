@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 20:26:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 18:16:35 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERROR_H
 
 # define ERR_ARGS "arg error: minishell dosen't take args"
+# define ERR_INVALID_ARGS "Invalid argument"
 
 # define ERR_NOT_SET "not set"
 # define ERR_INVALID_IDENT "not a valid identifier"

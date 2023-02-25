@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 20:25:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 17:42:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 t_bool  exec_cd(char *cur_path)
 {
-    t_hash_elem *elem;
     char    *path;
 
     if (cur_path == NULL)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 12:03:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 17:19:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "defines.h"
 #include "error.h"
 #include "envp_command.h"
-#include "built_in.h"
 #include "meta_command.h"
+#include "built_in.h"
 
 
 // https://www.geeksforgeeks.org/shell-scripting-rules-for-naming-variable-name/
@@ -26,6 +26,10 @@
 // Rule 6: Variable name cannot have whitespace in between
 
 //  export asdf 뒤에 인자가 없는 경우 실패도 아니고 아무 동작도 하지않고 끝난다.  
+void	print_all_exported()
+{
+	print_envp_elem("declare -x");
+}
 
 void	append_val(char *tmp, char *src)
 {
@@ -74,11 +78,12 @@ t_bool  exec_export(char *arg)
 void ft_export(t_simple_cmd *simple_cmd)
 {
     int i;
-
+	const int len = ft_arrlen((void **)simple_cmd->args);
     i = 0;
-	
-
-    while (simple_cmd->args[++i])
-        if (exec_export(simple_cmd->args[i]))
-			set_exit_status(EXIT_SUCCESS);
+	if (len == 1)
+		print_all_exported();
+	else
+		while (simple_cmd->args[++i])
+			if (exec_export(simple_cmd->args[i]))
+				set_exit_status(EXIT_SUCCESS);
 }
