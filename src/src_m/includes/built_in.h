@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:17:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 15:16:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 11:47:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ void ft_export(t_simple_cmd *simple_cmd);
 void ft_unset(t_simple_cmd *simple_cmd);
 void ft_env(t_simple_cmd *simple_cmd);
 void ft_exit(t_simple_cmd *simple_cmd);
+
+t_bool	is_valid_params(char c);
 
 #endif
