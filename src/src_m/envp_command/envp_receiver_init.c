@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:58:23 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 17:25:29 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 20:14:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	envp_init(char **envp)
 	{
 		key = get_envp_key(envp[i]);
 		val = get_envp_val(envp[i]);
-		set_envp_elem(key, val);
+		if (ft_strlen(key) && ft_strlen(val))
+			set_envp_elem(key, val);
+		else
+			ft_free_n(2, key, val);
 	}
 }
