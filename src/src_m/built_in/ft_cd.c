@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 17:42:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 18:36:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_bool  exec_cd(char *cur_path)
     if(chdir(path) == -1)
     {
         free(path);
-        return (print_error(strerror(errno)));
+        return (print_error(strerror(errno), errno));
     }
     free(path);
     return (FT_TRUE);
@@ -62,7 +62,7 @@ void ft_cd(t_simple_cmd *simple_cmd)
         set_envp_elem("OLDPWD", pwd->val);
         cwd = getcwd(NULL, 0);
         if (cwd == NULL)
-            print_error(strerror(errno));
+            print_error(strerror(errno), errno);
         set_envp_elem("PWD", cwd);
         set_exit_status(EXIT_SUCCESS);
     }

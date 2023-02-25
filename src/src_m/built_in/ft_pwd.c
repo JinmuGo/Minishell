@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 17:43:03 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 18:32:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void ft_pwd(t_simple_cmd *simple_cmd)
     if (cwd == NULL)
     {
         set_exit_status(EXIT_FAILURE);
-        print_error(strerror(errno));
+        print_error(strerror(errno), errno);
         return ;
     }
     ft_putstr_fd(cwd, STDOUT_FILENO);
