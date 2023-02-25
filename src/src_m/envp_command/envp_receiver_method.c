@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 14:31:43 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 17:30:27 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,19 @@ void	hash_delete(t_hash_table *ht,const char *key)
 	target->key = NULL;
 	target->val = NULL;
 	target->val_len = 0;
+}
+
+void hash_print_all(const char *option ,t_hash_table *ht)
+{
+	int	i;
+
+	i = -1;
+	while (++i < ht->size)
+		if (ht->bucket[i].key)
+		{
+			if (option)
+				printf("%s %s=%s\n", option,ht->bucket[i].key, ht->bucket[i].val);
+			else
+				printf("%s=%s\n", ht->bucket[i].key, ht->bucket[i].val);
+		}
 }

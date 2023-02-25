@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 21:56:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 18:19:08 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
 # define DOLLAR	 '$'
+# define BUILT_IN_EXEC_OK 1
+# define BUILT_IN_EXEC_FAIL 0
 
 /* color */
 # define BOLD "\e[1m"
@@ -75,8 +77,8 @@ typedef struct s_hash_asset t_hash_asset;
 typedef struct s_hash_elem  t_hash_elem;
 
 /* func_ptr typedef */
-typedef int	(*t_built_in_func)(t_simple_cmd *);
-typedef int	(*t_rdr_func)(t_rdr *);
+typedef void	(*t_built_in_func)(t_simple_cmd *);
+typedef void	(*t_rdr_func)(t_rdr *);
 
 enum e_token_type
 {
@@ -117,7 +119,8 @@ enum	e_envp_flags
 {
 	SET = 0,
 	GET = 1,
-	DEL = 2
+	DEL = 2,
+	PRINT = 3
 };
 
 enum	e_meta_flags
@@ -134,11 +137,11 @@ enum	e_meta_flags
 enum	e_err_type
 {
 	// 100 번대 parsing
-	ERR_PARSE = 100
+	ERR_PARSE_NUM = 100,
 	// 200 번대 heredoc
 	
 	// 300 번대 executor
-
+	ERR_ARGS_NUM = 300
 };
 
 enum	e_signal_flags

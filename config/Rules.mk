@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/05 14:02:20 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 18:59:41 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/25 18:10:04 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,10 @@ CPPFLAGS = -I$(TOPDIR)/includes -I$(TOPDIR)/src/src_m/includes -I$(shell brew --
 LDFLAGS = -L$(TOPDIR)/lib -L$(shell brew --prefix readline)/lib
 LDLIBS = -lft -lreadline
 
-LEAKS 			= valgrind
-LEAKS_FILE		= valgrind-out.txt
-LF				= --suppressions=readline.supp \
-				--leak-check=full \
-				--track-origins=yes \
-				--show-leak-kinds=all \
-				--log-file=$(LEAKS_FILE)
-
-
 # debug
 ifdef DEBUG
 	CFLAGS = -g3 -MMD -MP
+	LDFLAGS += -g3
 endif
 
 # just compile

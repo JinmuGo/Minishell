@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 19:15:51 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/25 11:43:14 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,14 @@ include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
 SRCS = built_in.c \
-		ft_export.c
+		built_in_utils.c \
+		ft_echo.c \
+		ft_cd.c \
+		ft_pwd.c \
+		ft_export.c \
+		ft_unset.c \
+		ft_env.c \
+		ft_exit.c 
 
 NAME = built_in.a
 

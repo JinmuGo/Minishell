@@ -6,17 +6,32 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 15:16:08 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 18:32:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "defines.h"
+#include "meta_command.h"
 
-void print_error(char *str)
+t_bool print_error(const char *str, int exit_status)
 {
-    write(2, "Minishell: ", 12);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 2);
+    write(STDERR_FILENO, "Minishell: ", 12);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, "\n", 2);
+	set_exit_status(exit_status);
+	return (FT_FALSE);
+}
+
+// bash: cd: OLDPWD not set
+t_bool	print_built_in_err(char *cmd, char *key, char *msg)
+{
+	const char *add_colon = ft_strjoin(cmd, ": ");
+	const char *line = ft_strcombine(4, add_colon, key, ": ",msg);
+
+	print_error(line, EXIT_FAILURE);
+	ft_free_n(2, add_colon, line);
+	return (FT_FALSE);
 }
 
 /**
