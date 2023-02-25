@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 18:44:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 20:55:07 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	prompt(void)
 	line = readline(_prompt);
 	if (!line)
 	{
-		ft_printf("exit\n");
+		printf("exit\n");
 		clear_history();
 		// free_all_asset
 		exit(EXIT_SUCCESS);
@@ -41,6 +41,7 @@ void	prompt(void)
 	expander(tree);
 	print_tree_node(tree->root, 0);
 	executor(tree);
+	print_tree_node(tree->root, 0);
 	free(line);
 	free((void *)_prompt);
 	prompt();

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 15:20:42 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/25 21:21:27 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ t_bool	is_single_built_in(t_tree_node *root)
 	else
 		return (FT_TRUE);
 }
+
+// S_CMD 실행시에만 fork를 떠보자. 
+// 실행 이전에 처리해야 할 것들.
+// 부모와 자식 signal 처리.
+// abs_path가져오기. 
+// 부모는 자식의 pid를 받고 wait, waitpid를 건다. 마지막 자식의 exit_status저장. 
+// 그렇다면 pipe는 어떻게 저장할 것인가? -> pipe_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
+// 그 와중에 rdr이 있다면 handling을 해준다. abs_path를 가져와서 실행가능하다면 실행 아니면 command not found
+// 실행 이후 처리해야 할 것들.
+// 사용한 pipe의 fd는 close 
+// rdr도 close
+// 
 
 void    executor(t_tree *tree)
 {
