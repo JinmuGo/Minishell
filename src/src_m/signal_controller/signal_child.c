@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:33:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:59:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/26 16:53:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_signal_child(int sig)
 }
 
 // child의  signal을 처리하지만 child가 실행될 때 main shell의 상태도 함께 처리한다. ㄴ
-void signal_child(int pid)
+void signal_child(pid_t	pid)
 {
     sigset_t			mask;
 	struct sigaction	s_int;

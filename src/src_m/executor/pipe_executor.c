@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 20:58:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/26 16:30:15 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void	pipe_executor(t_pipe *_pipe)
 {
-    if(pipe(_pipe->fd) == -1)
-        print_error(strerror(errno) ,errno);
+    print_system_call_err(pipe(_pipe->fd));
 }
 

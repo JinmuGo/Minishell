@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:46:42 by jgo               #+#    #+#             */
-/*   Updated: 2022/12/13 14:51:29 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/26 15:13:15 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	px_child_process(int L, t_argument *arg, int input)
 	}
 	if (L != arg->cmd_cnt - 1)
 		close(fd[1]);
-	px_child_process(L + 1, arg, fd[0]);
+	px_child_process(L + 1, arg, fd[]);
 	close(input);
 	if (L == arg->cmd_cnt - 1)
 		pid = waitpid(pid, &arg->last_status, 0);

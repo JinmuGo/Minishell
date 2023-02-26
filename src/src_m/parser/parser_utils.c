@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:23:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/26 15:15:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ void	recover_dque(t_deque *dque, int re_cnt)
 	}
 }
 
-void	print_tree_node(t_tree_node *node, int level)
+void	print_tree_node(t_tree_node *node, int level, char *direct)
 {
 	if (node == NULL)
 		return ;
 	printf("%*s", level * 4, "|");
 	if (((t_token *)(node->value))->type == RDR)
-		printf("_RDR_node_\nrdr_type: %u, file: %s", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file);
+		printf("_RDR_node_\nrdr_type: %u, file: %s fd: %d", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file, ((t_token *)(node->value))->cmd_val.rdr->fd);
 	else if(((t_token *)(node->value))->type == PIPE)
 		printf("_PIPE_node_\nfd[0][1]: %d, %d", ((t_token *)(node->value))->cmd_val.pipe->fd[0], ((t_token *)(node->value))->cmd_val.pipe->fd[1]);
 	else if(((t_token *)(node->value))->type == CMD)
@@ -95,6 +95,7 @@ void	print_tree_node(t_tree_node *node, int level)
 			printf("%s,", ((t_token *)(node->value))->cmd_val.simple_cmd->args[i++]);
 	}
 	printf("\n");
-	print_tree_node(node->left, level + 1);
-	print_tree_node(node->right, level + 1);
+	printf("cur direct: %s\n", direct);
+	print_tree_node(node->left, level + 1, "left");
+	print_tree_node(node->right, level + 1, "right");
 }

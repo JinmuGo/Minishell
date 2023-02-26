@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/21 17:14:28 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/26 15:06:26 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token 
 t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token);
 int		search_rdr(t_deque *dque);
 void	recover_dque(t_deque *dque, int re_cnt);
-void	print_tree_node(t_tree_node *node, int level);
+void	print_tree_node(t_tree_node *node, int level, char *direct);
 #endif

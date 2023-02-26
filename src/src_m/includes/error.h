@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 18:32:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/26 15:22:40 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 
 t_bool print_error(const char *str, int exit_status);
 t_bool	print_built_in_err(char *cmd, char *key, char *msg);
+void	print_system_call_err(int rv);
 
 #endif
