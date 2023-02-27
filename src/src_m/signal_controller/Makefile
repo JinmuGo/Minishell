@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/22 21:36:33 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/23 17:58:21 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,20 +17,18 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = utils.c \
-		input.c \
-		error.c \
-		debug.c \
-		singleton.c \
-		prompt.c
+SRCS = signal_controller.c \
+	signal_init.c \
+	signal_child.c
 
-NAME = utils.a
+NAME = signal_controller.a
+	
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
-all bonus : 
+all bonus :
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)
