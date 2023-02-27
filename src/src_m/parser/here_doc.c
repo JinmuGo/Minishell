@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/24 17:36:15 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/27 20:52:06 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,59 @@
 void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 {
 	t_here_doc	*content;
-	t_list		*unlink_list;
-	t_list		*new_list;
-
-	unlink_list = get_unlink_lst();
-	content = exe_here_doc(tk_list, dque, &unlink_list);
-	value->cmd_val.rdr->file = ft_strdup(content->file);
-	new_list = ft_calloc(1, sizeof(t_list));
-	new_list->content = content;
-	new_list->next = NULL;
-	ft_lstadd_back(&unlink_list, new_list);
-}
-
-t_here_doc	*exe_here_doc(t_list **tk_list, t_deque *dque, t_list **unlink_list)
-{
-	t_here_doc	*content;
+	t_list		*new_unlink;
 	char		*file_path;
-	int			fd;
+	int			pid;
+	t_tokenize		*token;
 
 	file_path = creat_file();
 	content = ft_calloc(1, sizeof(t_here_doc));
-	content->fd = open(file_path, O_WRONLY | O_CREAT, 0644);
-	if (content->fd == -1)
+	new_unlink = ft_calloc(1, sizeof(t_list));
+	// here_doc signal
+	pid = fork();
+	if (pid == 0)
+		exe_here_doc(tk_list, dque, file_path);
+	else
+	{
+		wait(0);
+		// 부모 시그널
+		content->fd = open(file_path, O_RDONLY, 0644);
+		unlink(file_path);
+		content->file = ft_strdup(file_path);
+		value->cmd_val.rdr->file = ft_strdup(file_path);
+		free(file_path);
+		new_unlink->content = content;
+		token = ((t_list *)(dque->pop_front(dque)))->content;
+		delete_lst_node(tk_list, token);
+	}
+}
+
+// void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
+// {
+// 	t_here_doc	*content;
+// 	t_list		*unlink_list;
+// 	t_list		*new_list;
+
+// 	unlink_list = get_unlink_lst();
+// 	content = exe_here_doc(tk_list, dque, &unlink_list);
+// 	value->cmd_val.rdr->file = ft_strdup(content->file);
+// 	new_list = ft_calloc(1, sizeof(t_list));
+// 	new_list->content = content;
+// 	new_list->next = NULL;
+// 	ft_lstadd_back(&unlink_list, new_list);
+// }
+
+void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path)
+{
+	int			fd;
+
+	fd = open(file_path, O_WRONLY | O_CREAT, 0644);
+	if (fd == -1)
 		perror("file open error");
-	write_to_file(tk_list, dque, content);
-	close(content->fd);
-	content->fd = open(file_path, O_RDONLY);
-	content->file = file_path;
-	unlink(file_path);
-	return (content);
+	write_to_file(tk_list, dque, fd);
+	close(fd);
+	free(file_path);
+	exit(EXIT_SUCCESS);
 }
 
 char	*creat_file(void)
@@ -74,7 +98,7 @@ char	*creat_file(void)
 	return (file_path);
 }
 
-void	write_to_file(t_list **tk_list, t_deque *dque, t_here_doc *content)
+void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
 {
 	t_tokenize	*token;
 	char		*delimter;
@@ -84,14 +108,14 @@ void	write_to_file(t_list **tk_list, t_deque *dque, t_here_doc *content)
 	delimter = token->str;
 	new_delimter = NULL;
 	if (validation_delimter(delimter, &new_delimter))
-		normal_write(content, new_delimter);
+		normal_write(fd, new_delimter);
 	else
-		expand_write(content, new_delimter);
+		expand_write(fd, new_delimter);
 	free(new_delimter);
 	delete_lst_node(tk_list, token);
 }
 
-void	normal_write(t_here_doc *content, char *delimter)
+void	normal_write(int fd, char *delimter)
 {
 	char	*line;
 
@@ -105,13 +129,13 @@ void	normal_write(t_here_doc *content, char *delimter)
 			free(line);
 			break ;
 		}
-		if (write(content->fd, line, ft_strlen(line)) == -1)
+		if (write(fd, line, ft_strlen(line)) == -1)
 			perror("infile write error()");
 		free(line);
 	}
 }
 
-void	expand_write(t_here_doc *content, char *delimter)
+void	expand_write(int fd, char *delimter)
 {
 	char	*line;
 	char	*expand_line;
@@ -127,7 +151,7 @@ void	expand_write(t_here_doc *content, char *delimter)
 			break ;
 		}
 		line = shell_param_expand(line);
-		if (write(content->fd, line, ft_strlen(line)) == -1)
+		if (write(fd, line, ft_strlen(line)) == -1)
 			perror("write error");
 		free(line);
 	}
@@ -158,67 +182,66 @@ int	validation_delimter(char *delimter, char **new_delimter)
 
 	quote = check_heredoc_quote(delimter);
 	*new_delimter = edit_delimter(delimter);
+	printf("delimter: %s\n", *new_delimter);
 	return (quote);
 }
 
 char	*edit_delimter(char *delimter)
 {
-	char	*new_delimter;
 	int		size;
 
 	size = get_new_delimter_size(delimter);
-	new_delimter = ft_calloc(1, sizeof(size + 1));
-	return (make_new_delimter(delimter, new_delimter, size));
+	return (make_new_delimter(delimter, size));
 }
 
 int	get_new_delimter_size(char *delimter)
 {
 	int		size;
 	int		idx;
+	t_stack	quote;
 
 	idx = 0;
 	size = 0;
-	if (delimter[idx] == '\0')
-		return (size);
-	if (delimter[idx] == '\\')
+	stack_init(&quote);
+	while(delimter && delimter[idx])
 	{
-		idx++;
-		if (delimter[idx] != '\0' && (delimter[idx] == '\'' || delimter[idx] == '\"' || delimter[idx] == '\\'))
+		if (quote.size > 0 && delimter[idx] == *(char *)quote.peek(&quote))
 		{
-			size++;
-			idx++;
+			quote.pop(&quote);
+			idx++;	
 		}
-		// else if (delimter[idx] == NULL)
-			// 멀티라인 에러
+		else if (quote.size == 0 && (delimter[idx] == '\'' || delimter[idx] == '\"'))
+			quote.push(&quote, &delimter[idx++]);
+		else
+		{
+			idx++;
+			size++;
+		}
 	}
-	else if (delimter[idx] == '\'' || delimter[idx] == '\"')
-		idx++;
-	else
-	{
-		size++;
-		idx++;
-	}
-	return (size + get_new_delimter_size(&delimter[idx]));
+	stack_destory(&quote);
+	return (size);
 }
 
-char	*make_new_delimter(char *delimter, char *new_delimter, int size)
+char	*make_new_delimter(char *delimter, int size)
 {
-	int	idx;
-	int	new_idx;
+	t_stack	quote;
+	int		idx;
+	int		new_idx;
+	char	*new_delimter;
 
+	stack_init(&quote);
+	new_delimter = ft_calloc(1, size + 1);
 	idx = 0;
 	new_idx = 0;
-	new_delimter[size] = '\0';
-	while (delimter && delimter[idx] && new_idx < size)
+	while (delimter && delimter[idx])
 	{
-		if (delimter[idx] == '\\')
+		if (quote.size > 0 && delimter[idx] == *(char *)quote.peek(&quote))
 		{
+			quote.pop(&quote);
 			idx++;
-			if (delimter[idx] && (delimter[idx] == '\'' || delimter[idx] == '\"' || delimter[idx] == '\\'))
-				new_delimter[new_idx++] = delimter[idx++];
 		}
-		else if (delimter[idx] == '\'' || delimter[idx] == '\"')
-			idx++;
+		else if (quote.size == 0 && (delimter[idx] == '\'' || delimter[idx] == '\"'))
+			quote.push(&quote, &delimter[idx++]);
 		else
 			new_delimter[new_idx++] = delimter[idx++];
 	}
