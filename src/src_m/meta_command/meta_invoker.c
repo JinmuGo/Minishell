@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta_invoker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:08:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 18:35:31 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:11:45 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int     get_err_num(void)
     return (*(int *)meta_receiver(ERR_NUM, 0));
 }
 
-int     get_exit_status(void)
+int     *get_exit_status(void)
 {
-    return (*(int *)meta_receiver(EXIT_STATUS, 0));
+    return ((int *)meta_receiver(EXIT_STATUS, 0));
 }
 
 t_hash_table *get_envp(void)
@@ -35,9 +35,9 @@ t_hash_table *get_envp(void)
     return ((t_hash_table *)meta_receiver(ENVP, 0));
 }
 
-t_list  *get_unlink_lst(void)
+t_list  **get_unlink_lst(void)
 {
-    return ((t_list *)meta_receiver(UNLINK, 0));
+    return ((t_list **)meta_receiver(UNLINK, 0));
 }
 
 void    set_err_num(int arg)

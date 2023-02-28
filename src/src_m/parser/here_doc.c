@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/27 20:52:06 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/28 19:09:32 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,49 @@
 #include "data_structure.h"
 #include "meta_command.h"
 #include "expander.h"
+#include "signal_controller.h"
 
 void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 {
+	pid_t			pid;
 	t_here_doc	*content;
 	t_list		*new_unlink;
 	char		*file_path;
-	int			pid;
-	t_tokenize		*token;
 
 	file_path = creat_file();
 	content = ft_calloc(1, sizeof(t_here_doc));
 	new_unlink = ft_calloc(1, sizeof(t_list));
-	// here_doc signal
 	pid = fork();
+	signal_controller(SIG_CHILD, pid);
 	if (pid == 0)
 		exe_here_doc(tk_list, dque, file_path);
 	else
 	{
-		wait(0);
-		// 부모 시그널
+		heredoc_wait(pid);
+		signal_controller(SIG_INIT);
 		content->fd = open(file_path, O_RDONLY, 0644);
 		unlink(file_path);
 		content->file = ft_strdup(file_path);
 		value->cmd_val.rdr->file = ft_strdup(file_path);
 		free(file_path);
 		new_unlink->content = content;
-		token = ((t_list *)(dque->pop_front(dque)))->content;
-		delete_lst_node(tk_list, token);
+		ft_lstadd_back(get_unlink_lst(), new_unlink);
+		delete_lst_node(tk_list, ((t_list *)(dque->pop_front(dque)))->content);
 	}
 }
 
-// void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
-// {
-// 	t_here_doc	*content;
-// 	t_list		*unlink_list;
-// 	t_list		*new_list;
+void	heredoc_wait(pid_t pid)
+{
+	t_meta	*meta;
 
-// 	unlink_list = get_unlink_lst();
-// 	content = exe_here_doc(tk_list, dque, &unlink_list);
-// 	value->cmd_val.rdr->file = ft_strdup(content->file);
-// 	new_list = ft_calloc(1, sizeof(t_list));
-// 	new_list->content = content;
-// 	new_list->next = NULL;
-// 	ft_lstadd_back(&unlink_list, new_list);
-// }
+	meta = get_meta();
+	waitpid(pid, &(meta->exit_status), 0);
+	meta->exit_status = WEXITSTATUS(meta->exit_status);
+}
 
 void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path)
 {
-	int			fd;
+	int	fd;
 
 	fd = open(file_path, O_WRONLY | O_CREAT, 0644);
 	if (fd == -1)
@@ -121,39 +115,54 @@ void	normal_write(int fd, char *delimter)
 
 	while (1)
 	{
-		write(1, "> ", 3);
-		line = get_next_line(0);
-		if (ft_strncmp(line, delimter, ft_strlen(line) - 1) == 0 && \
-			ft_strlen(line) - 1 == ft_strlen(delimter))
+		line = readline("> ");
+		if ((ft_strncmp(line, delimter, ft_strlen(line)) == 0 && \
+			ft_strlen(line) == ft_strlen(delimter)))
 		{
 			free(line);
 			break ;
 		}
-		if (write(fd, line, ft_strlen(line)) == -1)
-			perror("infile write error()");
-		free(line);
+		else if (!line)
+		{
+			if (write(fd, "\n", 1) == -1)
+				perror("infile write error");
+		}
+		else
+		{
+			if (write(fd, ft_strjoin(line, "\n"), ft_strlen(line) + 1) == -1)
+				perror("infile write error()");
+		}
+		if (line)
+			free(line);
 	}
 }
 
 void	expand_write(int fd, char *delimter)
 {
 	char	*line;
-	char	*expand_line;
 
 	while (1)
 	{
-		write(1, "> ", 3);
-		line = get_next_line(0);
-		if (ft_strncmp(line, delimter, ft_strlen(line) - 1) == 0 && \
-			ft_strlen(line) - 1 == ft_strlen(delimter))
+		line = readline("> ");
+		if ((ft_strncmp(line, delimter, ft_strlen(line)) == 0 && \
+			ft_strlen(line) == ft_strlen(delimter)))
 		{
 			free(line);
 			break ;
 		}
-		line = shell_param_expand(line);
-		if (write(fd, line, ft_strlen(line)) == -1)
-			perror("write error");
-		free(line);
+		else if (!line)
+		{
+			if (write(fd, "\n", 1) == -1)
+				perror("infile write error");
+		}
+		else
+		{
+			line = shell_param_expand(line);
+			if (write(fd, ft_strjoin(line, "\n"), ft_strlen(line) + 1) == -1)
+				perror("infile write error()");
+		}
+		if (line)
+			free(line);
 	}
 }
 
@@ -182,7 +191,6 @@ int	validation_delimter(char *delimter, char **new_delimter)
 
 	quote = check_heredoc_quote(delimter);
 	*new_delimter = edit_delimter(delimter);
-	printf("delimter: %s\n", *new_delimter);
 	return (quote);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meta_command.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 15:48:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:46:15 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:11:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void    *meta_receiver(t_meta_flags flag, int arg);
 t_meta *get_meta(void);
 int     get_err_num(void);
 t_hash_table *get_envp(void);
-t_list  *get_unlink_lst(void);
-int     get_exit_status(void);
+t_list  **get_unlink_lst(void);
+int     *get_exit_status(void);
 void    set_err_num(int arg);
 void    set_exit_status(int arg);
 

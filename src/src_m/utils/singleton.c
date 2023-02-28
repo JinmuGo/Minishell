@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:23:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/24 17:29:46 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/28 21:44:33 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_meta  *singleton(void)
 	meta = ft_calloc(1, sizeof(t_meta));
 	meta->envp = ft_malloc(sizeof(t_hash_table));
 	meta->exit_status = EXIT_SUCCESS;
+	meta->err = ERR_NOTHING;
 	meta->unlink_lst = ft_calloc(1, sizeof(t_list));
 	init_hash_table(meta->envp);
 	return (meta);

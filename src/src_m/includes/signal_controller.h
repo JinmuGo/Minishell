@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_controller.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:56:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:51:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:03:22 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void    signal_init(struct sigaction *s_int, struct sigaction *s_quit);
 void signal_child(int pid);
 
 /* signal_controller.c */
-void    signal_controller (struct sigaction *s_int, struct sigaction *s_quit, t_signal_flags flag, ...);
+void    signal_controller (t_signal_flags flag, ...);
 
 #endif

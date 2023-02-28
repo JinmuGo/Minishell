@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_parameter_expansion.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 21:41:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:20:52 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 char	*question_expand()
 {
-	return (ft_itoa(get_exit_status()));
+	return (ft_itoa(*(get_exit_status())));
 }
 
 int	expand_and_dup(char *dst, char *key, int j)

@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/27 19:19:58 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/28 21:36:04 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,24 @@ t_list		*delete_lst_node(t_list **tk_list, t_tokenize *token);
 int			search_rdr(t_deque *dque);
 void		recover_dque(t_deque *dque, int re_cnt);
 
+/* here_doc.c */
+
 void	here_doc(t_list **tk_list, t_deque *dque, t_token *value);
+void	heredoc_wait(pid_t pid);
 void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path);
 char	*creat_file(void);
 void	write_to_file(t_list **tk_list, t_deque *dque, int fd);
 void	normal_write(int fd, char *delimter);
 void	expand_write(int fd, char *delimter);
-int	check_heredoc_quote(char *str);
-int	validation_delimter(char *delimter, char **new_delimter);
+int		check_heredoc_quote(char *str);
+int		validation_delimter(char *delimter, char **new_delimter);
 char	*edit_delimter(char *delimter);
-int	get_new_delimter_size(char *delimter);
+int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);
 
+/* lexer_parse.c */
+void	lexer_pipe(t_list *token, t_list **tk_list);
+int		lexer_rdr(t_list *token);
 
-void		print_tree_node(t_tree_node *node, int level);
+void	print_tree_node(t_tree_node *node, int level);
 #endif

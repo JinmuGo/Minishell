@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:43:01 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/27 20:39:33 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/28 17:10:08 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 	{
 		value->cmd_val.rdr->rdr_type = HEREDOC;
 		here_doc(tk_list, dque, value);
-		*tk_list = delete_lst_node(tk_list, token); // leak 의심
+		*tk_list = delete_lst_node(tk_list, token);
 		return ;
 	}
 	*tk_list = delete_lst_node(tk_list, token);

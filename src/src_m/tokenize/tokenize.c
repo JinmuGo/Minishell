@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/27 20:03:59 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/02/28 20:52:05 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_list	*tokenize(char *line)
 	tmp = tk_list->next;
 	free(tk_list);
 	tk_list = tmp;
-	// print_tokenize(tk_list);
+	print_tokenize(tk_list);
 	return (tk_list);
 }
 
@@ -82,9 +82,15 @@ int	treat_rdr(t_list **tk_list, char *line, t_tokenize *token)
 {
 	if (!token)
 		token = tokenize_init(token, RDR);
-	if (line[token->size] != '<' && line[token->size] != '>')
+	if (token->size > 0)
+	{
+		if (line[token->size - 1] != line[token->size])
+			return (token_node_add(tk_list, line, token));
+	}
+	if (line[token->size] == '<' || line[token->size] == '>')
+		token->size++;
+	else
 		return (token_node_add(tk_list, line, token));
-	token->size++;
 	treat_rdr(tk_list, line, token);
 	return (token->size);
 }

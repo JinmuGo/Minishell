@@ -6,7 +6,7 @@
 #    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/24 16:21:25 by sanghwal         ###   ########seoul.kr   #
+#    Updated: 2023/02/28 20:33:59 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = parser.c \
 	insert_node.c \
 	set_node.c \
 	parser_utils.c \
-	here_doc.c
+	here_doc.c \
+	lexer_parse.c
 
 NAME = parser.a
 
