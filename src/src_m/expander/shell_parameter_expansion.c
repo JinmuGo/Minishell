@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 11:44:09 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:12:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 char	*question_expand()
 {
-	return (ft_itoa(get_exit_status()));
+	return (ft_itoa(*(get_exit_status())));
 }
 
 int	expand_and_dup(char *dst, char *key, int j)

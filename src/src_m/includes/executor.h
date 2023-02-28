@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/26 16:28:13 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 17:20:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    executor(t_tree *tree);
 t_simple_cmd_type	is_built_in_cmd(char *cmd);
 
 /* $(TYPE)_executor.c */
-void    rdr_executor(t_rdr *rdr);
+void    rdr_executor(t_tree_node *node);
 void	pipe_executor(t_pipe *pipe);
 void	cmd_executor(t_tree_node *node);
 

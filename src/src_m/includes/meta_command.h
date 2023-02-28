@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 15:48:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 17:46:15 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:12:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_meta *get_meta(void);
 int     get_err_num(void);
 t_hash_table *get_envp(void);
 t_list  *get_unlink_lst(void);
-int     get_exit_status(void);
+int     *get_exit_status(void);
 void    set_err_num(int arg);
 void    set_exit_status(int arg);
 

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/26 15:35:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 17:21:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ void    rdr_heredoc(t_rdr *rdr)
 	// unlink_lst를 이용해 unlink할 것.
 }
 
-void    rdr_executor(t_rdr *rdr)
+void    rdr_executor(t_tree_node *node)
 {
-	int fd;
+	t_rdr	*rdr;
+	int		fd;
 
+	if (node == NULL)
+		return ;
+	rdr = ((t_token *)(node->value))->cmd_val.rdr;
 	if (rdr->rdr_type == IN)
 		fd = open(rdr->file, O_RDONLY, 0644);
 	else if (rdr->rdr_type == OUT)
@@ -37,6 +41,7 @@ void    rdr_executor(t_rdr *rdr)
 		 print_system_call_err(dup2(fd, STDIN_FILENO));
 	else
 		 print_system_call_err(dup2(fd, STDOUT_FILENO));
-	rdr->fd = fd;
+	rdr_executor(node->left);
+	close(fd);
 }
 

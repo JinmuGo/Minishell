@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/26 15:06:00 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:45:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	prompt(void)
 	char *line;
 	const char *_prompt = make_prompt();
 	t_tree	*tree;
-	struct sigaction s_int;
-	struct sigaction s_quit;
 
-	signal_controller(&s_int, &s_quit, SIG_INIT);
+	signal_controller(SIG_INIT);
 	line = readline(_prompt);
 	if (!line)
 	{

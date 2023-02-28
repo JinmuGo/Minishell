@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/26 18:18:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 16:18:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	executor_classify_token(t_tree_node	*node)
 		pipe_executor(token->cmd_val.pipe);
 }
 
+/*
 t_bool	is_single_built_in(t_tree_node *root)
 {
 	const t_token_type type = ((t_token *)(root->right->value))->type;
@@ -33,6 +34,7 @@ t_bool	is_single_built_in(t_tree_node *root)
 	else
 		return (FT_TRUE);
 }
+*/
 
 // S_CMD 실행시에만 fork를 떠보자. 
 // 실행 이전에 처리해야 할 것들.
@@ -54,22 +56,16 @@ void    executor(t_tree *tree)
 	/*
 	while (!tree.empty())
 	{
-		while (다음 파이프까지) 
+		while (다음 파이프까지)
 		{
 			tree.pop(); // 트리의 맨 끝을 팝
 			// 커맨드들을 다 리스트던 문자열 배열이던 어딘가에 담습니다.
 		}
 	}
 	*/
-	s_built_in = is_single_built_in(tree->root);
-	if (s_built_in)
-		tree->pre_order_traversal(tree->root->right, executor_classify_token);
-	else
-		tree->pre_order_traversal(tree->root, executor_classify_token);
+	tree->pre_order_traversal(tree->root->right, executor_classify_token);
 }
-
 // rdr이 있으면 rdr우선으로 처리한다. (파이프 처리하지 않음.)
 // 없다면 파이프기준 오른쪽 cmd는 pipe에서 읽어온다. 
 // 마지막 노드는 표준 출력으로 dup2한다. 
-// 
 // 우리의 minishell에서는 루트 pipe는 자식 프로세스를 생성하는 역할만 한다?!
