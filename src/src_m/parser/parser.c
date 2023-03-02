@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 22:09:15 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/02 18:29:41 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ t_tree	*parser(char *line)
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
+	print_tree_node(tree->root, 0);
 	if (get_err_num() != ERR_NOTHING)
 	{
-		// free(tree);
-		// free(tk_list);
-		// free(meta->unlink_list);
-		//err_handler();
+		pre_order_traversal(tree->root, free_parser_node);
+		destroy(tree);
+		free(tree);
+		free_tk_list(&tk_list);
+		ft_lstclear(get_unlink_lst(), close_unlink_list);
+		parsing_error(get_err_num());
 	}
 	return (tree);
 }
@@ -93,6 +96,6 @@ void	dque_to_tree(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque
 
 	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->left == NULL)
 		make_left(tree, tk_list, cur_node, dque);
-	if (dque->use_size > 0 && cur_node->right == NULL)
+	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->right == NULL)
 		make_right(tree, tk_list, cur_node, dque);
 }

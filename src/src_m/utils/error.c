@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 15:16:08 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 17:22:36 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "defines.h"
+#include "error.h"
+#include "utils.h"
 
 void print_error(char *str)
 {
@@ -24,13 +27,17 @@ void print_error(char *str)
  * 
  * @return int 
  */
-
-/*
-int parsing_error()
+int	parsing_error(t_err_type err)
 {
-    
+	if (err > 99 && err < 300)
+	{
+		print_error("parsing_error()");
+		printf("err_num: ### %d ###\n", err);
+		system("leaks minishell");
+		prompt();
+	}
+	return (128);
 }
-*/
 
 /**
  * @brief 
@@ -54,9 +61,12 @@ int heredoc_error()
 }
 */
 
-/*
-int error_handler(t_err_type err)
-{
-    
-}
-*/
+// int error_handler(t_err_type err)
+// {
+// 	if (err > 99 && err < 300)
+// }
+
+// char	*get_err_str(t_err_type err)
+// {
+// 	if ()
+// }

@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 21:53:27 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/02 17:09:26 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,11 @@ enum	e_err_type
 {
 	ERR_NOTHING = 0,
 	// 100 번대 parsing
-	ERR_MULTI = 100,
-	ERR_PIPE = 101,
-	ERR_MULTI_PIPE = 102,
-	ERR_FIRST_PIPE = 103,
+	ERR_QUOTE = 100,
+	ERR_MULTI = 101,
+	ERR_PIPE = 102,
+	ERR_MULTI_PIPE = 103,
+	ERR_FIRST_PIPE = 104,
 	
 	ERR_RDR_IN = 110,
 	ERR_RDR_OUT = 111,

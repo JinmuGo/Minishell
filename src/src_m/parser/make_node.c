@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 21:43:33 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/02 18:22:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ t_tree_node	*make_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node
 				recover_dque(dque, re_cnt);
 			}
 			else
+			{
+				while (dque->use_size > 0)
+					dque->pop_front(dque);
 				return (NULL);
+			}
 		}
 	}
 	return (cur_node);

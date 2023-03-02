@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 15:27:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 18:32:52 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ void	pre_order_traversal(t_tree_node *node, void(*f)(t_tree_node*))
 
 void	delete_node(t_tree_node *node)
 {
-	free(node->value);
-	free(node);
+	if (node)
+	{
+		if (node && node->value)
+			free(node->value);
+		free(node);
+	}
 }
 
 void	destroy(t_tree *tree)
 {
 	pre_order_traversal(tree->root, delete_node);
 };
-

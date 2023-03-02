@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 20:52:05 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/02 17:13:07 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "data_structure.h"
 #include "parser.h"
 #include "utils.h"
+#include "error.h"
 
 t_list	*tokenize(char *line)
 {
@@ -43,8 +44,9 @@ void	make_tk_list(t_list **tk_list, char *line, int size)
 	if (quote.arr)
 	{
 		stack_destory(&quote);
-		// int error_handler(ERR_SYN_QUOTE);
-		perror("unclosed quote");
+		free_tk_list(tk_list);
+		parsing_error(ERR_QUOTE);
+		return ;
 	}
 	size += treat_pipe(tk_list, &line[size], 0);
 	size += treat_rdr(tk_list, &line[size], 0);

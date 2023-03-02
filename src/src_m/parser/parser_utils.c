@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:23:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 18:30:19 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "utils.h"
 #include "data_structure.h"
+#include "meta_command.h"
 
 t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token)
 {
@@ -97,4 +98,38 @@ void	print_tree_node(t_tree_node *node, int level)
 	printf("\n");
 	print_tree_node(node->left, level + 1);
 	print_tree_node(node->right, level + 1);
+}
+
+void	free_parser_node(t_tree_node *node)
+{
+	t_token	*token;
+
+	token = node->value;
+	if (token->type == RDR)
+	{
+		free(token->cmd_val.rdr->file);
+		free(token->cmd_val.rdr);
+	}
+	else if (token->type == S_CMD)
+	{
+		free(token->cmd_val.simple_cmd->cmd);
+		ft_free_all_arr(token->cmd_val.simple_cmd->args);
+		free(token->cmd_val.simple_cmd);
+	}
+	else if (token->type == PIPE)
+		free(token->cmd_val.pipe);
+}
+
+void	close_unlink_list(void *content)
+{
+	t_here_doc	*heredoc;
+
+	if (content)
+	{
+		heredoc = content;
+		free(heredoc->file);
+		close(heredoc->fd);
+		free(heredoc);
+		heredoc = NULL;
+	}
 }

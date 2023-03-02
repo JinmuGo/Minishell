@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 21:36:04 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/02 17:46:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token
 t_list		*delete_lst_node(t_list **tk_list, t_tokenize *token);
 int			search_rdr(t_deque *dque);
 void		recover_dque(t_deque *dque, int re_cnt);
+void		free_parser_node(t_tree_node *node);
 
 /* here_doc.c */
 
@@ -68,6 +69,7 @@ int		validation_delimter(char *delimter, char **new_delimter);
 char	*edit_delimter(char *delimter);
 int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);
+void	close_unlink_list(void *content);
 
 /* lexer_parse.c */
 void	lexer_pipe(t_list *token, t_list **tk_list);
