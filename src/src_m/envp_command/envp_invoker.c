@@ -6,13 +6,14 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:53:58 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 16:58:41 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/01 21:07:30 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "envp_command.h"
+#include "meta_command.h"
 
 void	set_envp_elem(const char *key,const char *val)
 {
@@ -32,4 +33,9 @@ void	del_envp_elem(const char *key)
 void	print_envp_elem(const char *option)
 {
 	envp_receiver(PRINT, NULL,NULL,option);
+}
+
+char **convert_char_arr(void)
+{
+	return (hash_convert_arr(get_envp()));
 }

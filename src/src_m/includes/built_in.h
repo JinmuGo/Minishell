@@ -6,13 +6,14 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:17:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 11:47:10 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/01 22:31:08 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
+void    s_built_in_exec(t_tree_node *root, t_executor *execute);
 void    built_in(t_simple_cmd *simple_cmd, t_simple_cmd_type type);
 
 void ft_echo(t_simple_cmd *simple_cmd);

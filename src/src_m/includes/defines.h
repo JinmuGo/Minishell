@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 17:10:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 09:52:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_token		t_token;
 typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
 typedef struct s_here_doc	t_here_doc;
+typedef	struct s_executor	t_executor;
 
 /* union typedef */
 
@@ -120,7 +121,8 @@ enum	e_envp_flags
 	SET = 0,
 	GET = 1,
 	DEL = 2,
-	PRINT = 3
+	PRINT = 3,
+	CHAR = 4
 };
 
 enum	e_meta_flags
@@ -170,6 +172,14 @@ struct s_here_doc
 {
 	char	*file;
 	int		fd;
+};
+
+struct s_executor
+{
+	int	last_fd;
+	int	out_fd;
+	int	in_fd;
+	t_rdr_type	last_fd_type;
 };
 
 struct s_tree_node {

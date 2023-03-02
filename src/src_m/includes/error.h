@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/26 15:22:40 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/01 20:24:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define ERR_NOT_SET "not set"
 # define ERR_INVALID_IDENT "not a valid identifier"
+# define ERR_CMD_NOT_FOUND "command not found: "
 
 //  File name too long 255 글자기준. 
 # define ERR_SYN_RDR_OUT "syntax error: near unexpected token `>'"

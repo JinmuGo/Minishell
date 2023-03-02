@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 17:30:27 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/01 22:09:45 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_hash_elem *hash_get(t_hash_table *ht,const char *key)
 	return (NULL);
 }
 
-
 void    hash_insert(t_hash_table *ht,const char *key,const char *val)
 {
 	const   t_hash_asset asset = hash_asset_init(ht, key);
@@ -51,31 +50,6 @@ void    hash_insert(t_hash_table *ht,const char *key,const char *val)
 	{
 		hash_resize(ht);
 		hash_insert(ht, key, val);
-	}
-}
-
-void    hash_resize(t_hash_table *ht)
-{
-	const int old_size = ht->size;
-	const t_hash_elem *old_bucket = ht->bucket;
-	t_hash_asset asset;
-	int idx;
-	int i;
-
-	ht->size = ft_find_prev_prime(ht->size * H_GROWTH_FACTOR);
-	ht->bucket = ft_calloc(ht->size, sizeof(t_hash_elem));
-	ht->prime = ft_find_prev_prime(ht->size);
-	ht->cnt = 0;
-	i = -1;
-	while (++i < old_size)
-	{
-		if (old_bucket[i].val != NULL)
-		{
-			asset = hash_asset_init(ht, old_bucket[i].key);
-			idx = (asset.hash + i * asset.d_hash) % ht->size;
-			if (hash_put(&ht->bucket[idx], old_bucket[i].key, old_bucket[i].val))
-				ht->cnt++;
-		}
 	}
 }
 
@@ -106,4 +80,26 @@ void hash_print_all(const char *option ,t_hash_table *ht)
 			else
 				printf("%s=%s\n", ht->bucket[i].key, ht->bucket[i].val);
 		}
+}
+
+char **hash_convert_arr(t_hash_table *ht)
+{
+	char **arr;
+	t_hash_elem elem;
+	int	i;
+	int	j;
+
+	arr = ft_malloc(sizeof(char *) * ht->cnt + 1);
+	arr[ht->cnt] = NULL;
+	i = 0;
+	j = 0;
+	while (i < ht->size)
+	{
+		if (ht->bucket[i].key)
+		{
+			arr[j++] = ft_strcombine(3, ht->bucket[i].key, "=", ht->bucket[i].val);
+		}
+		i++;
+	}
+	return (arr);
 }

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 16:45:01 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/01 21:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	prompt(void)
 	expander(tree);
 	print_tree_node(tree->root, 0, "root");
 	executor(tree);
-	print_tree_node(tree->root, 0, "root");
+	// print_tree_node(tree->root, 0, "root");
 	free(line);
 	free((void *)_prompt);
 	prompt();

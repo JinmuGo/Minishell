@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 17:21:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 09:53:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,20 @@ void    rdr_heredoc(t_rdr *rdr)
 	// unlink_lst를 이용해 unlink할 것.
 }
 
-void    rdr_executor(t_tree_node *node)
+void	rdr_restore(t_executor *execute)
+{
+	if (execute->last_fd == -1)
+		return ;
+	if (execute->last_fd_type == IN || execute->last_fd_type == HEREDOC)
+		 print_system_call_err(dup2(execute->in_fd, STDIN_FILENO));
+	else
+		 print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
+	close(execute->in_fd);
+	close(execute->out_fd);
+	close(execute->last_fd); // 음 왜 안되지?
+}
+
+void    rdr_executor(t_tree_node *node, t_executor *execute)
 {
 	t_rdr	*rdr;
 	int		fd;
@@ -41,7 +54,12 @@ void    rdr_executor(t_tree_node *node)
 		 print_system_call_err(dup2(fd, STDIN_FILENO));
 	else
 		 print_system_call_err(dup2(fd, STDOUT_FILENO));
-	rdr_executor(node->left);
-	close(fd);
+	rdr_executor(node->left, execute);
+	if (node->left == NULL)
+	{
+		execute->last_fd = fd;
+		execute->last_fd_type = rdr->rdr_type;
+	}
+	else
+		close(fd);
 }
-
