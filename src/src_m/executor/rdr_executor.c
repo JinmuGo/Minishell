@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 09:53:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 18:30:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,25 @@ void    rdr_heredoc(t_rdr *rdr)
 
 void	rdr_restore(t_executor *execute)
 {
-	if (execute->last_fd == -1)
-		return ;
-	if (execute->last_fd_type == IN || execute->last_fd_type == HEREDOC)
-		 print_system_call_err(dup2(execute->in_fd, STDIN_FILENO));
-	else
-		 print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
-	close(execute->in_fd);
+	print_system_call_err(dup2(execute->in_fd, STDIN_FILENO));
+	print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
 	close(execute->out_fd);
-	close(execute->last_fd); // 음 왜 안되지?
+	close(execute->in_fd);
+}
+
+int		open_file(t_rdr *rdr)
+{
+	int		fd;
+
+	if (rdr->rdr_type == IN)
+		fd = open(rdr->file, O_RDONLY, 0644);
+	else if (rdr->rdr_type == OUT)
+		fd = open(rdr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (rdr->rdr_type == APPEND)
+		fd = open(rdr->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		rdr_heredoc(rdr);
+	return (fd);
 }
 
 void    rdr_executor(t_tree_node *node, t_executor *execute)
@@ -42,24 +52,11 @@ void    rdr_executor(t_tree_node *node, t_executor *execute)
 	if (node == NULL)
 		return ;
 	rdr = ((t_token *)(node->value))->cmd_val.rdr;
-	if (rdr->rdr_type == IN)
-		fd = open(rdr->file, O_RDONLY, 0644);
-	else if (rdr->rdr_type == OUT)
-		fd = open(rdr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (rdr->rdr_type == APPEND)
-		fd = open(rdr->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else
-		rdr_heredoc(rdr);
-	if (rdr->rdr_type == IN && rdr->rdr_type == HEREDOC)
+	fd = open_file(rdr);
+	if (rdr->rdr_type == IN || rdr->rdr_type == HEREDOC)
 		 print_system_call_err(dup2(fd, STDIN_FILENO));
 	else
 		 print_system_call_err(dup2(fd, STDOUT_FILENO));
+	close(fd);
 	rdr_executor(node->left, execute);
-	if (node->left == NULL)
-	{
-		execute->last_fd = fd;
-		execute->last_fd_type = rdr->rdr_type;
-	}
-	else
-		close(fd);
 }

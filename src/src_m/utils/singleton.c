@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:23:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 20:10:34 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 19:11:38 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_meta  *singleton(void)
 	meta = ft_calloc(1, sizeof(t_meta));
     meta->envp = ft_malloc(sizeof(t_hash_table));
 	meta->exit_status = EXIT_SUCCESS;
+	meta->pid = 0;
     init_hash_table(meta->envp);
 	return (meta);
 }

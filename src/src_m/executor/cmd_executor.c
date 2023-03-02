@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 09:50:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 21:35:02 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ char	*make_abs_path(char *cmd, const char **path_arr)
 	return (NULL);
 }
 
-void	s_cmd_executor(t_simple_cmd *simple_cmd, const char **path_arr,const char **envp_arr)
+void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_arr)
 {
 	char	*abs_path;
 	t_simple_cmd_type type;
+	t_simple_cmd *simple_cmd;
 	
+	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
 	if (simple_cmd == NULL)
 		return ;
 	type = is_built_in_cmd(simple_cmd->cmd);
@@ -73,7 +75,7 @@ void	s_cmd_executor(t_simple_cmd *simple_cmd, const char **path_arr,const char *
 	}
 }
 
-void	cmd_executor(t_tree_node *node, t_executor *execute)
+void	cmd_executor(t_tree_node *node, t_executor *execute, t_tree_edge edge)
 {
 	const	char	**path_arr = get_path_arr();
 	const	char	**envp_arr = (const char **)convert_char_arr();
@@ -86,14 +88,26 @@ void	cmd_executor(t_tree_node *node, t_executor *execute)
 	if (pid == 0)
 	{
 		// child
+		if (edge == LEFT)
+		{
+			if (execute->prev_fd[READ] != -1)
+				print_system_call_err(dup2(execute->prev_fd[READ], STDIN_FILENO));
+			if (execute->cur_fd[WRITE] != -1) 
+				print_system_call_err(dup2(execute->cur_fd[WRITE], STDOUT_FILENO));
+		}
+		else
+		{
+			if (execute->cur_fd[READ] != -1) 
+				print_system_call_err(dup2(execute->cur_fd[READ], STDIN_FILENO));
+			print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
+		}
 		rdr_executor(node->left, execute);
-		s_cmd_executor(node->right->value, path_arr, envp_arr);
+		s_cmd_executor(node->right, path_arr, envp_arr);
 	}
 	else
 	{
 		// parent
 		// wait_pid
-		waitpid(pid, get_exit_status(), 0);
 		signal_controller(SIG_INIT);
 		ft_free_all_arr((void *)path_arr);
 		ft_free_all_arr((void *)envp_arr);

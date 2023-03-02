@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 09:50:03 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 20:51:07 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ t_simple_cmd_type	is_built_in_cmd(char *cmd);
 /* $(TYPE)_executor.c */
 void    rdr_executor(t_tree_node *node, t_executor *execute);
 void	rdr_restore(t_executor *execute);
-void	pipe_executor(t_pipe *pipe);
-void	cmd_executor(t_tree_node *node, t_executor *execute);
+void	pipe_executor(t_tree_node	*node, t_executor *execute);
+void	cmd_executor(t_tree_node *node, t_executor *execute, t_tree_edge edge);
+
+/* executor_utils.c */
+t_token_type	check_token_type(t_tree_node *node);
 
 /* exit status */
 # define EXIT_COM_NOT_FOUND 127

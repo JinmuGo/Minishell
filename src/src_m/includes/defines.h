@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 09:52:42 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/02 21:23:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define DOLLAR	 '$'
 # define BUILT_IN_EXEC_OK 1
 # define BUILT_IN_EXEC_FAIL 0
+# define READ 0
+# define WRITE 1
 
 /* color */
 # define BOLD "\e[1m"
@@ -53,8 +55,8 @@ typedef struct s_stack		t_stack;
 typedef struct s_deque		t_deque;
 typedef struct s_tree_node	t_tree_node;
 typedef struct s_cmd		t_cmd;
-typedef struct s_rdr		t_rdr;
 typedef struct s_pipe		t_pipe;
+typedef struct s_rdr		t_rdr;
 typedef struct s_token		t_token;
 typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
@@ -83,6 +85,7 @@ typedef void	(*t_rdr_func)(t_rdr *);
 
 enum e_token_type
 {
+	NONE = -1,
 	RDR = 0,
 	PIPE = 1,
 	CMD = 2, // 실제로 실행하지는 않는다.
@@ -131,9 +134,11 @@ enum	e_meta_flags
 	ENVP = 1,
 	UNLINK = 2,
 	ERR_NUM = 3,
-	EXIT_STATUS = 4,
-	SET_ERR_NUM = 5,
-	SET_EXIT_STATUS = 6
+	PID = 4,
+	EXIT_STATUS = 5,
+	SET_ERR_NUM = 6,
+	SET_EXIT_STATUS = 7,
+	SET_PID = 8
 };
 
 enum	e_err_type
@@ -158,6 +163,7 @@ struct s_meta
 	t_hash_table	*envp;
 	t_list			*unlink_lst;	// here_doc의 예외처리를 위한 list
 	int				exit_status;
+	pid_t			pid;
 	// t_history;
 };
 
@@ -176,10 +182,12 @@ struct s_here_doc
 
 struct s_executor
 {
-	int	last_fd;
 	int	out_fd;
 	int	in_fd;
-	t_rdr_type	last_fd_type;
+	int	cur_fd[2];
+	int	prev_fd[2];
+	t_token_type edge[2];
+	int	pipe_cnt[2];
 };
 
 struct s_tree_node {
@@ -241,12 +249,6 @@ struct s_rdr
 	t_bool	quote; // heredoc 때문에 적어놓음. quote가 있었는지 없었는지 확인.
 };
 
-struct s_pipe
-{
-	int	fd[2];
-};
-
-
 struct s_stack
 {
 	t_list	*arr; // malloc arr.content int
@@ -286,5 +288,11 @@ struct s_tokenize
 	char			*str;
 	int				size;
 };
+
+struct s_pipe
+{
+	int	fd[2];
+};
+
 
 #endif
