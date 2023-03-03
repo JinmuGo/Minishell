@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 21:35:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 22:31:39 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_a
 	t_simple_cmd *simple_cmd;
 	
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
+	// dprintf(2, "s_cmd command: %s\n", simple_cmd->cmd);
 	if (simple_cmd == NULL)
 		return ;
 	type = is_built_in_cmd(simple_cmd->cmd);
@@ -71,14 +72,36 @@ void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_a
 			return ; // path 가 env에서 unset됨. command not found 
 		}
 		abs_path = make_abs_path(simple_cmd->cmd, path_arr);
-		print_system_call_err(execve(abs_path, simple_cmd->args, (char **)envp_arr));
+		execve(abs_path, simple_cmd->args, (char **)envp_arr);
+		exit(EXIT_FAILURE);
 	}
 }
 
-void	cmd_executor(t_tree_node *node, t_executor *execute, t_tree_edge edge)
+void	direction_handler(t_executor *execute, t_sequence sequence)
+{
+	if (sequence == FIRST)
+	{
+		dup2(execute->cur_fd[WRITE], STDOUT_FILENO);
+		close(execute->cur_fd[READ]);
+	}
+	else if (sequence == MIDDLE)
+	{
+		dup2(execute->prev_fd[READ], STDIN_FILENO);
+		dup2(execute->cur_fd[WRITE], STDOUT_FILENO);
+		close(execute->cur_fd[READ]);
+	}
+	else
+	{
+		dup2(execute->cur_fd[READ], STDIN_FILENO);
+		close(execute->cur_fd[WRITE]);
+	}
+}
+
+void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
 	const	char	**path_arr = get_path_arr();
 	const	char	**envp_arr = (const char **)convert_char_arr();
+	pid_t	*pid_cpy;
 	pid_t	pid;
 
 	pid = fork();
@@ -87,28 +110,21 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_tree_edge edge)
 	signal_controller(SIG_CHILD, pid);
 	if (pid == 0)
 	{
-		// child
-		if (edge == LEFT)
-		{
-			if (execute->prev_fd[READ] != -1)
-				print_system_call_err(dup2(execute->prev_fd[READ], STDIN_FILENO));
-			if (execute->cur_fd[WRITE] != -1) 
-				print_system_call_err(dup2(execute->cur_fd[WRITE], STDOUT_FILENO));
-		}
-		else
-		{
-			if (execute->cur_fd[READ] != -1) 
-				print_system_call_err(dup2(execute->cur_fd[READ], STDIN_FILENO));
-			print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
-		}
+		// pipe
+
+		direction_handler(execute, sequence);
 		rdr_executor(node->left, execute);
+		// dprintf(2, "pid: %d cur fd: %d %d\n", pid,execute->cur_fd[0], execute->cur_fd[1]);
+		// dprintf(2, "pid: %d prev fd: %d %d\n", pid,execute->prev_fd[0], execute->prev_fd[1]);
 		s_cmd_executor(node->right, path_arr, envp_arr);
 	}
 	else
 	{
-		// parent
-		// wait_pid
+		// dprintf(2, "pid:%d type: %d edge: %d\n", pid, ((t_token *)(node->value))->type, edge);
 		signal_controller(SIG_INIT);
+		pid_cpy = ft_malloc(sizeof(pid_t));
+		*pid_cpy = pid;
+		ft_lstadd_back(&execute->pid_lst, ft_lstnew(pid_cpy));
 		ft_free_all_arr((void *)path_arr);
 		ft_free_all_arr((void *)envp_arr);
 	}

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 21:36:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 22:24:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,31 @@
 // 0 left 1 right
 
 
-void	pipe_executor(t_tree_node *node, t_executor *execute)
+// 처음 중간 끝 일 때 pipe를 닫아주는 행동을 실행! 
+void	pipe_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
-	const t_token_type type[2] = {check_token_type(node->left),check_token_type(node->right)};
-	pid_t	pid_l;
-	pid_t	pid_r;
-
-	pid_l = 0;
-	pid_r = 0;
-	execute->edge[LEFT] = type[LEFT];
-	execute->edge[RIGHT] = type[RIGHT];
+	if (sequence == FIRST)
+	{
+		// first // left
+		print_system_call_err(pipe(execute->cur_fd));
+		cmd_executor(node->left, execute, sequence);
+		close(execute->cur_fd[WRITE]);
+	}
+	else if (sequence == MIDDLE)
+	{
+		// middle // left
+		print_system_call_err(pipe(execute->cur_fd));
+		cmd_executor(node->left, execute, sequence);
+		close(execute->prev_fd[READ]);
+		close(execute->cur_fd[WRITE]);
+	}
 	execute->prev_fd[READ] = execute->cur_fd[READ];
 	execute->prev_fd[WRITE] = execute->cur_fd[WRITE];
-	
-	if (type[RIGHT] == NONE || (node->right == NULL && type[RIGHT] == CMD))
-		execute->cur_fd[WRITE] = STDOUT_FILENO;
-	else
-		print_system_call_err(pipe(execute->cur_fd));
-	// pipe_process
-	if (type[LEFT] == CMD)
+	if (execute->child[RIGHT] == CMD)
 	{
-		cmd_executor(node->left, execute, LEFT);
-	}
-	if (type[RIGHT] == CMD)
-	{
-		cmd_executor(node->left, execute, RIGHT);
+		sequence = LAST;
+		cmd_executor(node->right, execute, sequence);
+		close(execute->cur_fd[READ]);
+		close(execute->cur_fd[WRITE]);
 	}
 }

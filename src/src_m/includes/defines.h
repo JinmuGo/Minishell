@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 21:23:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 22:30:30 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef enum e_envp_flags t_envp_flags;
 typedef enum e_meta_flags t_meta_flags;
 typedef enum e_err_type t_err_type;
 typedef enum e_signal_flags t_signal_flags;
+typedef enum e_sequence t_sequence;
 
 /* struct typedef */
 
@@ -157,6 +158,13 @@ enum	e_signal_flags
 	SIG_CHILD = 1
 };
 
+enum	e_sequence
+{
+	FIRST = 0,
+	MIDDLE = 1,
+	LAST = 2
+};
+
 struct s_meta
 {
 	t_err_type		err;
@@ -186,8 +194,10 @@ struct s_executor
 	int	in_fd;
 	int	cur_fd[2];
 	int	prev_fd[2];
-	t_token_type edge[2];
-	int	pipe_cnt[2];
+	t_token_type child[2];
+	t_list *pid_lst;
+	t_bool	built_in;
+	t_bool	single;
 };
 
 struct s_tree_node {

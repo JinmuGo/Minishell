@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 18:30:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 22:46:00 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	rdr_restore(t_executor *execute)
 {
 	print_system_call_err(dup2(execute->in_fd, STDIN_FILENO));
 	print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
-	close(execute->out_fd);
 	close(execute->in_fd);
+	close(execute->out_fd);
 }
 
 int		open_file(t_rdr *rdr)

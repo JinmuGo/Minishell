@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 21:34:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 22:56:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 #include "executor.h"
 #include "built_in.h"
 #include "meta_command.h"
-
-void	executor_classify_token(t_tree_node	*node, t_executor *execute)
-{
-	const t_token_type type = check_token_type(node);
-
-	if (type == PIPE)
-		pipe_executor(node, execute);
-}
 
 t_bool	is_built_in(t_tree_node *root)
 {
@@ -48,18 +40,23 @@ t_bool	is_single(t_tree_node *root)
 // 부모와 자식 signal 처리.
 // abs_path가져오기.  // execve는 첫번째 인자로 absolute파일을 받는다. 
 // 부모는 자식의 pid를 받고 wait, waitpid를 건다. 마지막 자식의 exit_status저장. 
-// 그렇다면 pipe는 어떻게 저장할 것인가? -> pipe_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
+// 그렇다면 pipe는 어떻게 저장할 것인가? -> pid_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
 // 그 와중에 rdr이 있다면 handling을 해준다. abs_path를 가져와서 실행가능하다면 실행 아니면 command not found
 // 실행 이후 처리해야 할 것들.
 // 사용한 pipe의 fd는 close 
 // rdr도 close
 
-void	recursive_exec(t_tree_node *node, t_executor *execute)
+void	recursive_exec(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
-	if (node == NULL)
+	const t_token_type token_type = check_token_type(node);
+
+	if (node == NULL || token_type != PIPE)
 		return ;
-	executor_classify_token(node, execute);
-	recursive_exec(node->right, execute);
+	execute->child[LEFT] = check_token_type(node->left);
+	execute->child[RIGHT] = check_token_type(node->right);
+	pipe_executor(node, execute, sequence);
+	sequence = MIDDLE;
+	recursive_exec(node->right, execute, sequence);
 }
 
 // void	exec_cmd_helper(void)
@@ -77,47 +74,75 @@ void	recursive_exec(t_tree_node *node, t_executor *execute)
 // 	g_minishell.pid = 0;
 // }
 
+void	wait_child(t_executor *execute)
+{
+	int		len;
+	int		i;
+	t_list	*node;
+	t_list	*tmp;
+
+	node = execute->pid_lst;
+	len = ft_lstsize(execute->pid_lst);
+	while (len)
+	{
+		tmp = node;
+		waitpid(*((pid_t *)(tmp->content)), get_exit_status(), 0);
+		printf("len : %d pipe_pid: %d\n", len, *((pid_t *)(tmp->content)));
+		node = node->next;
+		ft_lstdelone(tmp, free);
+		len--;
+	}
+	ft_lstdelone(node, free);
+}
+
+
+void	execute_init(t_tree *tree, t_executor *execute)
+{
+	execute->single = is_single(tree->root);
+	if (execute->single)
+		execute->built_in = is_built_in(tree->root);
+	else
+		execute->built_in = FT_FALSE;
+	execute->in_fd =  dup(STDIN_FILENO);
+	execute->out_fd = dup(STDOUT_FILENO);
+	execute->cur_fd[0] = -1;
+	execute->cur_fd[1] = -1;
+	execute->prev_fd[0] = -1;
+	execute->prev_fd[1] = -1;
+	execute->pid_lst = NULL;
+}
+
+void	print_pipe(t_executor *execute)
+{
+	t_list *node;
+
+	node = execute->pid_lst;
+	while (node->next)
+	{
+		printf("pipe_pid: %d\n", *((pid_t *)(node->content)));
+		node = node->next;
+	}
+}
+
 // list 로 pid 저장.
+// echo hi | cat
 void    executor(t_tree *tree)
 {
 	t_executor	execute;
-	t_bool	s_built;
-	t_bool	s_single;
 	
 	if (tree == NULL || tree->root == NULL)
 		return ;
-	s_single = is_single(tree->root);
-	if (s_single)
-		s_built = is_built_in(tree->root);
-	else
-		s_built = FT_FALSE;
-	execute.in_fd =  dup(STDIN_FILENO); // 이걸 먼저 dup하고 dup2하고다시 돌려놓으면 되지 않을까?
-	execute.out_fd = dup(STDOUT_FILENO);
-	ft_memset(&execute.cur_fd, -1, sizeof(int) * 2);
-	ft_memset(&execute.prev_fd, -1, sizeof(int) * 2);
-	execute.pipe_cnt[0] = 0;
-	execute.pipe_cnt[1] = 0;
-	/*
-	while (!tree.empty())
-	{
-		while (다음 파이프까지)
-		{
-			tree.pop(); // 트리의 맨 끝을 팝
-			// 커맨드들을 다 리스트던 문자열 배열이던 어딘가에 담습니다.
-		}
-	}
-	*/
-	if (s_built && s_single)
+	execute_init(tree, &execute);
+	if (execute.built_in && execute.single)
 		s_built_in_exec(tree->root, &execute);
-	else if (s_single)
-	{
-		cmd_executor(tree->root->right, &execute, RIGHT);
-		// waitpid(pid, get_exit_status(), 0);
-	}
+	else if (execute.single)
+		cmd_executor(tree->root->right, &execute, FIRST);
 	else
-		recursive_exec(tree->root->right, &execute);
+		recursive_exec(tree->root->right, &execute, FIRST);
+	if (execute.pid_lst)
+		wait_child(&execute);
 	rdr_restore(&execute);
-	// exec_cmd_helper();
+	// print_pipe(&execute);
 }
 // rdr이 있으면 rdr우선으로 처리한다. (파이프 처리하지 않음.)
 // 없다면 파이프기준 오른쪽 cmd는 pipe에서 읽어온다. 

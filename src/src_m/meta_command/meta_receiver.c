@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:16:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 21:00:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 16:04:20 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "envp_command.h"
 #include "utils.h"
 
-void    *meta_receiver(t_meta_flags flag, int arg, pid_t pid)
+void    *meta_receiver(t_meta_flags flag, int arg)
 {
     t_meta *meta;
 
@@ -36,5 +36,7 @@ void    *meta_receiver(t_meta_flags flag, int arg, pid_t pid)
         meta->exit_status = arg;
     else if (flag == PID)
         return (&meta->pid);
+    else if (flag == SET_PID)
+        meta->pid = arg;
     return (NULL);
 }
