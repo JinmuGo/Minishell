@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/02 18:22:51 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 21:22:21 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ t_tree_node	*make_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node
 		if (((t_tokenize *)(token->content))->type == RDR)
 		{
 			err = lexer_rdr(token);
-			if (err == ERR_NOTHING)
+			if (err == ERR_NOTHING || validation_heredoc(token)) //  heredoc 처리안함
 			{
 				cur_node = insert_rdr_node(tree, tk_list, cur_node, dque);
 				recover_dque(dque, re_cnt);
 			}
-			else
+			else if (err != ERR_NOTHING)
 			{
 				while (dque->use_size > 0)
 					dque->pop_front(dque);

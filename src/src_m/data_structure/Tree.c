@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/02 18:32:52 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 15:56:06 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ void	insert(t_tree_node *node, t_tree_edge edge, t_tree_node *child)
 
 void	pre_order_traversal(t_tree_node *node, void(*f)(t_tree_node*))
 {
+	t_tree_node *left;
+	t_tree_node *right;
+
 	if (node == NULL)
 		return ;
+	left = node->left;
+	right = node->right;
 	f(node);
-	pre_order_traversal(node->left, f);
-	pre_order_traversal(node->right, f);
+	pre_order_traversal(left, f);
+	pre_order_traversal(right, f);
 }
 
 void	delete_node(t_tree_node *node)

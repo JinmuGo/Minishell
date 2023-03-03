@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/02 17:46:51 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 21:22:00 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*edit_delimter(char *delimter);
 int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);
 void	close_unlink_list(void *content);
+int		validation_heredoc(t_list *token);
 
 /* lexer_parse.c */
 void	lexer_pipe(t_list *token, t_list **tk_list);

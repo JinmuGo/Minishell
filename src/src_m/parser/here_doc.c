@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 19:09:32 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 21:25:12 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,4 +254,15 @@ char	*make_new_delimter(char *delimter, int size)
 			new_delimter[new_idx++] = delimter[idx++];
 	}
 	return (new_delimter);
+}
+
+int	validation_heredoc(t_list *token)
+{
+	const int	err = get_err_num();
+
+	if (ft_strncmp(((t_tokenize *)(token->content))->str, "<<", 3))
+		return (0);
+	if (token->next == NULL || (err >= ERR_RDR_IN && err <= ERR_RDR_APPEND))
+		return (0);
+	return (1);
 }

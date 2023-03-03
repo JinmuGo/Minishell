@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/02 17:13:07 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 21:04:54 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	treat_rdr(t_list **tk_list, char *line, t_tokenize *token)
 	if (token->size > 0)
 	{
 		if (line[token->size - 1] != line[token->size])
+			return (token_node_add(tk_list, line, token));
+		if (token->size == 2)
 			return (token_node_add(tk_list, line, token));
 	}
 	if (line[token->size] == '<' || line[token->size] == '>')

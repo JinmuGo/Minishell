@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:17:06 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 22:18:54 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/03 21:07:02 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	lexer_rdr(t_list *token)
 {
 	t_meta *meta = get_meta();
 
-	if (((t_tokenize *)(token->content))->size > 3)
-		meta->err = ERR_RDR_MULTI;
-	else if (token->next == NULL)
+	if (token->next == NULL)
 	{
 		if (meta->err == ERR_MULTI || meta->err == ERR_MULTI_PIPE)
 			meta->err = ERR_PIPE;
