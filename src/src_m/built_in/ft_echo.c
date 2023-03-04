@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:25:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:45:29 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 15:46:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int ft_echo(t_simple_cmd *simple_cmd)
 
     i = 0;
     if (simple_cmd->args[1] == NULL)
+    {
         ft_putchar_fd('\n', STDOUT_FILENO);
+        return (EXIT_SUCCESS);
+    }
     while (n_option_confirm(simple_cmd->args[++i]))
         continue ;
     if (i > 1)    

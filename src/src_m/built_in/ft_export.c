@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:34:19 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 16:03:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 // Rule 6: Variable name cannot have whitespace in between
 
 //  export asdf 뒤에 인자가 없는 경우 실패도 아니고 아무 동작도 하지않고 끝난다.  
-void	print_all_exported()
-{
-	print_envp_elem("declare -x");
-}
 
 void	append_val(char *tmp, char *src)
 {
@@ -58,14 +54,14 @@ t_bool  exec_export(char *arg)
     if (ft_isdigit(arg[0]) || len == 0)
 	{
 		free(key);
-        return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT));
+        return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT, EXIT_FAILURE));
 	}
     i = -1;
     while (key[++i])
         if (!is_valid_params(key[i]) && key[len - 1] != '+')
 		{
 			free(key);
-            return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT));
+            return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT, EXIT_FAILURE));
 		}
 	val = get_envp_val(arg);
     if (key[len - 1] == '+')
@@ -81,7 +77,7 @@ int ft_export(t_simple_cmd *simple_cmd)
 	const int len = ft_arrlen((void **)simple_cmd->args);
     i = 0;
 	if (len == 1)
-		print_all_exported();
+		print_envp_elem("declare -x");
 	else
 		while (simple_cmd->args[++i])
 			if (exec_export(simple_cmd->args[i]))
