@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/04 10:11:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:24:37 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ int		validation_heredoc(t_list *token);
 void	lexer_pipe(t_list *token, t_list **tk_list);
 int		lexer_rdr(t_list *token);
 
-void	print_tree_node(t_tree_node *node, int level);
+void	print_tree_node(t_tree_node *node, int level, char *direct);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 18:48:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:37:19 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "meta_command.h"
 #include "error.h"
 
-void ft_exit(t_simple_cmd *simple_cmd)
+int ft_exit(t_simple_cmd *simple_cmd)
 {
 	const int	len = ft_arrlen((void **)simple_cmd->args);
 	int			exit_status;
@@ -26,19 +26,17 @@ void ft_exit(t_simple_cmd *simple_cmd)
 		exit_status = ft_atoi(simple_cmd->args[1]);
 		if (exit_status == 0 && (ft_strncmp(simple_cmd->args[1], "0", 2) != 0))
 		{
-			ft_putstr_fd("exit\n", 2);
-			print_error("exit: numeric argument required", 2);
-			exit_status = 2;
+			ft_putstr_fd("exit\n", STDERR_FILENO);
+			prt_err("exit: numeric argument required", 255);
+			exit_status = 255;
 		}
 		else if (simple_cmd->args[2])
 		{
-			ft_putstr_fd("exit\n", 2);
-			print_error("exit: too many arguments", -1);
-			return ;
+			ft_putstr_fd("exit\n", STDERR_FILENO);
+			prt_err("exit: too many arguments", EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		}
 	}
-
-	// free_all_asset
-	// clear_history();
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(exit_status);
 }

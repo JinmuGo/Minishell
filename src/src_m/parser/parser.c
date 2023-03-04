@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:12:30 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:13:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tree	*parser(char *line)
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
-	print_tree_node(tree->root, 0);
+	print_tree_node(tree->root, 0, "root");
 	if (get_err_num() != ERR_NOTHING)
 	{
 		pre_order_traversal(tree->root, free_parser_node);
@@ -71,7 +71,7 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 
 	if (err_num == ERR_PIPE || err_num == ERR_MULTI_PIPE)
 	{
-		print_error(ERR_SYN_RDR_PIPE);
+		prt_err(ERR_SYN_RDR_PIPE, ERR_PIPE);
 		return (NULL);
 	}
 	if (dque == NULL)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:25:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:39:15 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:45:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "defines.h"
 #include "expander.h"
 #include "meta_command.h"
+#include "error.h"
 
 // echo doesn't support other flags without -n 
 // 다른 플래그 들은 무시된다.
@@ -35,29 +36,55 @@ t_bool  n_option_confirm(char *target_str)
     return (FT_TRUE);
 }
 
-void    exec_echo (char **args, t_bool  n_option)
+int    exec_echo (char **args, t_bool  n_option)
 {
     int i;
+    int rv;
+    char    tmp;
 
     i = 0;
+    rv = FT_TRUE;
     while (args[i])
     {
-        ft_putstr_fd(args[i], STDOUT_FILENO);
+        rv = write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
+        if (prt_sc_err(rv) == FT_FALSE)
+            return (rv);
         if (args[i + 1] != NULL)
-            ft_putchar_fd(' ', STDOUT_FILENO); 
+        {
+            tmp = ' ';
+            rv = write(STDOUT_FILENO, &tmp, 1);
+        }
+        if (prt_sc_err(rv) == FT_FALSE)
+            return (rv);
         i++;
     }
     if (!n_option)
-        ft_putchar_fd('\n', STDOUT_FILENO);
+    {
+        tmp = '\n';
+        rv = write(STDOUT_FILENO, &tmp, 1);
+    }
+    if (prt_sc_err(rv) == FT_FALSE)
+        return (rv);
+    return (rv);
 }
 
-void ft_echo(t_simple_cmd *simple_cmd)
+int ft_echo(t_simple_cmd *simple_cmd)
 {
+    int i;
+    int rv;
+
+    i = 0;
     if (simple_cmd->args[1] == NULL)
         ft_putchar_fd('\n', STDOUT_FILENO);
-    else if (n_option_confirm(simple_cmd->args[1]))
-        exec_echo(&simple_cmd->args[2], FT_TRUE);
+    while (n_option_confirm(simple_cmd->args[++i]))
+        continue ;
+    if (i > 1)    
+        rv = exec_echo(&simple_cmd->args[i], FT_TRUE);
     else
-        exec_echo(&simple_cmd->args[1], FT_FALSE);
-    set_exit_status(EXIT_SUCCESS);
+        rv = exec_echo(&simple_cmd->args[i], FT_FALSE);
+    if (rv == -1)
+        rv = EXIT_FAILURE;
+    else
+        rv = EXIT_SUCCESS;
+    return (rv);
 }

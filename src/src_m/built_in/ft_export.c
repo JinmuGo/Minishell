@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 17:19:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:34:19 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ t_bool  exec_export(char *arg)
     if (ft_isdigit(arg[0]) || len == 0)
 	{
 		free(key);
-        return (print_built_in_err("export ", arg, ERR_INVALID_IDENT));
+        return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT));
 	}
     i = -1;
     while (key[++i])
         if (!is_valid_params(key[i]) && key[len - 1] != '+')
 		{
 			free(key);
-            return (print_built_in_err("export ", arg, ERR_INVALID_IDENT));
+            return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT));
 		}
 	val = get_envp_val(arg);
     if (key[len - 1] == '+')
@@ -75,7 +75,7 @@ t_bool  exec_export(char *arg)
     return (FT_TRUE);
 }
 
-void ft_export(t_simple_cmd *simple_cmd)
+int ft_export(t_simple_cmd *simple_cmd)
 {
     int i;
 	const int len = ft_arrlen((void **)simple_cmd->args);
@@ -85,5 +85,8 @@ void ft_export(t_simple_cmd *simple_cmd)
 	else
 		while (simple_cmd->args[++i])
 			if (exec_export(simple_cmd->args[i]))
-				set_exit_status(EXIT_SUCCESS);
+				continue ;
+			else
+				return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

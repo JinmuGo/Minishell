@@ -6,18 +6,18 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:12:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:13:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "error.h"
 #include "meta_command.h"
 #include <errno.h>
-#include "error.h"
 #include "utils.h"
 
-t_bool print_error(const char *str, int exit_status)
+t_bool prt_err(const char *str, int exit_status)
 {
     write(STDERR_FILENO, "Minishell: ", 12);
 	write(STDERR_FILENO, str, ft_strlen(str));
@@ -26,19 +26,23 @@ t_bool print_error(const char *str, int exit_status)
 	return (FT_FALSE);
 }
 
-void	print_system_call_err(int rv)
+t_bool	prt_sc_err(int rv)
 {
 	if (rv == -1)
-		print_error(strerror(errno) ,errno);
+	{
+		prt_err(strerror(errno) ,errno);
+		return (FT_FALSE);
+	}
+	return (FT_TRUE);
 }
 
 // bash: cd: OLDPWD not set
-t_bool	print_built_in_err(char *cmd, char *key, char *msg)
+t_bool	prt_built_in_err(char *cmd, char *key, char *msg)
 {
 	const char *add_colon = ft_strjoin(cmd, ": ");
 	const char *line = ft_strcombine(4, add_colon, key, ": ",msg);
 
-	print_error(line, EXIT_FAILURE);
+	prt_err(line, EXIT_FAILURE);
 	ft_free_n(2, add_colon, line);
 	return (FT_FALSE);
 }
@@ -54,7 +58,7 @@ int	parsing_error(t_err_type err)
 
 	if (err > 99 && err < 300)
 	{
-		print_error("parsing_error()");
+		prt_err("parsing_error()", err);
 		printf("err_num: ### %d ###\n", err);
 		system("leaks minishell");
 		meta = get_meta();

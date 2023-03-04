@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:18 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 18:32:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:34:00 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 #include "error.h"
 #include <errno.h>
 
-void ft_env(t_simple_cmd *simple_cmd)
+int ft_env(t_simple_cmd *simple_cmd)
 {
 	const int	len = ft_arrlen((void **)simple_cmd->args);
 
 	if (len == 1)
 	{
 		print_envp_elem(NULL);
-		set_exit_status(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	}
 	else
-		print_error("env: doesn't take args", ERR_ARGS_NUM);
+	{
+		prt_err("env: doesn't take args", ERR_ARGS_NUM);
+		return (EXIT_FAILURE);
+	}
 }

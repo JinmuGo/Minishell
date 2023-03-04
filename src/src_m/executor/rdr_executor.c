@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:46:00 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:13:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void    rdr_heredoc(t_rdr *rdr)
 
 void	rdr_restore(t_executor *execute)
 {
-	print_system_call_err(dup2(execute->in_fd, STDIN_FILENO));
-	print_system_call_err(dup2(execute->out_fd, STDOUT_FILENO));
+	prt_sc_err(dup2(execute->in_fd, STDIN_FILENO));
+	prt_sc_err(dup2(execute->out_fd, STDOUT_FILENO));
 	close(execute->in_fd);
 	close(execute->out_fd);
 }
@@ -54,9 +54,9 @@ void    rdr_executor(t_tree_node *node, t_executor *execute)
 	rdr = ((t_token *)(node->value))->cmd_val.rdr;
 	fd = open_file(rdr);
 	if (rdr->rdr_type == IN || rdr->rdr_type == HEREDOC)
-		 print_system_call_err(dup2(fd, STDIN_FILENO));
+		 prt_sc_err(dup2(fd, STDIN_FILENO));
 	else
-		 print_system_call_err(dup2(fd, STDOUT_FILENO));
+		 prt_sc_err(dup2(fd, STDOUT_FILENO));
 	close(fd);
 	rdr_executor(node->left, execute);
 }

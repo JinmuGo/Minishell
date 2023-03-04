@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:31:39 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:41:31 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,17 @@ void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_a
 		return ;
 	type = is_built_in_cmd(simple_cmd->cmd);
 	if (type != FT_EXTERNAL)
-		built_in(simple_cmd, type);
+	{
+		if (built_in(simple_cmd, type) == EXIT_SUCCESS)
+			exit(EXIT_SUCCESS);
+		else
+			exit(EXIT_FAILURE);
+	}
 	else
 	{
 		if (path_arr == NULL)
 		{
-			print_error(ERR_CMD_NOT_FOUND, 127);
+			prt_err(ERR_CMD_NOT_FOUND, 127);
 			return ; // path 가 env에서 unset됨. command not found 
 		}
 		abs_path = make_abs_path(simple_cmd->cmd, path_arr);
@@ -106,21 +111,16 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 
 	pid = fork();
 	if (pid == -1)
-		print_system_call_err(pid);
+		prt_sc_err(pid);
 	signal_controller(SIG_CHILD, pid);
 	if (pid == 0)
 	{
-		// pipe
-
 		direction_handler(execute, sequence);
 		rdr_executor(node->left, execute);
-		// dprintf(2, "pid: %d cur fd: %d %d\n", pid,execute->cur_fd[0], execute->cur_fd[1]);
-		// dprintf(2, "pid: %d prev fd: %d %d\n", pid,execute->prev_fd[0], execute->prev_fd[1]);
 		s_cmd_executor(node->right, path_arr, envp_arr);
 	}
 	else
 	{
-		// dprintf(2, "pid:%d type: %d edge: %d\n", pid, ((t_token *)(node->value))->type, edge);
 		signal_controller(SIG_INIT);
 		pid_cpy = ft_malloc(sizeof(pid_t));
 		*pid_cpy = pid;

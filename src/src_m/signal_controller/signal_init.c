@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signal_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/28 15:58:18 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/04 10:27:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "defines.h"
 #include "error.h"
 #include <errno.h>
 

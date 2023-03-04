@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:13:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:31:39 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,9 @@ void	prompt(void)
 		add_history(line);
 	expander(tree);
 	print_tree_node(tree->root, 0, "root");
-	executor(tree);
-	// print_tree_node(tree->root, 0, "root");
 	meta->err = ERR_NOTHING;
-	expander(tree->root);
-	print_tree_node(tree->root, 0);
-	// executor();
+	executor(tree);
 	free(line);
 	free((void *)_prompt);
-	// system("leaks minishell");
 	prompt();
 }

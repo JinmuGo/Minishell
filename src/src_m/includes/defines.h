@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:11:24 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:54:00 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_hash_asset t_hash_asset;
 typedef struct s_hash_elem  t_hash_elem;
 
 /* func_ptr typedef */
-typedef void	(*t_built_in_func)(t_simple_cmd *);
+typedef int		(*t_built_in_func)(t_simple_cmd *);
 typedef void	(*t_rdr_func)(t_rdr *);
 
 enum e_token_type

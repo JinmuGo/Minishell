@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 15:48:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:12:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:26:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    *meta_receiver(t_meta_flags flag, int arg);
 
 /* meta_invoker.c */
 t_meta *get_meta(void);
-int     *get_err_num(void);
+int     get_err_num(void);
 t_hash_table *get_envp(void);
 t_list  **get_unlink_lst(void);
 int     *get_exit_status(void);

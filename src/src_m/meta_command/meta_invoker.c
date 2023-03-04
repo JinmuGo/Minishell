@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:08:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:12:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:25:55 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_meta *get_meta(void)
     return ((t_meta *)meta_receiver(META, 0));
 }
 
-int     *get_err_num(void)
+int     get_err_num(void)
 {
-    return ((int *)meta_receiver(ERR_NUM, 0));
+    return (*(int *)meta_receiver(ERR_NUM, 0));
 }
 
 int     *get_exit_status(void)

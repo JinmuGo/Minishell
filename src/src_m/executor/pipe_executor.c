@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:24:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 11:13:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	pipe_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 	if (sequence == FIRST)
 	{
 		// first // left
-		print_system_call_err(pipe(execute->cur_fd));
+		prt_sc_err(pipe(execute->cur_fd));
 		cmd_executor(node->left, execute, sequence);
 		close(execute->cur_fd[WRITE]);
 	}
 	else if (sequence == MIDDLE)
 	{
 		// middle // left
-		print_system_call_err(pipe(execute->cur_fd));
+		prt_sc_err(pipe(execute->cur_fd));
 		cmd_executor(node->left, execute, sequence);
 		close(execute->prev_fd[READ]);
 		close(execute->cur_fd[WRITE]);
