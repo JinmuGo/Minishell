@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/23 19:25:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:12:30 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "parser.h"
 #include "utils.h"
 #include "data_structure.h"
+#include "meta_command.h"
+#include "error.h"
 
 t_tree	*parser(char *line)
 {
@@ -25,6 +27,16 @@ t_tree	*parser(char *line)
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
+	print_tree_node(tree->root, 0);
+	if (get_err_num() != ERR_NOTHING)
+	{
+		pre_order_traversal(tree->root, free_parser_node);
+		destroy(tree);
+		free(tree);
+		free_tk_list(&tk_list);
+		ft_lstclear(get_unlink_lst(), close_unlink_list);
+		parsing_error(get_err_num());
+	}
 	return (tree);
 }
 
@@ -41,17 +53,27 @@ void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cu
 	if (!cur_node)
 		return ;
 	dque = save_dque(*tk_list, &cur_list, NULL);
-	if (dque->use_size > 0)
+	if (dque && dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
 	free(dque->nodes);
 	dque->nodes = NULL;
 	free(dque);
 	dque = NULL;
+	if (get_err_num() != ERR_NOTHING)
+		return ;
 	make_tree(tree, tk_list, cur_list, cur_node->right);
 }
 
 t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
+	const t_err_type	err_num = get_err_num();
+	char				*token_str;
+
+	if (err_num == ERR_PIPE || err_num == ERR_MULTI_PIPE)
+	{
+		print_error(ERR_SYN_RDR_PIPE);
+		return (NULL);
+	}
 	if (dque == NULL)
 		dque = deque_init(ft_lstsize(tk_list));
 	if (!(*cur_list))
@@ -70,8 +92,10 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 
 void	dque_to_tree(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
-	if (dque->use_size > 0 && cur_node->left == NULL)
+	const t_meta	*meta = get_meta();
+
+	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->left == NULL)
 		make_left(tree, tk_list, cur_node, dque);
-	if (dque->use_size > 0 && cur_node->right == NULL)
+	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->right == NULL)
 		make_right(tree, tk_list, cur_node, dque);
 }

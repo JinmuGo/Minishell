@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:16:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 16:04:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:12:18 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    *meta_receiver(t_meta_flags flag, int arg)
     else if (flag == ENVP)
         return (meta->envp);
     else if (flag == UNLINK)
-        return (meta->unlink_lst);
+        return (&meta->unlink_lst);
     else if (flag == EXIT_STATUS)
         return (&meta->exit_status);
     else if (flag == SET_ERR_NUM)

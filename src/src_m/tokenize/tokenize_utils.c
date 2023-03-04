@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:23:35 by jgo              ###   ########.fr       */
+/*   Updated: 2023/02/28 19:17:04 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ void	print_tokenize(t_list *tk_list)
 		tmp = tmp->next;
 		cnt++;
 	}
+	printf("\n\n\n");
 	return ;
 }

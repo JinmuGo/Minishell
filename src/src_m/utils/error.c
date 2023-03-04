@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/01 20:30:05 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:12:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "defines.h"
 #include "meta_command.h"
 #include <errno.h>
+#include "error.h"
+#include "utils.h"
 
 t_bool print_error(const char *str, int exit_status)
 {
@@ -46,13 +48,21 @@ t_bool	print_built_in_err(char *cmd, char *key, char *msg)
  * 
  * @return int 
  */
-
-/*
-int parsing_error()
+int	parsing_error(t_err_type err)
 {
-    
+	t_meta	*meta;
+
+	if (err > 99 && err < 300)
+	{
+		print_error("parsing_error()");
+		printf("err_num: ### %d ###\n", err);
+		system("leaks minishell");
+		meta = get_meta();
+		meta->err = ERR_NOTHING;
+		prompt();
+	}
+	return (128);
 }
-*/
 
 /**
  * @brief 
@@ -76,9 +86,12 @@ int heredoc_error()
 }
 */
 
-/*
-int error_handler(t_err_type err)
-{
-    
-}
-*/
+// int error_handler(t_err_type err)
+// {
+// 	if (err > 99 && err < 300)
+// }
+
+// char	*get_err_str(t_err_type err)
+// {
+// 	if ()
+// }

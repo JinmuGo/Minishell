@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/01 20:24:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:11:40 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@
 # define ERR_SYN_RDR_NL "syntax error: near unexpected token `newline'"
 # define ERR_SYN_RDR_IN "syntax error: near unexpected token `<'"
 # define ERR_SYN_RDR_PIPE "syntax error: near unexpected token `|'"
+# define ERR_SYN_HERE "syntax error near unexpected token `<<'"
+# define ERR_SYN_APPEND "syntax error near unexpected token `>>'"
 # define ERR_SYN_QUOTE "syntax error: unclosed quote"
 # define ERR_SYN_ML "syntax error: not support multi-line"
 
 t_bool print_error(const char *str, int exit_status);
 t_bool	print_built_in_err(char *cmd, char *key, char *msg);
 void	print_system_call_err(int rv);
+void	print_error(char *str);
+int		parsing_error(t_err_type err);
 
 #endif

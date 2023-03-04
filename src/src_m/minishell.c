@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 18:32:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:10:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int main(int argc, char **argv, char **envp)
 		print_error(ERR_ARGS, ERR_ARGS_NUM);
 	envp_init(envp);
 	prompt();
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

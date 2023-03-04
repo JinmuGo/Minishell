@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 19:50:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/03 21:04:54 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "data_structure.h"
 #include "parser.h"
 #include "utils.h"
+#include "error.h"
 
 t_list	*tokenize(char *line)
 {
@@ -26,7 +27,7 @@ t_list	*tokenize(char *line)
 	tmp = tk_list->next;
 	free(tk_list);
 	tk_list = tmp;
-	// print_tokenize(tk_list);
+	print_tokenize(tk_list);
 	return (tk_list);
 }
 
@@ -43,7 +44,9 @@ void	make_tk_list(t_list **tk_list, char *line, int size)
 	if (quote.arr)
 	{
 		stack_destory(&quote);
-		// int error_handler(ERR_SYN_QUOTE);
+		free_tk_list(tk_list);
+		parsing_error(ERR_QUOTE);
+		return ;
 	}
 	size += treat_pipe(tk_list, &line[size], 0);
 	size += treat_rdr(tk_list, &line[size], 0);
@@ -58,9 +61,8 @@ int	treat_word(t_list **tk_list, char *line, t_tokenize *token, t_stack *qte)
 		in_quote(line, token, qte);
 	if ((qte->size == 0 && (line[token->size] == '|' || \
 		line[token->size] == '<' || \
-		line[token->size] == '>' || (9 <= line[token->size] && \
-		line[token->size] <= 13) || line[token->size] == 32)) || \
-		line[token->size] == '\0')
+		line[token->size] == '>' || ft_isspace(line[token->size])) || \
+		line[token->size] == '\0'))
 		return (token_node_add(tk_list, line, token));
 	token->size++;
 	treat_word(tk_list, line, token, qte);
@@ -82,9 +84,17 @@ int	treat_rdr(t_list **tk_list, char *line, t_tokenize *token)
 {
 	if (!token)
 		token = tokenize_init(token, RDR);
-	if (line[token->size] != '<' && line[token->size] != '>')
+	if (token->size > 0)
+	{
+		if (line[token->size - 1] != line[token->size])
+			return (token_node_add(tk_list, line, token));
+		if (token->size == 2)
+			return (token_node_add(tk_list, line, token));
+	}
+	if (line[token->size] == '<' || line[token->size] == '>')
+		token->size++;
+	else
 		return (token_node_add(tk_list, line, token));
-	token->size++;
 	treat_rdr(tk_list, line, token);
 	return (token->size);
 }

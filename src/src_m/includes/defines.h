@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:30:30 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 10:11:24 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ enum	e_tree_edge
 	RIGHT = 1
 };
 
-enum	e_simple_cmd_type	
+enum	e_simple_cmd_type
 {
 	FT_ECHO = 0,
 	FT_CD = 1,
@@ -144,10 +144,27 @@ enum	e_meta_flags
 
 enum	e_err_type
 {
+	ERR_NOTHING = 0,
 	// 100 번대 parsing
 	ERR_PARSE_NUM = 100,
 	// 200 번대 heredoc
+	ERR_QUOTE = 100,
+	ERR_MULTI = 101,
+	ERR_PIPE = 102,
+	ERR_MULTI_PIPE = 103,
+	ERR_FIRST_PIPE = 104,
 	
+	ERR_RDR_IN = 110,
+	ERR_RDR_OUT = 111,
+	ERR_RDR_HERE = 112,
+	ERR_RDR_APPEND = 113,
+	ERR_RDR_MULTI = 114,
+	
+	ERR_NL = 120,
+	// 200 번대 heredoc
+	ERR_HEREDOC = 200,
+	ERR_HD_WRITE = 201,
+	ERR_HD_OPEN = 203,
 	// 300 번대 executor
 	ERR_ARGS_NUM = 300
 };
