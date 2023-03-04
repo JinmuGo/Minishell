@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/01 22:09:45 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 16:38:13 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,13 @@ char **hash_convert_arr(t_hash_table *ht)
 	int	i;
 	int	j;
 
-	arr = ft_malloc(sizeof(char *) * ht->cnt + 1);
-	arr[ht->cnt] = NULL;
+	arr = ft_calloc(sizeof(char *), ht->cnt + 1);
 	i = 0;
 	j = 0;
 	while (i < ht->size)
 	{
 		if (ht->bucket[i].key)
-		{
 			arr[j++] = ft_strcombine(3, ht->bucket[i].key, "=", ht->bucket[i].val);
-		}
 		i++;
 	}
 	return (arr);

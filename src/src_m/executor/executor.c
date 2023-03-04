@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/03 22:56:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 16:50:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	recursive_exec(t_tree_node *node, t_executor *execute, t_sequence sequence)
 void	wait_child(t_executor *execute)
 {
 	int		len;
-	int		i;
+	int		exit_status;
 	t_list	*node;
 	t_list	*tmp;
 
@@ -86,7 +86,8 @@ void	wait_child(t_executor *execute)
 	while (len)
 	{
 		tmp = node;
-		waitpid(*((pid_t *)(tmp->content)), get_exit_status(), 0);
+		waitpid(*((pid_t *)(tmp->content)), &exit_status, 0);
+		set_exit_status(WEXITSTATUS(exit_status));
 		printf("len : %d pipe_pid: %d\n", len, *((pid_t *)(tmp->content)));
 		node = node->next;
 		ft_lstdelone(tmp, free);

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:13:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 16:13:20 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ t_bool	prt_sc_err(int rv)
 }
 
 // bash: cd: OLDPWD not set
-t_bool	prt_built_in_err(char *cmd, char *key, char *msg)
+t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status)
 {
 	const char *add_colon = ft_strjoin(cmd, ": ");
-	const char *line = ft_strcombine(4, add_colon, key, ": ",msg);
+	const char *line;
 
-	prt_err(line, EXIT_FAILURE);
+	if (key)
+		line = ft_strcombine(4, add_colon, key, ": ",msg);
+	else
+		line = ft_strcombine(2, add_colon ,msg);
+	prt_err(line, exit_status);
 	ft_free_n(2, add_colon, line);
 	return (FT_FALSE);
 }
