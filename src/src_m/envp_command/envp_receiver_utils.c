@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:45:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/01 20:35:40 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 23:39:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ void    free_bucket(t_hash_table *ht)
 
 t_bool  hash_put(t_hash_elem *elem, const char *key,const char *val)
 {
-	if (elem->val == NULL || is_same_key(elem->key, key))
+	const t_bool is_same = is_same_key(elem->key, key);
+
+	if (elem->val == NULL || is_same)
 	{
+		if (is_same)
+		{
+			free(elem->key);
+			free(elem->val);
+		}
 		elem->key = (char *)key;
 		elem->val = (char *)val;
 		elem->val_len = ft_strlen(val);

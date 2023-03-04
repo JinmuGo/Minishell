@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 17:16:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/04 23:31:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,10 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 	else
 	{
 		signal_controller(SIG_INIT);
+		// post_process();
 		pid_cpy = ft_malloc(sizeof(pid_t));
 		*pid_cpy = pid;
 		ft_lstadd_back(&execute->pid_lst, ft_lstnew(pid_cpy));
-		
 		ft_free_all_arr((void *)path_arr);
 		ft_free_all_arr((void *)envp_arr);
 	}
