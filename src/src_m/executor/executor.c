@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:50:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 15:27:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "executor.h"
 #include "built_in.h"
 #include "meta_command.h"
+#include "envp_command.h"
 
 t_bool	is_built_in(t_tree_node *root)
 {
@@ -40,7 +41,7 @@ t_bool	is_single(t_tree_node *root)
 // 부모와 자식 signal 처리.
 // abs_path가져오기.  // execve는 첫번째 인자로 absolute파일을 받는다. 
 // 부모는 자식의 pid를 받고 wait, waitpid를 건다. 마지막 자식의 exit_status저장. 
-// 그렇다면 pipe는 어떻게 저장할 것인가? -> pid_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
+// 그렇다면 pipe는 어떻게 저장할 것인가? -> child_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
 // 그 와중에 rdr이 있다면 handling을 해준다. abs_path를 가져와서 실행가능하다면 실행 아니면 command not found
 // 실행 이후 처리해야 할 것들.
 // 사용한 pipe의 fd는 close 
@@ -74,6 +75,16 @@ void	recursive_exec(t_tree_node *node, t_executor *execute, t_sequence sequence)
 // 	g_minishell.pid = 0;
 // }
 
+void	shlvl_control(char *proc_name)
+{
+	int	val;
+
+	if (ft_strcmp(proc_name, "./minishell"))
+		return ;
+	val = ft_atoi(get_envp_elem("SHLVL")->val);
+	set_envp_elem("SHLVL", ft_itoa(val - 1));
+}
+
 void	wait_child(t_executor *execute)
 {
 	int		len;
@@ -81,14 +92,15 @@ void	wait_child(t_executor *execute)
 	t_list	*node;
 	t_list	*tmp;
 
-	node = execute->pid_lst;
-	len = ft_lstsize(execute->pid_lst);
+	node = execute->child_lst;
+	len = ft_lstsize(execute->child_lst);
 	while (len)
 	{
 		tmp = node;
-		waitpid(*((pid_t *)(tmp->content)), &exit_status, 0);
+		waitpid(((t_child_proc *)(tmp->content))->pid, &exit_status, 0);
 		set_exit_status(WEXITSTATUS(exit_status));
-		printf("len : %d pipe_pid: %d\n", len, *((pid_t *)(tmp->content)));
+		printf("len : %d proc_name: %s   pid: %d\n", len, ((t_child_proc *)(tmp->content))->name, ((t_child_proc *)(tmp->content))->pid);
+		shlvl_control(((t_child_proc *)(tmp->content))->name);
 		node = node->next;
 		ft_lstdelone(tmp, free);
 		len--;
@@ -110,14 +122,14 @@ void	execute_init(t_tree *tree, t_executor *execute)
 	execute->cur_fd[1] = -1;
 	execute->prev_fd[0] = -1;
 	execute->prev_fd[1] = -1;
-	execute->pid_lst = NULL;
+	execute->child_lst = NULL;
 }
 
 void	print_pipe(t_executor *execute)
 {
 	t_list *node;
 
-	node = execute->pid_lst;
+	node = execute->child_lst;
 	while (node->next)
 	{
 		printf("pipe_pid: %d\n", *((pid_t *)(node->content)));
@@ -140,7 +152,7 @@ void    executor(t_tree *tree)
 		cmd_executor(tree->root->right, &execute, FIRST);
 	else
 		recursive_exec(tree->root->right, &execute, FIRST);
-	if (execute.pid_lst)
+	if (execute.child_lst)
 		wait_child(&execute);
 	rdr_restore(&execute);
 	// print_pipe(&execute);

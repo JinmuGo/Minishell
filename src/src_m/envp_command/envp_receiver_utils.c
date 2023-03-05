@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:45:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 23:39:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 15:30:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,21 @@ void    free_bucket(t_hash_table *ht)
 	free(ht->bucket);
 }
 
-t_bool  hash_put(t_hash_elem *elem, const char *key,const char *val)
+t_bool  hash_put(t_hash_elem *elem, const char *key, const char *val)
 {
 	const t_bool is_same = is_same_key(elem->key, key);
 
-	if (elem->val == NULL || is_same)
+	if (elem->val == NULL && !is_same)
 	{
-		if (is_same)
-		{
-			free(elem->key);
-			free(elem->val);
-		}
 		elem->key = (char *)key;
 		elem->val = (char *)val;
 		elem->val_len = ft_strlen(val);
+		return (FT_TRUE);
+	} else if (is_same)
+	{
+		if (elem->val)
+			free(elem->val);
+		elem->val = (char *)val;
 		return (FT_TRUE);
 	}
 	return(FT_FALSE);
@@ -51,7 +52,7 @@ t_bool  hash_put(t_hash_elem *elem, const char *key,const char *val)
 
 t_bool  is_same_key(const char *origin, const char *judge)
 {
-	if (ft_strncmp(origin, judge, ft_strlen(origin)))
+	if (ft_strcmp(origin, judge))
 		return (FT_FALSE);
 	else
 		return (FT_TRUE);

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:54:00 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 14:48:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_simple_cmd	t_simple_cmd;
 typedef struct s_tokenize	t_tokenize;
 typedef struct s_here_doc	t_here_doc;
 typedef	struct s_executor	t_executor;
+typedef struct s_child_proc t_child_proc;
 
 /* union typedef */
 
@@ -212,7 +213,7 @@ struct s_executor
 	int	cur_fd[2];
 	int	prev_fd[2];
 	t_token_type child[2];
-	t_list *pid_lst;
+	t_list *child_lst;
 	t_bool	built_in;
 	t_bool	single;
 };
@@ -245,8 +246,14 @@ struct s_deque
 	void	*(*pop_rear)(t_deque *);
 	void	*(*peek_front)(const t_deque *);
 	void	*(*peek_rear)(const t_deque *);
-
 };
+
+struct s_child_proc
+{
+	pid_t	pid;
+	char	*name;
+};
+
 
 union u_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 23:31:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 15:22:54 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,16 @@ void	direction_handler(t_executor *execute, t_sequence sequence)
 const char **make_envp_arr(t_tree_node *node)
 {
 	t_simple_cmd *simple_cmd;
+	int	val;
 
 	if (node == NULL)
 		return (NULL);
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
 	if (ft_strcmp(simple_cmd->cmd, "./minishell") == 0)
-		set_envp_elem("SHLVL", ft_itoa(ft_atoi(get_envp_elem("SHLVL")->val) + 1));
+	{
+		val = ft_atoi(get_envp_elem("SHLVL")->val);
+		set_envp_elem("SHLVL", ft_itoa(val + 1));
+	}
 	return ((const char **)convert_char_arr());	
 }
 
@@ -119,7 +123,7 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
 	const	char	**path_arr = get_path_arr();
 	const	char	**envp_arr = make_envp_arr(node->right);
-	pid_t	*pid_cpy;
+	t_child_proc	*child_proc;
 	pid_t	pid;
 
 	pid = fork();
@@ -136,9 +140,10 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 	{
 		signal_controller(SIG_INIT);
 		// post_process();
-		pid_cpy = ft_malloc(sizeof(pid_t));
-		*pid_cpy = pid;
-		ft_lstadd_back(&execute->pid_lst, ft_lstnew(pid_cpy));
+		child_proc = ft_malloc(sizeof(t_child_proc));
+		child_proc->pid = pid;
+		child_proc->name = (((t_token *)(node->right->value))->cmd_val.simple_cmd->cmd);
+		ft_lstadd_back(&execute->child_lst, ft_lstnew(child_proc));
 		ft_free_all_arr((void *)path_arr);
 		ft_free_all_arr((void *)envp_arr);
 	}
