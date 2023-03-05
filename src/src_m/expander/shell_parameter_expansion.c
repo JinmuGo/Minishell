@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 17:20:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 17:30:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,18 @@ char	*question_expand()
 int	expand_and_dup(char *dst, char *key, int j)
 {
 	int	i;
+	const t_hash_elem	*elem = get_envp_elem(key);
 	char	*expanded;
 
+	if (elem == NULL)
+	{
+		free(key);
+		return (0);
+	}
 	if (key[0] == '?')
 		expanded = question_expand();
 	else
-		expanded = get_envp_elem(key)->val;
+		expanded = elem->val;
 	if (expanded == NULL)
 		return (0);
 	i = 0;
@@ -61,11 +67,16 @@ void	double_dollar(char *dst, char *str, int *i, int *j)
 int	try_expand_and_cal_len(char *str, int i, int tmp)
 {
 	const char *dst = ft_substr(str, tmp, i - tmp);
+	const t_hash_elem *elem = get_envp_elem(dst);
 	char *tmp_str;
 	int	len;
 
-	if (dst[0] != '?')
-		len = get_envp_elem(dst)->val_len;
+	if (elem == NULL)
+	{
+		free((void *)dst);
+		return (0);
+	}
+	len = elem->val_len;
 	if (len == 0 && dst[0] == '?')
 	{
 		tmp_str = question_expand();
