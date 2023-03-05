@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:13:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 16:19:53 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_tree	*parser(char *line)
 	tree = malloc(sizeof(t_tree));
 	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
+	edit_unlink_list();
 	print_tree_node(tree->root, 0, "root");
 	if (get_err_num() != ERR_NOTHING)
 	{
@@ -38,6 +39,19 @@ t_tree	*parser(char *line)
 		parsing_error(get_err_num());
 	}
 	return (tree);
+}
+
+void	edit_unlink_list()
+{
+	t_meta	*meta;
+	t_list	*tmp_list;
+
+	meta = get_meta();
+	tmp_list = (meta->unlink_lst)->next;
+	if (tmp_list == NULL)
+		return ;
+	free(meta->unlink_lst);
+	meta->unlink_lst = tmp_list;
 }
 
 void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/04 10:24:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 16:20:26 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);
 void	close_unlink_list(void *content);
 int		validation_heredoc(t_list *token);
+void	edit_unlink_list();
 
 /* lexer_parse.c */
 void	lexer_pipe(t_list *token, t_list **tk_list);
