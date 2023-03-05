@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:10:55 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 17:20:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	char *tmp_str;
 	int	len;
 
-	len = get_envp_elem(dst)->val_len;
+	if (dst[0] != '?')
+		len = get_envp_elem(dst)->val_len;
 	if (len == 0 && dst[0] == '?')
 	{
 		tmp_str = question_expand();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/05 16:11:11 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/05 16:59:11 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
 void	normal_write(int fd, char *delimter)
 {
 	char	*line;
+	char	*tmp;
 
 	while (1)
 	{
@@ -129,8 +130,10 @@ void	normal_write(int fd, char *delimter)
 		}
 		else
 		{
-			if (write(fd, ft_strjoin(line, "\n"), ft_strlen(line) + 1) == -1)
+			tmp = ft_strjoin(line, "\n");
+			if (write(fd, tmp, ft_strlen(line) + 1) == -1)
 				perror("infile write error()");
+			free(tmp);
 		}
 		if (line)
 			free(line);
@@ -140,6 +143,7 @@ void	normal_write(int fd, char *delimter)
 void	expand_write(int fd, char *delimter)
 {
 	char	*line;
+	char	*tmp;
 
 	while (1)
 	{
@@ -158,8 +162,10 @@ void	expand_write(int fd, char *delimter)
 		else
 		{
 			line = shell_param_expand(line);
-			if (write(fd, ft_strjoin(line, "\n"), ft_strlen(line) + 1) == -1)
+			tmp = ft_strjoin(line, "\n"); 
+			if (write(fd, tmp, ft_strlen(line) + 1) == -1)
 				perror("infile write error()");
+			free(tmp);
 		}
 		if (line)
 			free(line);

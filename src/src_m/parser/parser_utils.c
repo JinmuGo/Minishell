@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/04 10:12:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 17:21:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	print_tree_node(t_tree_node *node, int level, char *direct)
 	printf("cur direct: %s\n", direct);
 	printf("%*s", level * 4, "|");
 	if (((t_token *)(node->value))->type == RDR)
-		printf("_RDR_node_\nrdr_type: %u, file: %s fd: %d", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file, ((t_token *)(node->value))->cmd_val.rdr->fd);
+		printf("_RDR_node_\nrdr_type: %u, file: %s", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file);
 	else if(((t_token *)(node->value))->type == PIPE)
 		printf("_PIPE_node_\nfd[0][1]: %d, %d", ((t_token *)(node->value))->cmd_val.pipe->fd[0], ((t_token *)(node->value))->cmd_val.pipe->fd[1]);
 	else if(((t_token *)(node->value))->type == CMD)

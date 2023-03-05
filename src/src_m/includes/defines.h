@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 14:48:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/05 15:48:15 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,8 +279,6 @@ struct s_rdr
 {
 	t_rdr_type rdr_type;
 	char	*file;
-	int		fd; // file을 연 fd값을 삭제하기 위해 정의
-	t_bool	quote; // heredoc 때문에 적어놓음. quote가 있었는지 없었는지 확인.
 };
 
 struct s_stack
