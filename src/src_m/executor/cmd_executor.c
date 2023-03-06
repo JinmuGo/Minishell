@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 15:22:54 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 15:07:08 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*make_abs_path(char *cmd, const char **path_arr)
 	char	*tmp;
 	int		i;
 
-	if (!path_arr || ft_strchr(cmd, '.'))
+	if (!path_arr || ft_strchr(cmd, '.') || ft_strchr(cmd, '/'))
 		return (cmd);
 	i = -1;
 	while (path_arr[++i])
