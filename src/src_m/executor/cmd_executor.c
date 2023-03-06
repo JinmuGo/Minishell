@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 15:07:08 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/06 19:10:18 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_a
 	
 	// dprintf(2, "s_cmd command: %s\n", simple_cmd->cmd);
 	if (node == NULL || node->value == NULL)
-		return ;
+		exit(EXIT_FAILURE);
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
 	type = is_built_in_cmd(simple_cmd->cmd);
 	if (type != FT_EXTERNAL)
@@ -142,9 +142,13 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 		// post_process();
 		child_proc = ft_malloc(sizeof(t_child_proc));
 		child_proc->pid = pid;
-		child_proc->name = (((t_token *)(node->right->value))->cmd_val.simple_cmd->cmd);
+		if (node->right)
+			child_proc->name = (((t_token *)(node->right->value))->cmd_val.simple_cmd->cmd);
+		else
+			child_proc->name = NULL;
 		ft_lstadd_back(&execute->child_lst, ft_lstnew(child_proc));
 		ft_free_all_arr((void *)path_arr);
-		ft_free_all_arr((void *)envp_arr);
+		if (envp_arr)
+			ft_free_all_arr((void *)envp_arr);
 	}
 }

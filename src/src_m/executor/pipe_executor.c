@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:13:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 10:14:31 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 // 처음 중간 끝 일 때 pipe를 닫아주는 행동을 실행! 
 void	pipe_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
+	if (node == NULL)
+		return ;
 	if (sequence == FIRST)
 	{
 		// first // left

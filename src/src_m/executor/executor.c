@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 15:27:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 19:05:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 
 t_bool	is_built_in(t_tree_node *root)
 {
-	const t_simple_cmd_type s_type = is_built_in_cmd(((t_simple_cmd *)((t_token *)(root->right->right->value))->cmd_val.simple_cmd)->cmd);
+	t_simple_cmd_type s_type;
 
+	if (root == NULL || root->right == NULL || root->right->right == NULL)
+		return (FT_FALSE);
+	s_type = is_built_in_cmd(((t_simple_cmd *)((t_token *)(root->right->right->value))->cmd_val.simple_cmd)->cmd);
 	if (s_type != FT_EXTERNAL)
 		return (FT_TRUE);
 	else
