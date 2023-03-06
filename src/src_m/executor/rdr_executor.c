@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 16:32:12 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 10:11:14 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,12 @@ void	rdr_restore(t_executor *execute)
 
 int		open_file(t_rdr *rdr)
 {
-	int		fd;
-
 	if (rdr->rdr_type == IN)
-		fd = open(rdr->file, O_RDONLY, 0644);
+		return (open(rdr->file, O_RDONLY, 0644));
 	else if (rdr->rdr_type == OUT)
-		fd = open(rdr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		return (open(rdr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	else if (rdr->rdr_type == APPEND)
-		fd = open(rdr->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		return (open(rdr->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
 	return (-1);
 }
 
