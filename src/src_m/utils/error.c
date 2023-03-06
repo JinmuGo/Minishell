@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:13:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 14:50:32 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ int	parsing_error(t_err_type err)
 	{
 		prt_err("parsing_error()", err);
 		printf("err_num: ### %d ###\n", err);
-		system("leaks minishell");
+		// system("leaks minishell");
 		meta = get_meta();
 		meta->err = ERR_NOTHING;
+		meta->unlink_lst = ft_calloc(1, sizeof(t_list));
 		prompt();
 	}
 	return (128);
