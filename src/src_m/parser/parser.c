@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 16:19:53 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/06 16:56:17 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_tree	*parser(char *line)
 	return (tree);
 }
 
-void	edit_unlink_list()
+void	edit_unlink_list(void)
 {
 	t_meta	*meta;
 	t_list	*tmp_list;
@@ -54,7 +54,8 @@ void	edit_unlink_list()
 	meta->unlink_lst = tmp_list;
 }
 
-void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)
+void	make_tree(
+		t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
 
@@ -69,9 +70,7 @@ void	make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cu
 	dque = save_dque(*tk_list, &cur_list, NULL);
 	if (dque && dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
-	free(dque->nodes);
-	dque->nodes = NULL;
-	free(dque);
+	dq_free(dque);
 	dque = NULL;
 	if (get_err_num() != ERR_NOTHING)
 		return ;
@@ -104,12 +103,17 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 	return (dque);
 }
 
-void	dque_to_tree(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+void	dque_to_tree(
+		t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	const t_meta	*meta = get_meta();
 
-	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->left == NULL)
+	if (meta->err <= ERR_MULTI_PIPE \
+		&& dque->use_size > 0 \
+		&& cur_node->left == NULL)
 		make_left(tree, tk_list, cur_node, dque);
-	if (meta->err <= ERR_MULTI_PIPE && dque->use_size > 0 && cur_node->right == NULL)
+	if (meta->err <= ERR_MULTI_PIPE \
+		&& dque->use_size > 0 \
+		&& cur_node->right == NULL)
 		make_right(tree, tk_list, cur_node, dque);
 }

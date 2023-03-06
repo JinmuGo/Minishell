@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/05 16:59:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 17:14:20 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 {
-	pid_t			pid;
+	pid_t		pid;
 	t_here_doc	*content;
 	t_list		*new_unlink;
 	char		*file_path;
@@ -123,20 +123,7 @@ void	normal_write(int fd, char *delimter)
 			free(line);
 			break ;
 		}
-		else if (!line)
-		{
-			if (write(fd, "\n", 1) == -1)
-				perror("infile write error");
-		}
-		else
-		{
-			tmp = ft_strjoin(line, "\n");
-			if (write(fd, tmp, ft_strlen(line) + 1) == -1)
-				perror("infile write error()");
-			free(tmp);
-		}
-		if (line)
-			free(line);
+		normal_write_util(fd, line);
 	}
 }
 
@@ -154,21 +141,46 @@ void	expand_write(int fd, char *delimter)
 			free(line);
 			break ;
 		}
-		else if (!line)
-		{
-			if (write(fd, "\n", 1) == -1)
-				perror("infile write error");
-		}
-		else
-		{
-			line = shell_param_expand(line);
-			tmp = ft_strjoin(line, "\n"); 
-			if (write(fd, tmp, ft_strlen(line) + 1) == -1)
-				perror("infile write error()");
-			free(tmp);
-		}
-		if (line)
-			free(line);
+		expand_write_util(fd, line);
+	}
+}
+
+void	normal_write_util(int fd, char *line)
+{
+	char	*tmp;
+
+	if (!line)
+	{
+		if (write(fd, "\n", 1) == -1)
+			perror("infile write error");
+	}
+	else
+	{
+		tmp = ft_strjoin(line, "\n");
+		if (write(fd, tmp, ft_strlen(line) + 1) == -1)
+			perror("infile write error()");
+		free(tmp);
+		free(line);
+	}
+}
+
+void	expand_write_util(int fd, char *line)
+{
+	char	*tmp;
+
+	if (!line)
+	{
+		if (write(fd, "\n", 1) == -1)
+			perror("infile write error");
+	}
+	else
+	{
+		line = shell_param_expand(line);
+		tmp = ft_strjoin(line, "\n");
+		if (write(fd, tmp, ft_strlen(line) + 1) == -1)
+			perror("infile write error()");
+		free(tmp);
+		free(line);
 	}
 }
 
@@ -217,14 +229,15 @@ int	get_new_delimter_size(char *delimter)
 	idx = 0;
 	size = 0;
 	stack_init(&quote);
-	while(delimter && delimter[idx])
+	while (delimter && delimter[idx])
 	{
 		if (quote.size > 0 && delimter[idx] == *(char *)quote.peek(&quote))
 		{
 			quote.pop(&quote);
-			idx++;	
+			idx++;
 		}
-		else if (quote.size == 0 && (delimter[idx] == '\'' || delimter[idx] == '\"'))
+		else if (quote.size == 0 \
+			&& (delimter[idx] == '\'' || delimter[idx] == '\"'))
 			quote.push(&quote, &delimter[idx++]);
 		else
 		{
@@ -254,7 +267,8 @@ char	*make_new_delimter(char *delimter, int size)
 			quote.pop(&quote);
 			idx++;
 		}
-		else if (quote.size == 0 && (delimter[idx] == '\'' || delimter[idx] == '\"'))
+		else if (quote.size == 0 \
+			&& (delimter[idx] == '\'' || delimter[idx] == '\"'))
 			quote.push(&quote, &delimter[idx++]);
 		else
 			new_delimter[new_idx++] = delimter[idx++];

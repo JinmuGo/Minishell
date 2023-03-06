@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 20:12:03 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/22 15:27:12 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 16:51:54 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,4 @@ void	stack_destory(t_stack *stack)
 		free(tmp);
 		stack->size--;
 	}
-}
-
-t_bool	stack_is_empty(t_stack *stack)
-{
-	if (stack->size)
-		return (FALSE);
-	else
-		return (TRUE);
 }
