@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:37:19 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 16:33:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include "defines.h"
 #include "meta_command.h"
 #include "error.h"
+
+static t_bool	judge_args(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (FT_FALSE);
+		i++;
+	}
+	return (FT_TRUE);
+}
 
 int ft_exit(t_simple_cmd *simple_cmd)
 {
@@ -24,7 +38,7 @@ int ft_exit(t_simple_cmd *simple_cmd)
 	if (len > 1)
 	{
 		exit_status = ft_atoi(simple_cmd->args[1]);
-		if (exit_status == 0 && (ft_strncmp(simple_cmd->args[1], "0", 2) != 0))
+		if (exit_status == 0 && judge_args(simple_cmd->args[1]))
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			prt_err("exit: numeric argument required", 255);

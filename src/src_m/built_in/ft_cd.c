@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 17:55:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 18:01:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int ft_cd(t_simple_cmd *simple_cmd)
     if (exec_cd(simple_cmd->args[1]) == BUILT_IN_EXEC_OK)
     {
         pwd = get_envp_elem("PWD");
-        set_envp_elem("OLDPWD", ft_strdup(pwd->val));
+        if (pwd)
+            set_envp_elem("OLDPWD", ft_strdup(pwd->val));
         cwd = getcwd(NULL, 0);
         if (cwd == NULL)
         {

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/06 19:17:37 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 16:39:27 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	make_tk_list(t_list **tk_list, char *line, int size)
 	{
 		stack_destory(&quote);
 		free_tk_list(tk_list);
-		parsing_error(ERR_QUOTE);
 		return ;
 	}
 	size += treat_pipe(tk_list, &line[size], 0);

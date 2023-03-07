@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 19:17:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 16:22:11 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,16 @@
 #include "meta_command.h"
 #include "error.h"
 
-t_tree	*parser(char *line)
+int	parser(char *line, t_tree *tree)
 {
-	t_tree	*tree;
 	t_list	*tk_list;
 
 	tk_list = tokenize(line);
-	tree = malloc(sizeof(t_tree));
-	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
 	edit_unlink_list();
-	// print_tree_node(tree->root, 0, "root");
 	if (get_err_num() != ERR_NOTHING)
-	{
-		pre_order_traversal(tree->root, free_parser_node);
-		destroy(tree);
-		free(tree);
 		free_tk_list(&tk_list);
-		ft_lstclear(get_unlink_lst(), close_unlink_list);
-		parsing_error(get_err_num());
-	}
-	return (tree);
+	return (get_err_num());
 }
 
 void	edit_unlink_list(void)

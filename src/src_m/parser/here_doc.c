@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/06 17:14:20 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/07 16:33:56 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "meta_command.h"
 #include "expander.h"
 #include "signal_controller.h"
+#include "error.h"
 
 void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 {
@@ -38,6 +39,7 @@ void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 		heredoc_wait(pid);
 		signal_controller(SIG_INIT);
 		content->fd = open(file_path, O_RDONLY, 0644);
+		prt_sc_err(content->fd);
 		unlink(file_path);
 		content->file = ft_strdup(file_path);
 		value->cmd_val.rdr->file = ft_strdup(file_path);
@@ -62,8 +64,7 @@ void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path)
 	int	fd;
 
 	fd = open(file_path, O_WRONLY | O_CREAT, 0644);
-	if (fd == -1)
-		perror("file open error");
+	prt_sc_err(fd);
 	write_to_file(tk_list, dque, fd);
 	close(fd);
 	free(file_path);
@@ -150,15 +151,11 @@ void	normal_write_util(int fd, char *line)
 	char	*tmp;
 
 	if (!line)
-	{
-		if (write(fd, "\n", 1) == -1)
-			perror("infile write error");
-	}
+		prt_sc_err(write(fd, "\n", 1));
 	else
 	{
 		tmp = ft_strjoin(line, "\n");
-		if (write(fd, tmp, ft_strlen(line) + 1) == -1)
-			perror("infile write error()");
+		prt_sc_err(write(fd, tmp, ft_strlen(line) + 1));
 		free(tmp);
 		free(line);
 	}
@@ -169,16 +166,12 @@ void	expand_write_util(int fd, char *line)
 	char	*tmp;
 
 	if (!line)
-	{
-		if (write(fd, "\n", 1) == -1)
-			perror("infile write error");
-	}
+		prt_sc_err(write(fd, "\n", 1) == -1);
 	else
 	{
 		line = shell_param_expand(line);
 		tmp = ft_strjoin(line, "\n");
-		if (write(fd, tmp, ft_strlen(line) + 1) == -1)
-			perror("infile write error()");
+		prt_sc_err(write(fd, tmp, ft_strlen(line) + 1));
 		free(tmp);
 		free(line);
 	}
@@ -276,13 +269,13 @@ char	*make_new_delimter(char *delimter, int size)
 	return (new_delimter);
 }
 
-int	validation_heredoc(t_list *token)
+t_bool	validation_heredoc(t_list *token)
 {
 	const int	err = get_err_num();
 
 	if (ft_strncmp(((t_tokenize *)(token->content))->str, "<<", 3))
-		return (0);
+		return (FT_FALSE);
 	if (token->next == NULL || (err >= ERR_RDR_IN && err <= ERR_RDR_APPEND))
-		return (0);
-	return (1);
+		return (FT_FALSE);
+	return (FT_TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/06 17:15:16 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/07 16:21:57 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		print_tokenize(t_list *tk_list);
 
 /* parser.c */
 
-t_tree		*parser(char *line);
+int			parser(char *line, t_tree *tree);
 void		make_tree(t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node);
 void		dque_to_tree(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque);
 void		make_left(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque);
@@ -53,7 +53,6 @@ void		set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token
 t_list		*delete_lst_node(t_list **tk_list, t_tokenize *token);
 int			search_rdr(t_deque *dque);
 void		recover_dque(t_deque *dque, int re_cnt);
-void		free_parser_node(t_tree_node *node);
 
 /* here_doc.c */
 
@@ -71,8 +70,7 @@ int		validation_delimter(char *delimter, char **new_delimter);
 char	*edit_delimter(char *delimter);
 int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);
-void	close_unlink_list(void *content);
-int		validation_heredoc(t_list *token);
+t_bool	validation_heredoc(t_list *token);
 void	edit_unlink_list();
 
 /* lexer_parse.c */

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/05 17:21:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 16:41:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,38 +99,4 @@ void	print_tree_node(t_tree_node *node, int level, char *direct)
 	printf("\n");
 	print_tree_node(node->left, level + 1, "left");
 	print_tree_node(node->right, level + 1, "right");
-}
-
-void	free_parser_node(t_tree_node *node)
-{
-	t_token	*token;
-
-	token = node->value;
-	if (token->type == RDR)
-	{
-		free(token->cmd_val.rdr->file);
-		free(token->cmd_val.rdr);
-	}
-	else if (token->type == S_CMD)
-	{
-		free(token->cmd_val.simple_cmd->cmd);
-		ft_free_all_arr(token->cmd_val.simple_cmd->args);
-		free(token->cmd_val.simple_cmd);
-	}
-	else if (token->type == PIPE)
-		free(token->cmd_val.pipe);
-}
-
-void	close_unlink_list(void *content)
-{
-	t_here_doc	*heredoc;
-
-	if (content)
-	{
-		heredoc = content;
-		free(heredoc->file);
-		close(heredoc->fd);
-		free(heredoc);
-		heredoc = NULL;
-	}
 }

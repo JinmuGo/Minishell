@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:13:38 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 16:41:26 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 t_bool prt_err(const char *str, int exit_status);
 t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status);
-int		parsing_error(t_err_type err);
 t_bool	prt_sc_err(int rv);
+void err_handler(t_meta *meta);
 
 #endif

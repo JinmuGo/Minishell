@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 14:50:32 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/07 16:41:13 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 t_bool prt_err(const char *str, int exit_status)
 {
-    write(STDERR_FILENO, "Minishell: ", 12);
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, "\n", 2);
+    prt_sc_err(write(STDERR_FILENO, "Minishell: ", 12));
+	prt_sc_err(write(STDERR_FILENO, str, ft_strlen(str)));
+	prt_sc_err(write(STDERR_FILENO, "\n", 2));
 	set_exit_status(exit_status);
 	return (FT_FALSE);
 }
@@ -56,51 +56,13 @@ t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status)
  * 
  * @return int 
  */
-int	parsing_error(t_err_type err)
+void err_handler(t_meta *meta)
 {
-	t_meta	*meta;
+	const int	err = meta->err;
 
-	if (err > 99 && err < 300)
-	{
-		prt_err("parsing_error()", err);
-		printf("err_num: ### %d ###\n", err);
-		// system("leaks minishell");
-		meta = get_meta();
-		meta->err = ERR_NOTHING;
-		meta->unlink_lst = ft_calloc(1, sizeof(t_list));
-		prompt();
-	}
-	return (128);
+	if (err == ERR_NOTHING)
+		return ;
+	if (100 <= err && err < 200)
+		prt_err("parsing_error", 128);
+	
 }
-
-/**
- * @brief 
- * 
- * @return int 
- */
-
-/*
-int executor_error()
-{
-    
-}
-
-*/
-
-
-/*
-int heredoc_error()
-{
-
-}
-*/
-
-// int error_handler(t_err_type err)
-// {
-// 	if (err > 99 && err < 300)
-// }
-
-// char	*get_err_str(t_err_type err)
-// {
-// 	if ()
-// }
