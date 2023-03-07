@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 19:05:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 21:59:32 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ t_bool	is_single(t_tree_node *root)
 	else
 		return (FT_FALSE);
 }
-// S_CMD 실행시에만 fork를 떠보자. 
-// 실행 이전에 처리해야 할 것들.
-// 부모와 자식 signal 처리.
-// abs_path가져오기.  // execve는 첫번째 인자로 absolute파일을 받는다. 
-// 부모는 자식의 pid를 받고 wait, waitpid를 건다. 마지막 자식의 exit_status저장. 
-// 그렇다면 pipe는 어떻게 저장할 것인가? -> child_lst? 와 같은 자료구조 중에 하나를 사용해서 전달해야할 fd값을 저장한다.
-// 그 와중에 rdr이 있다면 handling을 해준다. abs_path를 가져와서 실행가능하다면 실행 아니면 command not found
-// 실행 이후 처리해야 할 것들.
-// 사용한 pipe의 fd는 close 
-// rdr도 close
 
 void	recursive_exec(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
@@ -62,21 +52,6 @@ void	recursive_exec(t_tree_node *node, t_executor *execute, t_sequence sequence)
 	sequence = MIDDLE;
 	recursive_exec(node->right, execute, sequence);
 }
-
-// void	exec_cmd_helper(void)
-// {
-// 	if ( < 0)
-// 		return ;
-// 	while (wait(&g_minishell.pid) > 0)
-// 		(void)g_minishell.pid;
-// 	if (g_minishell.pid == 2)
-// 		set_status(130);
-// 	else if (g_minishell.pid == 3 || g_minishell.pid == 131)
-// 		set_status(131);
-// 	else
-// 		set_status(WEXITSTATUS(g_minishell.pid));
-// 	g_minishell.pid = 0;
-// }
 
 void	shlvl_control(char *proc_name)
 {
@@ -102,7 +77,7 @@ void	wait_child(t_executor *execute)
 		tmp = node;
 		waitpid(((t_child_proc *)(tmp->content))->pid, &exit_status, 0);
 		set_exit_status(WEXITSTATUS(exit_status));
-		printf("len : %d proc_name: %s   pid: %d\n", len, ((t_child_proc *)(tmp->content))->name, ((t_child_proc *)(tmp->content))->pid);
+		// printf("len : %d proc_name: %s   pid: %d\n", len, ((t_child_proc *)(tmp->content))->name, ((t_child_proc *)(tmp->content))->pid);
 		shlvl_control(((t_child_proc *)(tmp->content))->name);
 		node = node->next;
 		ft_lstdelone(tmp, free);
@@ -128,20 +103,6 @@ void	execute_init(t_tree *tree, t_executor *execute)
 	execute->child_lst = NULL;
 }
 
-void	print_pipe(t_executor *execute)
-{
-	t_list *node;
-
-	node = execute->child_lst;
-	while (node->next)
-	{
-		printf("pipe_pid: %d\n", *((pid_t *)(node->content)));
-		node = node->next;
-	}
-}
-
-// list 로 pid 저장.
-// echo hi | cat
 void    executor(t_tree *tree)
 {
 	t_executor	execute;
@@ -160,7 +121,3 @@ void    executor(t_tree *tree)
 	rdr_restore(&execute);
 	// print_pipe(&execute);
 }
-// rdr이 있으면 rdr우선으로 처리한다. (파이프 처리하지 않음.)
-// 없다면 파이프기준 오른쪽 cmd는 pipe에서 읽어온다. 
-// 마지막 노드는 표준 출력으로 dup2한다. 
-// 우리의 minishell에서는 루트 pipe는 자식 프로세스를 생성하는 역할만 한다?!

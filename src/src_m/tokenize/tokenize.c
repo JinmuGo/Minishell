@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/03 21:04:54 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/06 19:17:37 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*tokenize(char *line)
 	tmp = tk_list->next;
 	free(tk_list);
 	tk_list = tmp;
-	print_tokenize(tk_list);
+	// print_tokenize(tk_list);
 	return (tk_list);
 }
 

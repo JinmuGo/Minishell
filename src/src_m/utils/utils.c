@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/27 17:31:28 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/06 23:20:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 #include "envp_command.h"
 #include "meta_command.h"
 
-char *get_cur_dir(void)
+char *redef_cur_dir(char *prev_dir)
 {
-	char	buffer[1000];
+	char	*buffer;
 	char	*dst;
 
-	getcwd(buffer, 1000);
+	if (prev_dir)
+		free(prev_dir);
+	buffer = getcwd(NULL, 0);
+	if (buffer == NULL)
+		return (NULL);
 	dst = ft_strdup(buffer);
+	free(buffer);
 	return (dst);
 }

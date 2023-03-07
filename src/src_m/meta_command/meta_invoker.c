@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:08:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:25:55 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 23:01:56 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,7 @@ void    set_exit_status(int arg)
     meta_receiver(SET_EXIT_STATUS, arg);
 }
 
-pid_t   *get_pid(void)
+char    *get_cur_dir(void)
 {
-    return ((pid_t *)meta_receiver(PID, 0));
-}
-
-void    set_pid(pid_t pid)
-{
-    meta_receiver(SET_PID, pid);
+    return (meta_receiver(GET_CUR_DIR, 0));
 }

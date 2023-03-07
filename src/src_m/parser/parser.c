@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 16:56:17 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/06 19:17:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tree	*parser(char *line)
 	tree_init(tree);
 	make_tree(tree, &tk_list, tk_list, NULL);
 	edit_unlink_list();
-	print_tree_node(tree->root, 0, "root");
+	// print_tree_node(tree->root, 0, "root");
 	if (get_err_num() != ERR_NOTHING)
 	{
 		pre_order_traversal(tree->root, free_parser_node);

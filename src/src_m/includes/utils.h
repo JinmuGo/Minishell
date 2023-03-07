@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 16:54:19 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 23:05:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_meta	*singleton(void);
 void	prompt(void);
 
 /* utils.c */
-char	*get_cur_dir(void);
+char *redef_cur_dir(char *prev_dir);
 
 /* prompt. c*/
-char *make_prompt(void);
+char *make_prompt(char *prev_prompt);
 
 #endif

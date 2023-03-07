@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 10:14:31 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/06 19:15:34 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,6 @@
 #include "executor.h"
 #include "meta_command.h"
 
-
-// right로 들어갈 때
-// pipe node의 right pipe node이면 curfd 를 prevfd로 변경한 뒤 curfd에 pipe(cur_fd)를 해준다.
-// pipe node의 right cmd node일 경우 prevfd로 변경한 뒤 cur_fd[1]에 STDOUT을 넣는다.
-
-// left로 들어갈 때
-// pipe node의 right 없을 경우 curfd 를 prevfd로 변경한 뒤 cur_fd[1]에 STDOUT을 넣는다.
-// 0 left 1 right
-
-
-// 처음 중간 끝 일 때 pipe를 닫아주는 행동을 실행! 
 void	pipe_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
 	if (node == NULL)

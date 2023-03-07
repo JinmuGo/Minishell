@@ -6,13 +6,14 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 18:26:12 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/22 19:23:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/07 09:45:34 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "utils.h"
+#include "meta_command.h"
 
 char *make_git_prompt(const char *cur_dir, int fd)
 {
@@ -37,23 +38,26 @@ char *make_git_prompt(const char *cur_dir, int fd)
 
 char	*make_normal_prompt(const char *cur_dir)
 {
-	char *rv;
-
-	rv = ft_strcombine(6, BOLD,  CYAN, cur_dir, MAGENTA, MY_PROMPT, RESET);
-	return (rv);
+	return (ft_strcombine(6, BOLD,  CYAN, cur_dir, MAGENTA, MY_PROMPT, RESET));
 }
 
-char *make_prompt(void)
+// prompt를 정상적으로 만들 수 있을 경우. 이전의 prompt를 free하고 새로만든 prompt를 return 한다. 
+// 만약 정상적으로 만들 수 없을 경우 . 이전의 prompt를 return 한다. 
+char *make_prompt(char *prev_prompt)
 {
-	const char *cur_dir = get_cur_dir();
-	const int fd = open(".git/HEAD", O_RDONLY);
-	char *prompt;
+	const int	fd = open(".git/HEAD", O_RDONLY);
+	const char	*cur_dir = get_cur_dir();
+	char		*new_prompt;
 	
+	if (cur_dir == NULL)
+		return (prev_prompt);
 	if (fd != -1)
-		prompt = make_git_prompt(cur_dir, fd);
+		new_prompt = make_git_prompt(cur_dir, fd);
 	else
-		prompt = make_normal_prompt(cur_dir);
-	close(fd);
-	free((void *)cur_dir);
-	return (prompt);
+		new_prompt = make_normal_prompt(cur_dir);
+	if (prev_prompt)
+		free(prev_prompt);
+	if (fd != -1)
+		close(fd);
+	return (new_prompt);
 }
