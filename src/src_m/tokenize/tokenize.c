@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/07 16:39:27 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 15:02:27 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "parser.h"
 #include "utils.h"
 #include "error.h"
+#include "meta_command.h"
 
 t_list	*tokenize(char *line)
 {
@@ -24,9 +25,14 @@ t_list	*tokenize(char *line)
 
 	tk_list = ft_calloc(sizeof(t_list), 1);
 	make_tk_list(&tk_list, line, 0);
-	tmp = tk_list->next;
-	free(tk_list);
-	tk_list = tmp;
+	if (tk_list)
+	{
+		tmp = tk_list->next;
+		free(tk_list);
+		tk_list = tmp;
+	}
+	else
+		set_err_num(ERR_QUOTE);
 	// print_tokenize(tk_list);
 	return (tk_list);
 }
@@ -45,6 +51,7 @@ void	make_tk_list(t_list **tk_list, char *line, int size)
 	{
 		stack_destory(&quote);
 		free_tk_list(tk_list);
+		tk_list = NULL;
 		return ;
 	}
 	size += treat_pipe(tk_list, &line[size], 0);
