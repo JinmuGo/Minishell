@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/07 20:53:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 16:24:40 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,70 +25,56 @@ void	rdr_expander(t_rdr	*rdr)
 	}
 }
 
-// void	cmd_field_split(t_simple_cmd *cmd)
-// {
-// 	char **split_arr;
-// 	int	len;
-// 	char **args;
-// 	int	i;
-
-// 	split_arr = ft_split(cmd->cmd, ' '); // 1
-// 	if (split_arr == NULL)
-// 		return ;
-// 	free(cmd->cmd);
-// 	len = ft_arrlen((void **)split_arr);
-// 	args = ft_malloc(sizeof(char *) * (len + ft_arrlen((void **)cmd->args) + 1)); // 4
-// 	cmd->cmd = ft_strdup(split_arr[0]);
-// 	i = -1;
-// 	while (split_arr[++i])
-// 		args[i] = ft_strdup(split_arr[i]);
-// 	i = -1;
-// 	while (cmd->args[++i])
-// 		args[len + i] = ft_strdup(cmd->args[i]);
-// 	args[len + i] = NULL;
-// 	ft_free_all_arr(cmd->args);
-// 	cmd->args = args;
-// 	ft_free_all_arr(split_arr);
-// }
-
-// int	args_field_split(t_simple_cmd *cmd, int	idx)
-// {
-// 	char **split_arr;
-// 	char **args;
-// 	int	len;
-// 	int	i;
-// 	int	j;
-
-// 	split_arr = ft_split(cmd->args[idx], ' ');
-// 	if (split_arr == NULL)
-// 		return (0);
-// 	len = ft_arrlen((void *)split_arr);
-// 	args = ft_malloc(sizeof(char *) * (len + ft_arrlen((void **)cmd->args)));
-// 	args[0] = ft_strdup(cmd->args[0]);
-// 	i = 0;
-// 	while(++i < idx)
-// 		args[i] = ft_strdup(cmd->args[i]);
-// 	j = i;
-// 	while (*split_arr)
-// 	{
-// 		args[i++] = ft_strdup(*split_arr);
-// 		split_arr++;
-// 	}
-// 	while (cmd->args[j])
-// 		args[i++] = ft_strdup(cmd->args[j++]);
-// 	args[i] = NULL;
-// 	if (cmd->args)
-// 	ft_free_all_arr(cmd->args);
-// 	cmd->args = args;
-// 	ft_free_all_arr(split_arr - len);
-// 	return (len - 2);
-// }
-
 // cmd->cmd 는 split을하고 맨 처음만 살리고 뒤에는 버린다. 
 // cmd->args는 split을 하고 모두 살린다.
+
+void	cmd_field_split(t_simple_cmd *cmd, char **splited_cmd, const int origin_len)
+{
+	const int	len = ft_arrlen((void *)splited_cmd);
+	int	i;
+	char	**args;
+	int	idx;
+
+	if (*splited_cmd == NULL)
+		return ;
+	free(cmd->cmd);
+	cmd->cmd = ft_strdup(splited_cmd[0]);
+	args = ft_malloc(sizeof(char *) * (len + origin_len));
+	i = -1;
+	idx = 0;
+	while (++i < len)
+		args[idx++] = ft_strdup(splited_cmd[i]);
+	i = 0;
+	while (cmd->args[++i])
+		args[idx++] = ft_strdup(cmd->args[i]);
+	ft_free_all_arr(cmd->args);
+	args[idx] = NULL;
+	cmd->args = args;
+}
+
+void	args_field_split(t_simple_cmd *cmd, char **splited_args, const int origin_len)
+{
+	if (splited_args == NULL)
+		return ;
+	
+}
+
 void	field_split(t_simple_cmd *cmd)
 {
-	
+	char **splited_arr;
+	int	origin_len;
+	// const char **splited_args = ft_split(cmd->args, ' ');
+
+	splited_arr = ft_split(cmd->cmd, ' ');
+	origin_len = ft_arrlen((void *)cmd->args);
+	cmd_field_split(cmd, splited_arr, origin_len);
+	ft_free_all_arr(splited_arr);
+		
+	// splited_arr = ft_split(cmd->args, ' ');	
+	// origin_len = ft_arrlen((void *)cmd->args);
+	// args_field_split(cmd, splited_arr, origin_len);
+	// args_field_split(cmd, splited_args);
+	// ft_free_all_arr(splited_args);
 }
 
 void	cmd_expander(t_simple_cmd	*cmd)
@@ -106,6 +92,7 @@ void	cmd_expander(t_simple_cmd	*cmd)
 		cmd->args[i] = quote_removal(cmd->args[i]);
 		i++;
 	}
+	field_split(cmd);
 }
 
 /**

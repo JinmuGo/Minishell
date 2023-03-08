@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:03:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 15:48:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ t_bool  exec_export(char *arg)
             return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT, EXIT_FAILURE));
 		}
 	val = get_envp_val(arg);
+	if (val == NULL)
+	{
+		free(key);
+		return (FT_TRUE);
+	}
     if (key[len - 1] == '+')
 		append_val(key, val);
 	else if (ft_strchr(arg, '='))

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:58:23 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/25 20:14:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 15:46:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ char	*get_envp_val(char *envp_elem)
 	char *val;
 
 	tmp = ft_strchr(envp_elem, '=');
+	if (ft_strlen(tmp) == 0)
+	{
+		free(tmp);
+		return (NULL);
+	}
 	tmp += 1;
 	val = ft_strdup(tmp);
 	return (val);
