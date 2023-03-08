@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:43:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 20:56:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void	field_split(t_simple_cmd *cmd)
 	origin_len = ft_arrlen((void *)cmd->args);
 	cmd_field_split(cmd, splited_arr, origin_len);
 	ft_free_all_arr(splited_arr);
+		
 	// splited_arr = ft_split(cmd->args, ' ');	
 	// origin_len = ft_arrlen((void *)cmd->args);
 	// args_field_split(cmd, splited_arr, origin_len);
+	// args_field_split(cmd, splited_args);
 	// ft_free_all_arr(splited_args);
 }
 
