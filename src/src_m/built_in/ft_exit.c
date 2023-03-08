@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 14:12:06 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/08 19:27:45 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int ft_exit(t_simple_cmd *simple_cmd)
 			return (EXIT_FAILURE);
 		}
 	}
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	if (!simple_cmd->args[2])
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit(exit_status);
 }

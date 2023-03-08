@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/05 17:30:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 16:46:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,16 @@ int	expand_and_dup(char *dst, char *key, int j)
 	const t_hash_elem	*elem = get_envp_elem(key);
 	char	*expanded;
 
-	if (elem == NULL)
+	expanded = NULL;
+	if (key[0] == '?')
+		expanded = question_expand();
+	if (elem)
+		expanded = elem->val;
+	if (expanded == NULL)
 	{
 		free(key);
 		return (0);
 	}
-	if (key[0] == '?')
-		expanded = question_expand();
-	else
-		expanded = elem->val;
-	if (expanded == NULL)
-		return (0);
 	i = 0;
 	while (expanded[i])
 		dst[j++] = expanded[i++];
@@ -115,7 +114,7 @@ char *expand_variable(char *dst, char *str)
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(dst, str, &i, &j);
-		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]))
+		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))
@@ -146,7 +145,7 @@ int	cal_expand_len(char *str)
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(NULL, NULL, &i, &len);
-		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]))
+		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
 		{
 			tmp = i;
 			while (is_shell_var(str[i]))

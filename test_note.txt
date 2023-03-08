@@ -1,80 +1,14 @@
----------- 보류 ----------
+cd ~
 
-1.
-<< eof cat >> infile -> infile 뒤에 추가됨 // 해결 
-by donpark, joonpark :)
+export AAA="abc"
+1$AAA'1'
 
-bash
-<< HERE_DOC > a.txt | cat a.txt | wc -l
-<< HERE_DOC > a.txt | cat a.txt
-ls -al | > a.txt
-ls -al | cat
+export ABC="a b c"
+env | grep ABC
 
-2.
-./minishell
-env | grep SHLVL
-
-3.
-<< eof | cat
-
-4.
-$_ : env | grep SHLVL
-
-5.
-export a=">>"
-ls $a algo
-
-6.
-<< ola | grep 42 | cat
-
-7.
-cd .. | rm -rf minishell
-
-8.
---> 개행까지 고려해서 구현해야하나? '\n' 이스케이프에 해당하는가?
-19. Pipe (개행까지 복사하면 제대로 동작 X)
-cat /etc/passwd | grep ':' | more
-ls -l | grep d
-ls invalid | grep d | more
-ls -l | grep d > tmp5
-Cat | cat | ls
-
+echo 1 > a | echo 2 > b
 
 ---------- error ----------
-
-1.
-//사라진 경로 테스트
-mkdir test
-cd test
-rm -rf ../test
-pwd
-Cd .
-Env | grep PWD
-
-cd와 make_prompt 함수만 손대면 될듯. 
-
-" our minishell "
-/Users/IdealFlower/idealflower_k/42seoul/Minishell/test ❯ rm -rf ../test
-cmd: rm, args: rm,-rf,../test,
-len : 1 pipe_pid: 82736
-z��o ❯ pwd
-cmd: pwd, args: pwd,
-Minishell: No such file or directory
- ❯
-cd ..  하면 복구됨
-
-2.
-unset PWD
-cd .. x 8
-
-3.
-export a="ls -la"
-$a
-
-4.
-export a =asd
-
---> get_envp_val()에서 ft_strchr(envp_elem, '=') '='이 없을떄 예외처리 필요.
 
 5.
 export a='algo"algo'

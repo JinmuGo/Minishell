@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/07 16:46:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 17:10:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ char *redef_cur_dir(char *prev_dir)
 	char	*buffer;
 	char	*dst;
 
-	if (prev_dir)
-		free(prev_dir);
 	buffer = getcwd(NULL, 0);
 	if (buffer == NULL)
-		return (NULL);
+		return (prev_dir);
+	if (prev_dir)
+		free(prev_dir);
 	dst = ft_strdup(buffer);
 	free(buffer);
 	return (dst);

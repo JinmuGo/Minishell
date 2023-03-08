@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 11:16:11 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 22:59:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 17:07:05 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "envp_command.h"
 #include "utils.h"
 
-void    *meta_receiver(t_meta_flags flag, int arg)
+void    *meta_receiver(t_meta_flags flag, int arg, char *str)
 {
     t_meta *meta;
 
@@ -36,5 +36,7 @@ void    *meta_receiver(t_meta_flags flag, int arg)
         meta->exit_status = arg;
     else if (flag == GET_CUR_DIR)
         return (meta->cur_dir);
+    else if (flag == SET_CUR_DIR)
+        meta->cur_dir = str;
     return (NULL);
 }

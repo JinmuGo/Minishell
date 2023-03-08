@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 22:59:10 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 17:07:00 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ enum	e_meta_flags
 	EXIT_STATUS = 5,
 	SET_ERR_NUM = 6,
 	SET_EXIT_STATUS = 7,
-	GET_CUR_DIR = 8
+	GET_CUR_DIR = 8,
+	SET_CUR_DIR = 9
 };
 
 enum	e_err_type

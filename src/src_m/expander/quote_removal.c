@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:42:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/20 21:56:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 20:43:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int cal_remove_len(char *str)
     }
     return (len);
 }
+
+
 
 char    check_quote(char quote, char c, char *dst, int *j)
 {

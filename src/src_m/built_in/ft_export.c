@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:03:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 20:18:03 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "envp_command.h"
 #include "meta_command.h"
 #include "built_in.h"
+#include "expander.h"
 
 
 // https://www.geeksforgeeks.org/shell-scripting-rules-for-naming-variable-name/
@@ -64,10 +65,15 @@ t_bool  exec_export(char *arg)
             return (prt_built_in_err("export ", arg, ERR_INVALID_IDENT, EXIT_FAILURE));
 		}
 	val = get_envp_val(arg);
+	if (val == NULL)
+	{
+		free(key);
+		return (FT_TRUE);
+	}
     if (key[len - 1] == '+')
 		append_val(key, val);
 	else if (ft_strchr(arg, '='))
-        set_envp_elem(key, val);
+        set_envp_elem(key, quote_removal(val));
     return (FT_TRUE);
 }
 
