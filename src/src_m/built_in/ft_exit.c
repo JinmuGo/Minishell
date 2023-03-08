@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/07 16:33:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/08 14:12:06 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int ft_exit(t_simple_cmd *simple_cmd)
 	if (len > 1)
 	{
 		exit_status = ft_atoi(simple_cmd->args[1]);
-		if (exit_status == 0 && judge_args(simple_cmd->args[1]))
+		if (!judge_args(simple_cmd->args[1]))
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			prt_err("exit: numeric argument required", 255);
