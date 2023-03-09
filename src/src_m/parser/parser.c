@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 17:10:24 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 20:03:19 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	parser(char *line, t_tree *tree)
 		if (get_err_num() != ERR_NOTHING && tk_list)
 			free_tk_list(&tk_list);
 	}
+	print_tree_node(tree->root, 0, "root");
 	return (get_err_num());
 }
 
@@ -50,6 +51,7 @@ void	make_tree(
 		t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
+	t_err_type	err;
 
 	if (!cur_list)
 		return ;
@@ -65,7 +67,8 @@ void	make_tree(
 	free(dque->nodes);
 	free((void *)dque);
 	dque = NULL;
-	if (get_err_num() != ERR_NOTHING)
+	err = get_err_num();
+	if (err != ERR_NOTHING)
 		return ;
 	make_tree(tree, tk_list, cur_list, cur_node->right);
 }
@@ -105,7 +108,7 @@ void	dque_to_tree(
 		&& dque->use_size > 0 \
 		&& cur_node->left == NULL)
 		make_left(tree, tk_list, cur_node, dque);
-	if (meta->err <= ERR_MULTI_PIPE \
+	if (meta->err == ERR_NOTHING \
 		&& dque->use_size > 0 \
 		&& cur_node->right == NULL)
 		make_right(tree, tk_list, cur_node, dque);

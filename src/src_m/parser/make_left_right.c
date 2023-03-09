@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:49 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 21:41:11 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 20:28:43 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include "utils.h"
 #include "data_structure.h"
 
-void	make_left(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+void	make_left(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_tree_node	*next_node;
 
@@ -33,11 +34,13 @@ void	make_left(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *d
 	return ;
 }
 
-void	make_right(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+void	make_right(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_tree_node	*next_node;
 
-	if (((t_token *)(cur_node->value))->type == RDR || ((t_token *)(cur_node->value))->type == S_CMD)
+	if (((t_token *)(cur_node->value))->type == RDR \
+		|| ((t_token *)(cur_node->value))->type == S_CMD)
 		return ;
 	if (((t_token *)(cur_node->value))->type == PIPE)
 	{
