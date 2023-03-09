@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/07 16:21:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/10 09:59:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	edit_unlink_list();
 
 /* lexer_parse.c */
 void	lexer_pipe(t_list *token, t_list **tk_list);
-int		lexer_rdr(t_list *token);
+void	lexer_rdr(t_list *token);
 
 void	print_tree_node(t_tree_node *node, int level, char *direct);
 #endif

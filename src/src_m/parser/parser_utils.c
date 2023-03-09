@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/07 16:41:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 20:29:17 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	search_rdr(t_deque *dque)
 	re_cnt = 0;
 	while (cnt > 0)
 	{
-		if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == RDR)
+		if (((t_tokenize *)(((t_list *)
+					(dque->nodes[dque->front]))->content))->type == RDR)
 			return (re_cnt);
 		token = dque->pop_front(dque);
 		dque->push_rear(dque, token);

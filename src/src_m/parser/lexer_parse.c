@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:17:06 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/03 21:07:02 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 09:59:14 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,41 @@
 
 void	lexer_pipe(t_list *token, t_list **tk_list)
 {
-	t_meta *meta = get_meta();
+	const t_meta	*meta = get_meta();
 
 	if (((t_tokenize *)(*tk_list)->content)->type == PIPE)
-		meta->err = ERR_FIRST_PIPE;
+		set_err_num(ERR_FIRST_PIPE);
 	else if (((t_tokenize *)(token->content))->size > 1)
-		meta->err = ERR_MULTI_PIPE;
+		set_err_num(ERR_MULTI_PIPE);
 	else if (token->next == NULL)
-		meta->err = ERR_MULTI;
+		set_err_num(ERR_MULTI);
 	else if (((t_tokenize *)(token->next->content))->type == PIPE)
-		meta->err = ERR_PIPE;
+		set_err_num(ERR_PIPE);
 	return ;
 }
 
-int	lexer_rdr(t_list *token)
+void	lexer_rdr(t_list *token)
 {
-	t_meta *meta = get_meta();
+	const t_meta	*meta = get_meta();
 
 	if (token->next == NULL)
 	{
 		if (meta->err == ERR_MULTI || meta->err == ERR_MULTI_PIPE)
-			meta->err = ERR_PIPE;
+			set_err_num(ERR_PIPE);
 		else if (meta->err == ERR_NOTHING)
-			meta->err = ERR_NL;
+			set_err_num(ERR_NL);
 	}
 	else if (((t_tokenize *)(token->next->content))->type == RDR)
 	{
-		if (!ft_strncmp(((t_tokenize *)(token->next->content))->str, "<", 2))
-			meta->err = ERR_RDR_IN;
-		else if (!ft_strncmp(((t_tokenize *)(token->next->content))->str, ">", 2))
-			meta->err = ERR_RDR_OUT;
+		if (!ft_strncmp(
+				((t_tokenize *)(token->next->content))->str, "<", 2))
+			set_err_num(ERR_RDR_IN);
+		else if (!ft_strncmp(
+				((t_tokenize *)(token->next->content))->str, ">", 2))
+			set_err_num(ERR_RDR_OUT);
 		else if (((t_tokenize *)(token->next->content))->str[0] == '<')
-			meta->err = ERR_RDR_HERE;
+			set_err_num(ERR_RDR_HERE);
 		else if (((t_tokenize *)(token->next->content))->str[0] == '>')
-			meta->err = ERR_RDR_APPEND;
+			set_err_num(ERR_RDR_APPEND);
 	}
-	return (meta->err);
 }

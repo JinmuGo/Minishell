@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:43:01 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 17:10:08 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 20:30:57 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_token	*make_value(t_list **tk_list, t_tokenize *token, t_deque *dque)
 	return (value);
 }
 
-void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
+void	set_rdr(
+	t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 {
 	t_list		*next_list;
 	t_tokenize	*next_token;
@@ -60,7 +61,8 @@ void	set_rdr(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 		return ;
 	}
 	*tk_list = delete_lst_node(tk_list, token);
-	if (((t_tokenize *)(((t_list *)(dque->nodes[dque->front]))->content))->type == WORD)
+	if (((t_tokenize *)(((t_list *)
+				(dque->nodes[dque->front]))->content))->type == WORD)
 	{
 		next_list = dque->pop_front(dque);
 		next_token = next_list->content;
@@ -80,7 +82,8 @@ void	set_pipe(t_list **tk_list, t_tokenize *token, t_token *value)
 		*tk_list = delete_lst_node(tk_list, token);
 }
 
-void	set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
+void	set_simple_cmd(
+	t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 {
 	t_tokenize	*tmp;
 
@@ -90,18 +93,23 @@ void	set_simple_cmd(t_list **tk_list, t_deque *dque, t_tokenize *token, t_token 
 	*tk_list = delete_lst_node(tk_list, token);
 	if (dque->use_size > 0)
 	{
-		value->cmd_val.simple_cmd->args = ft_malloc(sizeof(char *) * (dque->use_size + 2));
-		value->cmd_val.simple_cmd->args[0] = ft_strdup(value->cmd_val.simple_cmd->cmd);
+		value->cmd_val.simple_cmd->args \
+			= ft_malloc(sizeof(char *) * (dque->use_size + 2));
+		value->cmd_val.simple_cmd->args[0] \
+			= ft_strdup(value->cmd_val.simple_cmd->cmd);
 		value->cmd_val.simple_cmd->args[dque->use_size + 1] = NULL;
 		while (dque->use_size != 0)
 		{
 			token = ((t_list *)(dque->pop_rear(dque)))->content;
-			((t_simple_cmd *)value->cmd_val.simple_cmd)->args[dque->use_size + 1] = ft_strdup(token->str);
+			((t_simple_cmd *)
+			value->cmd_val.simple_cmd)->args[dque->use_size + 1] \
+				= ft_strdup(token->str);
 			*tk_list = delete_lst_node(tk_list, token);
 		}
 		return ;
 	}
 	value->cmd_val.simple_cmd->args = ft_malloc(sizeof(char *) * 2);
-	value->cmd_val.simple_cmd->args[0] = ft_strdup(value->cmd_val.simple_cmd->cmd);
+	value->cmd_val.simple_cmd->args[0] \
+		= ft_strdup(value->cmd_val.simple_cmd->cmd);
 	value->cmd_val.simple_cmd->args[1] = NULL;
 }
