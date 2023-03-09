@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/03 21:22:21 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 20:24:14 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include "data_structure.h"
 #include "meta_command.h"
 
-t_tree_node	*make_pipe_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_pipe_node(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
 
@@ -35,39 +36,43 @@ t_tree_node	*make_pipe_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_nod
 	return (cur_node);
 }
 
-t_tree_node	*make_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_cmd_node(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
 
 	if (dque->use_size > 0)
 	{
 		token = (dque->nodes[dque->front]);
-		if (((t_tokenize *)(token->content))->type == RDR || ((t_tokenize *)(token->content))->type == WORD)
+		if (((t_tokenize *)(token->content))->type == RDR \
+			|| ((t_tokenize *)(token->content))->type == WORD)
 			return (insert_cmd_node(tree, tk_list, cur_node, dque));
 	}
 	return (cur_node);
 }
 
-t_tree_node	*make_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_rdr_node(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
-	t_list	*token;
-	int		re_cnt;
-	t_err_type	err;
+	t_list			*token;
+	int				re_cnt;
+	const t_meta	*meta = get_meta();
 
-	err = 0;
 	if (dque->use_size > 0)
 	{
 		re_cnt = search_rdr(dque);
 		token = (t_list *)(dque->nodes[dque->front]);
 		if (((t_tokenize *)(token->content))->type == RDR)
 		{
-			err = lexer_rdr(token);
-			if (err == ERR_NOTHING || validation_heredoc(token)) //  heredoc 처리안함
+			lexer_rdr(token);
+			if (re_cnt > 0 && dque->use_size == 2)
+				set_err_num(ERR_PIPE);
+			else if (meta->err == ERR_NOTHING || validation_heredoc(token))
 			{
 				cur_node = insert_rdr_node(tree, tk_list, cur_node, dque);
 				recover_dque(dque, re_cnt);
 			}
-			else if (err != ERR_NOTHING)
+			if (meta->err != ERR_NOTHING)
 			{
 				while (dque->use_size > 0)
 					dque->pop_front(dque);
@@ -78,7 +83,8 @@ t_tree_node	*make_rdr_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node
 	return (cur_node);
 }
 
-t_tree_node	*make_s_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+t_tree_node	*make_s_cmd_node(
+	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_list	*token;
 
@@ -86,7 +92,7 @@ t_tree_node	*make_s_cmd_node(t_tree *tree, t_list **tk_list, t_tree_node *cur_no
 	{
 		token = (t_list *)(dque->nodes[dque->front]);
 		if (((t_tokenize *)(token->content))->type == WORD)
-			return(insert_s_cmd_node(tree, tk_list, cur_node, dque));
+			return (insert_s_cmd_node(tree, tk_list, cur_node, dque));
 	}
 	return (cur_node);
 }
