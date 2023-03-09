@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:50:25 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/06 16:50:44 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 17:00:53 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,6 @@ void	*dq_peek_rear(const t_deque *dque)
 
 void	dq_free(const t_deque *dque)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < dque->use_size)
-	{
-		free(dque->nodes[(i + dque->front) % dque->capacity]);
-		i++;
-	}
 	free(dque->nodes);
 	free((void *)dque);
 }
