@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 16:59:29 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 17:10:24 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	make_tree(
 	dque = save_dque(*tk_list, &cur_list, NULL);
 	if (dque && dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
-	dq_free(dque);
+	free(dque->nodes);
+	free((void *)dque);
 	dque = NULL;
 	if (get_err_num() != ERR_NOTHING)
 		return ;
