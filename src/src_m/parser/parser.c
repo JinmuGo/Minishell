@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 16:02:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 17:04:41 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	make_tree(
 	dque = save_dque(*tk_list, &cur_list, NULL);
 	if (dque && dque->use_size > 0)
 		dque_to_tree(tree, tk_list, cur_node, dque);
-	dq_free(dque);
+	free(dque->nodes);
+	free((void *)dque);
 	dque = NULL;
 	if (get_err_num() != ERR_NOTHING)
 		return ;
