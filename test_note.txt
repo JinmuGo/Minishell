@@ -6,7 +6,8 @@ export AAA="abc"
 export ABC="a b c"
 env | grep ABC
 
-echo 1 > a | echo 2 > b
+tree를 순회하며 quote_removal
+$를 expanding할때는 quote_removal작동 안해야함.
 
 ---------- error ----------
 

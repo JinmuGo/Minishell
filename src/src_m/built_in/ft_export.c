@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:56:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 15:19:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	append_val(char *tmp, char *src)
 	const char *prev_key = get_envp_elem(key)->key;
 
 	set_envp_elem(key, val);
-	if (prev_key)
-		free((void *)prev_key);
-	free((void *)dst);
 	free(tmp);
 	free(src);
 }
@@ -73,7 +70,7 @@ t_bool  exec_export(char *arg)
     if (key[len - 1] == '+')
 		append_val(key, val);
 	else if (ft_strchr(arg, '='))
-        set_envp_elem(key, quote_removal(val));
+        set_envp_elem(key, val);
     return (FT_TRUE);
 }
 

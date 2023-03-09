@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:56:41 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 15:12:48 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ void	args_field_split(t_simple_cmd *cmd, char **splited_args, const int origin_l
 	
 }
 
+t_bool	is_in_quote(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+			return (FT_TRUE);
+		i++;
+	}
+	return (FT_FALSE);
+}
+
 void	field_split(t_simple_cmd *cmd)
 {
 	char **splited_arr;
@@ -79,22 +93,31 @@ void	field_split(t_simple_cmd *cmd)
 	// ft_free_all_arr(splited_args);
 }
 
+
+// $USER
+// '$USER'
+// "$USER"
+// "'$USER'" -> "'jgo'" -> 'jgo' -> jgo
+// 확확
+// $를  expanding 할때는 quote removal이 동작하지 않게끔. 
+// export a="'abc'" -> env 에는 a='abc' 인데 우리는 $a를 사용할 때 quote_removal이 된다. 
 void	cmd_expander(t_simple_cmd	*cmd)
 {
 	const char *dup_cmd = (const char *)ft_strdup(cmd->cmd);
 	const char **dup_args = (const char **)ft_arrdup((const char **)cmd->args);
+	t_bool expanded;
 	int	i;
 
 	if (cmd == NULL)
 		return ;
 	cmd->cmd = shell_param_expand(cmd->cmd);
-	if (ft_strcmp(cmd->cmd, dup_cmd) == 0)
+	if (ft_strcmp(cmd->cmd, dup_cmd) == 0 || is_in_quote(dup_cmd))
 		cmd->cmd = quote_removal(cmd->cmd);
 	i = 0;
 	while (cmd->args[i])
 	{
 		cmd->args[i] = shell_param_expand(cmd->args[i]);
-		if (ft_strcmp(cmd->args[i], dup_args[i]) == 0)
+		if (ft_strcmp(cmd->args[i], dup_args[i]) == 0 || is_in_quote(dup_args[i]))
 			cmd->args[i] = quote_removal(cmd->args[i]);
 		i++;
 	}

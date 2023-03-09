@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 14:57:03 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/09 16:02:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parser(char *line, t_tree *tree)
 	{
 		make_tree(tree, &tk_list, tk_list, NULL);
 		edit_unlink_list();
-		if (get_err_num() != ERR_NOTHING)
+		if (get_err_num() != ERR_NOTHING && tk_list)
 			free_tk_list(&tk_list);
 	}
 	return (get_err_num());

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 16:46:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 15:01:54 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,11 @@ char *expand_variable(char *dst, char *str)
 		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
 		{
 			tmp = i;
-			while (is_shell_var(str[i]))
+			if (str[i] == '?' || ft_isdigit(str[i]))
 				i++;
+			else
+				while (is_shell_var(str[i]))
+					i++;
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 			if (tmp != 0)
 				j = tmp;
@@ -148,8 +151,11 @@ int	cal_expand_len(char *str)
 		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
 		{
 			tmp = i;
-			while (is_shell_var(str[i]))
+			if (str[i] == '?' || ft_isdigit(str[i]))
 				i++;
+			else
+				while (is_shell_var(str[i]))
+					i++;
 			tmp = try_expand_and_cal_len(str, i, tmp);
 			if (tmp > 0)
 				len += tmp;

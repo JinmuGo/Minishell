@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 19:27:45 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/09 15:55:11 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_bool	judge_args(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -43,6 +45,7 @@ int ft_exit(t_simple_cmd *simple_cmd)
 			ft_putstr_fd("exit\n", STDERR_FILENO);
 			prt_err("exit: numeric argument required", 255);
 			exit_status = 255;
+			exit(exit_status);
 		}
 		else if (simple_cmd->args[2])
 		{
@@ -51,7 +54,6 @@ int ft_exit(t_simple_cmd *simple_cmd)
 			return (EXIT_FAILURE);
 		}
 	}
-	if (!simple_cmd->args[2])
-		ft_putstr_fd("exit\n", STDERR_FILENO);
+	ft_putstr_fd("exit\n", STDERR_FILENO);
 	exit(exit_status);
 }
