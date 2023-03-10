@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 17:49:15 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/10 21:11:40 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ char *here_doc_expand(char *str);
 void	double_dollar(char *dst, char *str, int *i, int *j);
 int	expand_and_dup(char *dst, char *key, int j);
 int	try_expand_and_cal_len(char *str, int i, int tmp);
+char    is_same_quote(char quote, char c, int *len, char initial);
+
+/* ft_field_split.c */
+char	**ft_field_split(char const *s, char c);
 
 #endif

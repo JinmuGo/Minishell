@@ -6,32 +6,18 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:42:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:43:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/10 21:13:30 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "data_structure.h"
+#include "expander.h"
 
 
 // ls'$HOME'"$HOME"
 //  ' "$USER" '
-char    is_same_quote(char quote, char c, int *len)
-{
-    if (quote != 1)
-    {
-        if (quote == c)
-            return (1);
-        else
-        {
-            (*len)++;
-            return (quote);
-        }
-    }
-    else
-        return (c);
-}
 
 int cal_remove_len(char *str)
 {
@@ -45,7 +31,7 @@ int cal_remove_len(char *str)
     while(str[++i])
     {
         if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-            quote = is_same_quote(quote, str[i], &len);
+            quote = is_same_quote(quote, str[i], &len, 0);
         else
         {
             if (quote)
@@ -54,8 +40,6 @@ int cal_remove_len(char *str)
     }
     return (len);
 }
-
-
 
 char    check_quote(char quote, char c, char *dst, int *j)
 {
