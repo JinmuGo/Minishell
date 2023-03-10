@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 16:00:19 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 18:01:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,8 @@ void	heredoc_wait(pid_t pid);
 void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path);
 char	*creat_file(void);
 void	write_to_file(t_list **tk_list, t_deque *dque, int fd);
-void	normal_write(int fd, char *delimter);
-void	normal_write_util(int fd, char *line);
-void	expand_write(int fd, char *delimter);
-void	expand_write_util(int fd, char *line);
-int		check_heredoc_quote(char *str);
-int		validation_delimter(char *delimter, char **new_delimter);
+t_bool	check_heredoc_quote(char *str);
+t_bool	validation_delimter(char *delimter, char **new_delimter);
 char	*edit_delimter(char *delimter);
 int		get_new_delimter_size(char *delimter);
 char	*make_new_delimter(char *delimter, int size);

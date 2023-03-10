@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:55 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 14:24:02 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 18:03:55 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,16 @@ char	*creat_file(void)
 	return (file_path);
 }
 
-int	check_heredoc_quote(char *str)
+t_bool	check_heredoc_quote(char *str)
 {
-	int	quote;
 	int	idx;
 
 	idx = 0;
-	quote = 0;
 	while (str && str[idx])
 	{
-		if (str[idx] == '\'' || str[idx] == '\"')
-		{
-			quote = 1;
-			break ;
-		}
+		if (str[idx] == S_QUOTE || str[idx] == D_QUOTE)
+			return (FT_TRUE);
 		idx++;
 	}
-	return (quote);
+	return (FT_FALSE);
 }

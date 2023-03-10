@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_write.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:20:14 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 15:59:15 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 18:11:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,60 +20,7 @@
 #include "signal_controller.h"
 #include "error.h"
 
-void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
-{
-	t_tokenize	*token;
-	char		*delimter;
-	char		*new_delimter;
-
-	token = ((t_list *)(dque->pop_front(dque)))->content;
-	delimter = token->str;
-	new_delimter = NULL;
-	if (validation_delimter(delimter, &new_delimter))
-		normal_write(fd, new_delimter);
-	else
-		expand_write(fd, new_delimter);
-	free(new_delimter);
-	delete_lst_node(tk_list, token);
-}
-
-void	normal_write(int fd, char *delimter)
-{
-	char	*line;
-	char	*tmp;
-
-	while (1)
-	{
-		line = readline("> ");
-		if ((ft_strncmp(line, delimter, ft_strlen(line)) == 0 && \
-			ft_strlen(line) == ft_strlen(delimter)))
-		{
-			free(line);
-			break ;
-		}
-		normal_write_util(fd, line);
-	}
-}
-
-void	expand_write(int fd, char *delimter)
-{
-	char	*line;
-	char	*tmp;
-
-	while (1)
-	{
-		line = readline("> ");
-		if ((ft_strncmp(line, delimter, ft_strlen(line)) == 0 && \
-			ft_strlen(line) == ft_strlen(delimter)))
-		{
-			free(line);
-			break ;
-		}
-		expand_write_util(fd, line);
-	}
-}
-
-void	normal_write_util(int fd, char *line)
+void	write_util(int fd, char *line, t_bool	expand)
 {
 	char	*tmp;
 
@@ -81,6 +28,8 @@ void	normal_write_util(int fd, char *line)
 		prt_sc_err(write(fd, "\n", 1));
 	else
 	{
+		if (expand)
+			line = here_doc_expand(line);
 		tmp = ft_strjoin(line, "\n");
 		prt_sc_err(write(fd, tmp, ft_strlen(line) + 1));
 		free(tmp);
@@ -88,18 +37,41 @@ void	normal_write_util(int fd, char *line)
 	}
 }
 
-void	expand_write_util(int fd, char *line)
+void	here_doc_write(int fd, char *delimter, t_bool expand)
 {
+	const int	del_len = ft_strlen(delimter);
+	char	*line;
 	char	*tmp;
+	int		len;
 
-	if (!line)
-		prt_sc_err(write(fd, "\n", 1) == -1);
-	else
+	printf("del : %s", delimter);
+	while (1)
 	{
-		line = shell_param_expand(line);
-		tmp = ft_strjoin(line, "\n");
-		prt_sc_err(write(fd, tmp, ft_strlen(line) + 1));
-		free(tmp);
-		free(line);
+		line = readline("> ");
+		len = ft_strlen(line);
+		printf("line %s\n", line);
+
+		if ((ft_strncmp(line, delimter, len) == 0 && \
+			len == del_len))
+			break ;
+		write_util(fd, line, expand);
 	}
+	free(line);
+}
+
+
+void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
+{
+	t_tokenize	*token;
+	char		*delimter;
+	char		*new_delimter;
+	t_bool	expand;
+
+	token = ((t_list *)(dque->pop_front(dque)))->content;
+	delimter = token->str;
+	new_delimter = NULL;
+	expand = !validation_delimter(delimter, &new_delimter);
+	here_doc_write(fd, new_delimter, expand);
+	free(new_delimter);
+	delete_lst_node(tk_list, token);
 }

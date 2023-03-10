@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/22 19:21:13 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/10 17:49:34 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ include $(TOPDIR)/config/color_rules.mk
 SRCS = expander.c \
 		quote_removal.c \
 		shell_parameter_expansion.c \
-		shell_parameter_expansion_utils.c
+		shell_parameter_expansion_utils.c \
+		here_doc_expansion.c \
+		expander_utils.c
 
 NAME = expander.a
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_delimter.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:21:42 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 14:22:26 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 18:00:20 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 #include "signal_controller.h"
 #include "error.h"
 
-int	validation_delimter(char *delimter, char **new_delimter)
-{
-	int	quote;
-
-	quote = check_heredoc_quote(delimter);
-	*new_delimter = edit_delimter(delimter);
-	return (quote);
-}
-
 char	*edit_delimter(char *delimter)
 {
 	int		size;
 
 	size = get_new_delimter_size(delimter);
 	return (make_new_delimter(delimter, size));
+}
+
+t_bool	validation_delimter(char *delimter, char **new_delimter)
+{
+	t_bool	quote;
+
+	quote = check_heredoc_quote(delimter);
+	*new_delimter = edit_delimter(delimter);
+	return (quote);
 }
 
 int	get_new_delimter_size(char *delimter)

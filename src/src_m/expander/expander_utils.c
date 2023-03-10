@@ -5,15 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:src/src_m/expander/expander_utils.c
 /*   Created: 2023/02/18 20:44:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 20:49:56 by jgo              ###   ########.fr       */
-=======
-/*   Created: 2023/01/31 20:19:44 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/03 16:08:33 by sanghwal         ###   ########seoul.kr  */
->>>>>>> parser:src/src_m/includes/stack.h
+/*   Updated: 2023/03/10 17:50:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
+#include "envp_command.h"
+#include "meta_command.h"
+
+void	double_dollar(char *dst, char *str, int *i, int *j)
+{
+	if (dst && str)
+	{
+		dst[(*j)++] = str[*i - 1];
+		(*i)++;
+		dst[(*j)++] = str[*i - 1];
+	}
+	else
+	{
+		(*j) += 2;
+		(*i)++;
+	}
+}
+
+int	expand_and_dup(char *dst, char *key, int j)
+{
+	int	i;
+	const t_hash_elem	*elem = get_envp_elem(key);
+	char	*expanded;
+
+	expanded = NULL;
+	if (key[0] == '?')
+		expanded = ft_itoa(*(get_exit_status()));
+	if (elem)
+		expanded = elem->val;
+	if (expanded == NULL)
+	{
+		free(key);
+		return (0);
+	}
+	i = 0;
+	while (expanded[i])
+		dst[j++] = expanded[i++];
+	if (key[0] == '?')
+		free(expanded);
+	free(key);
+	return (j);
+}
+
+int	try_expand_and_cal_len(char *str, int i, int tmp)
+{
+	const char *dst = ft_substr(str, tmp, i - tmp);
+	const t_hash_elem *elem = get_envp_elem(dst);
+	char *tmp_str;
+	int	len;
+
+	if (elem == NULL)
+	{
+		free((void *)dst);
+		return (0);
+	}
+	len = elem->val_len;
+	if (len == 0 && dst[0] == '?')
+	{
+		tmp_str = ft_itoa(*(get_exit_status()));
+		len = ft_strlen(tmp_str);
+		free((void *)tmp_str);
+	}
+	free((void *)dst);
+	return (len);
+}
