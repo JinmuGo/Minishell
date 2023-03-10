@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/09 20:24:14 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 14:16:22 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_tree_node	*make_rdr_node(
 		if (((t_tokenize *)(token->content))->type == RDR)
 		{
 			lexer_rdr(token);
-			if (re_cnt > 0 && dque->use_size == 2)
+			if (re_cnt > 0 && dque->use_size == 2 && get_err_num() != ERR_NL)
 				set_err_num(ERR_PIPE);
 			else if (meta->err == ERR_NOTHING || validation_heredoc(token))
 			{

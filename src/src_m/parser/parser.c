@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 20:03:19 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 14:09:44 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 
 	if (err_num == ERR_PIPE || err_num == ERR_MULTI_PIPE)
 	{
-		prt_err(ERR_SYN_RDR_PIPE, ERR_PIPE);
+		set_err_num(ERR_PIPE);
+		err_handler(get_meta());
 		return (NULL);
 	}
 	if (dque == NULL)
