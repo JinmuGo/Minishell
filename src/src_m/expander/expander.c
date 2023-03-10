@@ -6,13 +6,28 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 15:12:48 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/10 10:31:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "expander.h"
+
+t_bool	is_in_quote(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+			return (FT_TRUE);
+		i++;
+	}
+	return (FT_FALSE);
+}
+
 
 void	rdr_expander(t_rdr	*rdr)
 {
@@ -54,53 +69,38 @@ void	cmd_field_split(t_simple_cmd *cmd, char **splited_cmd, const int origin_len
 	cmd->args = args;
 }
 
-void	args_field_split(t_simple_cmd *cmd, char **splited_args, const int origin_len)
+void	args_field_split(t_simple_cmd *cmd, char **splited_arr, const int origin_len)
 {
-	if (splited_args == NULL)
+	if (splited_arr == NULL)
 		return ;
 	
-}
-
-t_bool	is_in_quote(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-			return (FT_TRUE);
-		i++;
-	}
-	return (FT_FALSE);
 }
 
 void	field_split(t_simple_cmd *cmd)
 {
 	char **splited_arr;
 	int	origin_len;
+	int	i;
 	// const char **splited_args = ft_split(cmd->args, ' ');
 
 	splited_arr = ft_split(cmd->cmd, ' ');
 	origin_len = ft_arrlen((void *)cmd->args);
 	cmd_field_split(cmd, splited_arr, origin_len);
 	ft_free_all_arr(splited_arr);
-		
-	// splited_arr = ft_split(cmd->args, ' ');	
-	// origin_len = ft_arrlen((void *)cmd->args);
-	// args_field_split(cmd, splited_arr, origin_len);
-	// args_field_split(cmd, splited_args);
-	// ft_free_all_arr(splited_args);
+	i = -1;
+	origin_len = ft_arrlen((void *)cmd->args);
+	while (cmd->args[++i])
+	{
+		splited_arr = ft_split(cmd->args[i], ' ');	    
+		args_field_split(cmd, splited_arr, origin_len);
+		ft_free_all_arr(splited_arr);
+	}
 }
 
-
-// $USER
-// '$USER'
-// "$USER"
-// "'$USER'" -> "'jgo'" -> 'jgo' -> jgo
-// 확확
-// $를  expanding 할때는 quote removal이 동작하지 않게끔. 
-// export a="'abc'" -> env 에는 a='abc' 인데 우리는 $a를 사용할 때 quote_removal이 된다. 
+// export a="a b c" ? field split어떻게 하지.
+// cat a$a"c" 111$a" 111" 이거 field split을 shell param -> field -> quote removal
+// 이렇게 해야 할 것 같은데?
+// ft_split을 minishell용 split으로 따로 빼서 한 단어의 시작이 quote이면 그 단어는 split을 건너뛰어야겠다.
 void	cmd_expander(t_simple_cmd	*cmd)
 {
 	const char *dup_cmd = (const char *)ft_strdup(cmd->cmd);

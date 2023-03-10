@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:17:06 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/09 20:27:54 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/10 13:45:03 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ void	lexer_rdr(t_list *token)
 				((t_tokenize *)(token->next->content))->str, ">", 2))
 			set_err_num(ERR_RDR_OUT);
 		else if (((t_tokenize *)(token->next->content))->str[0] == '<')
-			set_err_NUM(ERR_RDR_HERE);
+			set_err_num(ERR_RDR_HERE);
 		else if (((t_tokenize *)(token->next->content))->str[0] == '>')
 			set_err_num(ERR_RDR_APPEND);
 	}
-	return (meta->err);
 }
