@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 20:58:23 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 14:25:22 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:35:02 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 
 char	*get_envp_key(char *envp_elem)
 {
-	int	i;
-	char *key;
+	char	*key;
+	int		i;
 
 	i = -1;
 	while (envp_elem[++i])
 		if (envp_elem[i] == '=')
-			break;
+			break ;
 	key = ft_substr(envp_elem, 0, i);
 	return (key);
 }
 
 char	*get_envp_val(char *envp_elem)
 {
-	char *tmp;
-	char *val;
+	char	*tmp;
+	char	*val;
 
 	tmp = ft_strchr(envp_elem, '=');
 	if (ft_strlen(tmp) == 0)
@@ -46,12 +46,12 @@ char	*get_envp_val(char *envp_elem)
 
 void	envp_init(char **envp)
 {
-	char *key;
-	char *val;
-	int	i;
+	char	*key;
+	char	*val;
+	int		i;
 
 	i = -1;
-	while(envp[++i])
+	while (envp[++i])
 	{
 		key = get_envp_key(envp[i]);
 		val = get_envp_val(envp[i]);

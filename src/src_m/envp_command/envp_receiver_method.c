@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 16:38:13 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:35:14 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "defines.h"
 #include "envp_command.h"
 
-t_hash_elem *hash_get(t_hash_table *ht,const char *key)
+t_hash_elem	*hash_get(t_hash_table *ht, const char *key)
 {
-	const   t_hash_asset asset = hash_asset_init(ht, key);
-	int idx;
-	int i;
+	const t_hash_asset	asset = hash_asset_init(ht, key);
+	int					idx;
+	int					i;
 
 	i = -1;
 	while (++i < ht->size)
@@ -30,11 +30,11 @@ t_hash_elem *hash_get(t_hash_table *ht,const char *key)
 	return (NULL);
 }
 
-void    hash_insert(t_hash_table *ht,const char *key,const char *val)
+void	hash_insert(t_hash_table *ht, const char *key, const char *val)
 {
-	const   t_hash_asset asset = hash_asset_init(ht, key);
-	int idx;
-	int i;
+	const t_hash_asset	asset = hash_asset_init(ht, key);
+	int					idx;
+	int					i;
 
 	i = -1;
 	while (++i < ht->size)
@@ -43,7 +43,7 @@ void    hash_insert(t_hash_table *ht,const char *key,const char *val)
 		if (hash_put(&ht->bucket[idx], key, val))
 		{
 			ht->cnt++;
-			break;
+			break ;
 		}
 	}
 	if (i == ht->size)
@@ -55,7 +55,7 @@ void    hash_insert(t_hash_table *ht,const char *key,const char *val)
 
 void	hash_delete(t_hash_table *ht,const char *key)
 {
-	t_hash_elem *target;
+	t_hash_elem	*target;
 
 	target = hash_get(ht, key);
 	if (target == NULL)
@@ -67,27 +67,30 @@ void	hash_delete(t_hash_table *ht,const char *key)
 	target->val_len = 0;
 }
 
-void hash_print_all(const char *option ,t_hash_table *ht)
+void	hash_print_all(const char *option, t_hash_table *ht)
 {
 	int	i;
 
 	i = -1;
 	while (++i < ht->size)
+	{
 		if (ht->bucket[i].key)
 		{
 			if (option)
-				printf("%s %s=%s\n", option,ht->bucket[i].key, ht->bucket[i].val);
+				printf(\
+					"%s %s=%s\n", option, ht->bucket[i].key, ht->bucket[i].val);
 			else
 				printf("%s=%s\n", ht->bucket[i].key, ht->bucket[i].val);
 		}
+	}
 }
 
-char **hash_convert_arr(t_hash_table *ht)
+char	**hash_convert_arr(t_hash_table *ht)
 {
-	char **arr;
-	t_hash_elem elem;
-	int	i;
-	int	j;
+	t_hash_elem	elem;
+	char		**arr;
+	int			i;
+	int			j;
 
 	arr = ft_calloc(sizeof(char *), ht->cnt + 1);
 	i = 0;
@@ -95,7 +98,8 @@ char **hash_convert_arr(t_hash_table *ht)
 	while (i < ht->size)
 	{
 		if (ht->bucket[i].key)
-			arr[j++] = ft_strcombine(3, ht->bucket[i].key, "=", ht->bucket[i].val);
+			arr[j++] = ft_strcombine(\
+				3, ht->bucket[i].key, "=", ht->bucket[i].val);
 		i++;
 	}
 	return (arr);
