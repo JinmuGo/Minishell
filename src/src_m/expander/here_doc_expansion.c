@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:42:24 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:21:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 12:24:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*here_doc_expand_variable(char *dst, char *str)
 		else if (str[i - 1] == '$' && is_shell_var(str[i]))
 		{
 			tmp = i;
-			i += adjust_param_idx(str, i);
+			adjust_param_idx(str, &i);
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 			if (tmp != 0)
 				j = tmp;
@@ -56,7 +56,7 @@ static int	here_doc_cal_expand_len(char *str)
 		else if (str[i] == '$' && is_shell_var(str[i]))
 		{
 			tmp = i;
-			i += adjust_param_idx(str, i);
+			adjust_param_idx(str, &i);
 			tmp = try_expand_and_cal_len(str, i, tmp);
 			if (tmp > 0)
 				len += tmp;

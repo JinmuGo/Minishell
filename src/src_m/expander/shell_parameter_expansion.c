@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:24:01 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 12:24:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*expand_variable(char *dst, char *str, t_deque *deque, int i)
 			&& is_shell_var(str[i]))
 		{
 			tmp = i;
-			i += adjust_param_idx(str, i);
+			adjust_param_idx(str, &i);
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 			if (tmp != 0)
 				j = tmp;
@@ -77,7 +77,7 @@ int	cal_expand_len(char *str, t_deque *deque, int i)
 			&& is_shell_var(str[i]))
 		{
 			tmp = i;
-			i += adjust_param_idx(str, i);
+			adjust_param_idx(str, &i);
 			tmp = try_expand_and_cal_len(str, i, tmp);
 			if (tmp > 0)
 				len += tmp;

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:16:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:16:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 12:25:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ void	quote_control(const t_deque *deque, char c)
 	}
 }
 
-int	adjust_param_idx(char *str, int i)
+void	adjust_param_idx(char *str, int *i)
 {
-	if (str[i] == '?' || ft_isdigit(str[i]))
-		i++;
+	if (str[*i] == '?' || ft_isdigit(str[*i]))
+		(*i)++;
 	else
-		while (is_shell_var(str[i]))
-			i++;
-	return (i);
+		while (is_shell_var(str[*i]))
+			(*i)++;
 }
