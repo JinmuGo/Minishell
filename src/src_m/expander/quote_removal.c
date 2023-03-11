@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:42:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:24:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 17:24:00 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int cal_remove_len(char *str)
 	while (str[++i])
 	{
 		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-			quote = is_same_quote(quote, str[i], &len, 0);
+			quote = is_same_quote_len(quote, str[i], &len, 0);
 		else
 		{
 			if (quote)

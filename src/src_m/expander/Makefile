@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/03/11 11:08:25 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/11 18:04:22 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = expander.c \
 		shell_parameter_expansion_utils.c \
 		here_doc_expansion.c \
 		expander_utils.c \
-		field_split.c
+		field_split.c \
+		ft_mini_strchr.c
 
 NAME = expander.a
 

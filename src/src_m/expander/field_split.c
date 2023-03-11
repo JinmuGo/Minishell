@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:44:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:08:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 17:44:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_list	*split_node(char *str, const int str_len)
 			len = 0;
 		}
 		if (str[i] == '\'' || str[i] == '\"')
-			quote = is_same_quote(quote, str[i], &len, 0);
+			quote = is_same_quote(quote, str[i], 0);
 		len++;
 	}
 	if (lst)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:37:03 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 18:03:30 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,8 @@ void	arg_expand(t_simple_cmd *cmd, char *str, int idx)
 		lst = lst->next;
 	}
 	ft_lstclear(&begin, free);
-	if (ft_strlen(rv))
-	{
-		free(cmd->args[idx]);
-		cmd->args[idx] = rv;
-	}
-	else
-		free(rv);
+	free(cmd->args[idx]);
+	cmd->args[idx] = rv;
 }
 
 void	arg_field_split_proc(\
@@ -102,11 +97,11 @@ void	cmd_expander(t_simple_cmd *cmd)
 	i = 0;
 	while (cmd->args[++i])
 	{
-		if (ft_strchr(cmd->args[i], DOLLAR))
+		if (ft_mini_strchr(cmd->args[i], DOLLAR))
 		{
 			arg_expand(cmd, cmd->args[i], i);
 			arg_field_split(\
-				cmd, cmd->args[i], i, ft_arrlen((void **)cmd->args[i]));
+				cmd, cmd->args[i], i, ft_arrlen((void **)cmd->args));
 		}
 		else
 			arg_expand(cmd, cmd->args[i], i);

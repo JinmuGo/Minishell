@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 20:44:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 10:46:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 17:40:18 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,25 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	char				*tmp_str;
 	int					len;
 
-	if (elem == NULL)
-	{
-		free((void *)dst);
-		return (0);
-	}
-	len = elem->val_len;
-	if (len == 0 && dst[0] == '?')
+	len = 0;
+	if (dst[0] == '?')
 	{
 		tmp_str = ft_itoa(*(get_exit_status()));
 		len = ft_strlen(tmp_str);
 		free((void *)tmp_str);
 	}
+	if (elem == NULL)
+	{
+		free((void *)dst);
+		return (len);
+	}
+	else
+		len = elem->val_len;
 	free((void *)dst);
 	return (len);
 }
 
-char	is_same_quote(char quote, char c, int *len, char initial)
+char	is_same_quote_len(char quote, char c, int *len, char initial)
 {
 	if (quote != initial)
 	{
@@ -89,6 +91,19 @@ char	is_same_quote(char quote, char c, int *len, char initial)
 			(*len)++;
 			return (quote);
 		}
+	}
+	else
+		return (c);
+}
+
+char	is_same_quote(char quote, char c, char initial)
+{
+	if (quote != initial)
+	{
+		if (quote == c)
+			return (initial);
+		else
+			return (quote);
 	}
 	else
 		return (c);
