@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 17:48:38 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:24:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,23 @@ t_bool	dollar_control(char c, char *rear, char next)
 	return (FT_FALSE);
 }
 
-char *expand_variable(char *dst, char *str)
+char	*expand_variable(char *dst, char *str, t_deque *deque, int i)
 {
-	const t_deque *deque = deque_init(ft_strlen(str));
 	int	tmp;
-	int	i;
 	int	j;
 
 	j = 0;
-	i = 0;
 	while (str[i++])
 	{
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(dst, str, &i, &j);
-		else if  (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
+		else if (\
+			dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) \
+			&& is_shell_var(str[i]))
 		{
 			tmp = i;
-			if (str[i] == '?' || ft_isdigit(str[i]))
-				i++;
-			else
-				while (is_shell_var(str[i]))
-					i++;
+			i += adjust_param_idx(str, i);
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 			if (tmp != 0)
 				j = tmp;
@@ -66,28 +61,23 @@ char *expand_variable(char *dst, char *str)
 	return (dst);
 }
 
-int	cal_expand_len(char *str)
+int	cal_expand_len(char *str, t_deque *deque, int i)
 {
-	const t_deque *deque = deque_init(ft_strlen(str));
 	int	len;
 	int	tmp;
-	int	i;
 
 	len = 0;
-	i = 0;
 	while (str[i++])
 	{
 		quote_control(deque, str[i - 1]);
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(NULL, NULL, &i, &len);
-		else if (dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) && is_shell_var(str[i]))
+		else if (\
+			dollar_control(str[i - 1], (char *)deque->peek_rear(deque), str[i]) \
+			&& is_shell_var(str[i]))
 		{
 			tmp = i;
-			if (str[i] == '?' || ft_isdigit(str[i]))
-				i++;
-			else
-				while (is_shell_var(str[i]))
-					i++;
+			i += adjust_param_idx(str, i);
 			tmp = try_expand_and_cal_len(str, i, tmp);
 			if (tmp > 0)
 				len += tmp;
@@ -99,24 +89,13 @@ int	cal_expand_len(char *str)
 	return (len);
 }
 
-
-// $$ 
-// ''
-//  echo "$$SHELL>>$USER" 얘는 우리 쉘에선 $$SHELL>>jgo 이렇게 되어야함.
-// 	echo "$1??$USER" 얘도 우리 쉘에선 "??jgo" $1은 expanding했지만 없기 때문에 \0이 됨.
-		// 0		8
-// echo "$SHELL$USER" /bin/zshjgo
-// echo $USER
-// $"U""S""E""R"
-// $? 는 meta->exit status를 확장한다. 
-char *shell_param_expand(char *str)
+char	*shell_param_expand(char *str)
 {
-	const int	expand_len = cal_expand_len(str);
-	char *dst;
+	const int	expand_len = cal_expand_len(str, deque_init(ft_strlen(str)), 0);
+	char		*dst;
 
 	dst = ft_malloc(sizeof(char) * (expand_len + 1));
-	dst = expand_variable(dst, str);
+	dst = expand_variable(dst, str, deque_init(ft_strlen(str)), 0);
 	free(str);
 	return (dst);
 }
-

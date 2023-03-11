@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:42:24 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 17:44:56 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:21:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "defines.h"
 #include "expander.h"
 
-char *here_doc_expand_variable(char *dst, char *str)
+static char	*here_doc_expand_variable(char *dst, char *str)
 {
 	int	tmp;
 	int	i;
@@ -26,14 +26,10 @@ char *here_doc_expand_variable(char *dst, char *str)
 	{
 		if (str[i - 1] == DOLLAR && str[i] == DOLLAR)
 			double_dollar(dst, str, &i, &j);
-		else if  (str[i - 1] == '$' && is_shell_var(str[i]))
+		else if (str[i - 1] == '$' && is_shell_var(str[i]))
 		{
 			tmp = i;
-			if (str[i] == '?' || ft_isdigit(str[i]))
-				i++;
-			else
-				while (is_shell_var(str[i]))
-					i++;
+			i += adjust_param_idx(str, i);
 			tmp = expand_and_dup(dst, ft_substr(str, tmp, i - tmp), j);
 			if (tmp != 0)
 				j = tmp;
@@ -45,7 +41,7 @@ char *here_doc_expand_variable(char *dst, char *str)
 	return (dst);
 }
 
-int	here_doc_cal_expand_len(char *str)
+static int	here_doc_cal_expand_len(char *str)
 {
 	int	len;
 	int	tmp;
@@ -60,11 +56,7 @@ int	here_doc_cal_expand_len(char *str)
 		else if (str[i] == '$' && is_shell_var(str[i]))
 		{
 			tmp = i;
-			if (str[i] == '?' || ft_isdigit(str[i]))
-				i++;
-			else
-				while (is_shell_var(str[i]))
-					i++;
+			i += adjust_param_idx(str, i);
 			tmp = try_expand_and_cal_len(str, i, tmp);
 			if (tmp > 0)
 				len += tmp;
@@ -75,10 +67,10 @@ int	here_doc_cal_expand_len(char *str)
 	return (len);
 }
 
-char *here_doc_expand(char *str)
+char	*here_doc_expand(char *str)
 {
 	const int	expand_len = here_doc_cal_expand_len(str);
-	char *dst;
+	char		*dst;
 
 	dst = ft_malloc(sizeof(char) * (expand_len + 1));
 	dst = here_doc_expand_variable(dst, str);

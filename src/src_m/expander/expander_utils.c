@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 20:44:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 21:11:30 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 10:46:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	double_dollar(char *dst, char *str, int *i, int *j)
 
 int	expand_and_dup(char *dst, char *key, int j)
 {
-	int	i;
 	const t_hash_elem	*elem = get_envp_elem(key);
-	char	*expanded;
+	char				*expanded;
+	int					i;
 
 	expanded = NULL;
 	if (key[0] == '?')
@@ -57,10 +57,10 @@ int	expand_and_dup(char *dst, char *key, int j)
 
 int	try_expand_and_cal_len(char *str, int i, int tmp)
 {
-	const char *dst = ft_substr(str, tmp, i - tmp);
-	const t_hash_elem *elem = get_envp_elem(dst);
-	char *tmp_str;
-	int	len;
+	const char			*dst = ft_substr(str, tmp, i - tmp);
+	const t_hash_elem	*elem = get_envp_elem(dst);
+	char				*tmp_str;
+	int					len;
 
 	if (elem == NULL)
 	{
@@ -78,18 +78,32 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 	return (len);
 }
 
-char    is_same_quote(char quote, char c, int *len, char initial)
+char	is_same_quote(char quote, char c, int *len, char initial)
 {
-    if (quote != initial)
-    {
-        if (quote == c)
-            return (initial);
-        else
-        {
-            (*len)++;
-            return (quote);
-        }
-    }
-    else
-        return (c);
+	if (quote != initial)
+	{
+		if (quote == c)
+			return (initial);
+		else
+		{
+			(*len)++;
+			return (quote);
+		}
+	}
+	else
+		return (c);
+}
+
+t_bool	is_in_quote(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+			return (FT_TRUE);
+		i++;
+	}
+	return (FT_FALSE);
 }
