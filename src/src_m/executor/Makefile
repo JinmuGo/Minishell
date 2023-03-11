@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/03/02 17:57:50 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/11 11:39:26 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS = executor.c \
 		pipe_executor.c \
 		rdr_executor.c \
 		cmd_executor.c \
-		executor_utils.c
+		executor_utils.c \
+		cmd_executor_utils.c
 
 NAME = executor.a
 

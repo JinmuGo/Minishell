@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 09:33:01 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 10:18:04 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,55 +20,19 @@
 #include "data_structure.h"
 #include "envp_command.h"
 
-static const char	**get_path_arr(void)
+void	s_cmd_executor(\
+	t_tree_node *node, const char **path_arr, const char **envp_arr)
 {
-	const char *path = get_envp_elem("PATH")->val;
+	char				*abs_path;
+	t_simple_cmd_type	type;
+	t_simple_cmd		*simple_cmd;
 
-	if (path)
-		return ((const char **)ft_split(path, ':'));
-	else
-		return (NULL);
-}
-
-char	*make_abs_path(char *cmd, const char **path_arr)
-{
-	char	*rv;
-	char	*tmp;
-	int		i;
-
-	if (!path_arr || ft_strchr(cmd, '.') || ft_strchr(cmd, '/'))
-		return (cmd);
-	i = -1;
-	while (path_arr[++i])
-	{
-		tmp = ft_strjoin(path_arr[i], "/");
-		rv = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(rv, F_OK | X_OK) == 0)
-			return (rv);
-		free(rv);
-	}
-	return (NULL);
-}
-
-void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_arr)
-{
-	char	*abs_path;
-	t_simple_cmd_type type;
-	t_simple_cmd *simple_cmd;
-	
-	// dprintf(2, "s_cmd command: %s\n", simple_cmd->cmd);
 	if (node == NULL || node->value == NULL)
 		exit(EXIT_FAILURE);
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
 	type = is_built_in_cmd(simple_cmd->cmd);
 	if (type != FT_EXTERNAL)
-	{
-		if (built_in(simple_cmd, type) == EXIT_SUCCESS)
-			exit(EXIT_SUCCESS);
-		else
-			exit(EXIT_FAILURE);
-	}
+		exit(built_in(simple_cmd, type));
 	else
 	{
 		if (path_arr == NULL)
@@ -87,8 +51,6 @@ void	direction_handler(t_executor *execute, t_sequence sequence)
 {
 	if (sequence == FIRST)
 	{
-		if (execute->cur_fd[WRITE] == -1)
-			return ;
 		dup2(execute->cur_fd[WRITE], STDOUT_FILENO);
 		close(execute->cur_fd[READ]);
 	}
@@ -105,28 +67,26 @@ void	direction_handler(t_executor *execute, t_sequence sequence)
 	}
 }
 
-const char **make_envp_arr(t_tree_node *node)
+void	post_process(t_executor *execute, t_tree_node *node, pid_t pid)
 {
-	t_simple_cmd *simple_cmd;
-	int	val;
+	t_child_proc	*child_proc;
 
-	if (node == NULL)
-		return (NULL);
-	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
-	if (ft_strcmp(simple_cmd->cmd, "./minishell") == 0)
-	{
-		val = ft_atoi(get_envp_elem("SHLVL")->val);
-		set_envp_elem("SHLVL", ft_itoa(val + 1));
-	}
-	return ((const char **)convert_char_arr());	
+	child_proc = ft_malloc(sizeof(t_child_proc));
+	child_proc->pid = pid;
+	if (node)
+		child_proc->name = (\
+			((t_token *)(node->value))->cmd_val.simple_cmd->cmd);
+	else
+		child_proc->name = NULL;
+	ft_lstadd_back(&execute->child_lst, ft_lstnew(child_proc));
 }
 
-void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
+void	cmd_executor(\
+	t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
-	const	char	**path_arr = get_path_arr();
-	const	char	**envp_arr = make_envp_arr(node->right);
-	t_child_proc	*child_proc;
-	pid_t	pid;
+	const char		**path_arr = get_path_arr();
+	const char		**envp_arr = make_envp_arr(node->right);
+	pid_t			pid;
 
 	pid = fork();
 	if (pid == -1)
@@ -141,14 +101,7 @@ void	cmd_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
 	else
 	{
 		signal_controller(SIG_INIT);
-		// post_process();
-		child_proc = ft_malloc(sizeof(t_child_proc));
-		child_proc->pid = pid;
-		if (node->right)
-			child_proc->name = (((t_token *)(node->right->value))->cmd_val.simple_cmd->cmd);
-		else
-			child_proc->name = NULL;
-		ft_lstadd_back(&execute->child_lst, ft_lstnew(child_proc));
+		post_process(execute, node->right, pid);
 		ft_free_all_arr((void *)path_arr);
 		if (envp_arr)
 			ft_free_all_arr((void *)envp_arr);

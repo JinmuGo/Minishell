@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:51:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:48:33 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 10:19:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
  */
 t_simple_cmd_type	is_built_in_cmd(char *cmd)
 {
-	const char *built_in[7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-	int	i;
+	const char	*built_in[7] = {\
+		"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	int			i;
 
 	i = 0;
 	while (i < 7)
@@ -32,4 +33,5 @@ t_simple_cmd_type	is_built_in_cmd(char *cmd)
 		i++;
 	}
 	return (FT_EXTERNAL);
-};
+}
+

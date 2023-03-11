@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:49 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 19:15:34 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 10:19:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@
 #include "executor.h"
 #include "meta_command.h"
 
-void	pipe_executor(t_tree_node *node, t_executor *execute, t_sequence sequence)
+void	pipe_executor(\
+	t_tree_node *node, t_executor *execute, t_sequence sequence)
 {
 	if (node == NULL)
 		return ;
 	if (sequence == FIRST)
 	{
-		// first // left
 		prt_sc_err(pipe(execute->cur_fd));
 		cmd_executor(node->left, execute, sequence);
 		close(execute->cur_fd[WRITE]);
 	}
 	else if (sequence == MIDDLE)
 	{
-		// middle // left
 		prt_sc_err(pipe(execute->cur_fd));
 		cmd_executor(node->left, execute, sequence);
 		close(execute->prev_fd[READ]);
