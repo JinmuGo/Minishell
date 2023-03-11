@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:25:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 15:46:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 12:50:19 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,78 +16,70 @@
 #include "meta_command.h"
 #include "error.h"
 
-// echo doesn't support other flags without -n 
-// 다른 플래그 들은 무시된다.
-// echo 바로 다음에 -n이 오지 않으면 출력하지 않는다. 
-
-t_bool  n_option_confirm(char *target_str)
+t_bool	n_option_confirm(char *target_str)
 {
-    int i;
+	int	i;
 
-    if (target_str[0] != '-')
-        return (FT_FALSE);
-    i = 1;
-    while(target_str[i])
-    {
-        if (target_str[i] != 'n')
-            return (FT_FALSE);
-        i++;
-    }
-    return (FT_TRUE);
+	if (target_str[0] != '-')
+		return (FT_FALSE);
+	i = 1;
+	while (target_str[i])
+	{
+		if (target_str[i] != 'n')
+			return (FT_FALSE);
+		i++;
+	}
+	return (FT_TRUE);
 }
 
-int    exec_echo (char **args, t_bool  n_option)
+int	exec_echo(char **args, t_bool n_option, int i)
 {
-    int i;
-    int rv;
-    char    tmp;
+	char	tmp;
+	int		rv;
 
-    i = 0;
-    rv = FT_TRUE;
-    while (args[i])
-    {
-        rv = write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
-        if (prt_sc_err(rv) == FT_FALSE)
-            return (rv);
-        if (args[i + 1] != NULL)
-        {
-            tmp = ' ';
-            rv = write(STDOUT_FILENO, &tmp, 1);
-        }
-        if (prt_sc_err(rv) == FT_FALSE)
-            return (rv);
-        i++;
-    }
-    if (!n_option)
-    {
-        tmp = '\n';
-        rv = write(STDOUT_FILENO, &tmp, 1);
-    }
-    if (prt_sc_err(rv) == FT_FALSE)
-        return (rv);
-    return (rv);
+	rv = FT_TRUE;
+	while (args[i])
+	{
+		rv = write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
+		if (args[i + 1] != NULL && rv != -1)
+		{
+			tmp = ' ';
+			rv = write(STDOUT_FILENO, &tmp, 1);
+		}
+		if (prt_sc_err(rv) == FT_FALSE)
+			return (rv);
+		i++;
+	}
+	if (!n_option)
+	{
+		tmp = '\n';
+		rv = write(STDOUT_FILENO, &tmp, 1);
+	}
+	if (prt_sc_err(rv) == FT_FALSE)
+		return (rv);
+	return (rv);
 }
 
-int ft_echo(t_simple_cmd *simple_cmd)
+int	ft_echo(t_simple_cmd *simple_cmd)
 {
-    int i;
-    int rv;
+	int	rv;
+	int	i;
 
-    i = 0;
-    if (simple_cmd->args[1] == NULL)
-    {
-        ft_putchar_fd('\n', STDOUT_FILENO);
-        return (EXIT_SUCCESS);
-    }
-    while (n_option_confirm(simple_cmd->args[++i]))
-        continue ;
-    if (i > 1)    
-        rv = exec_echo(&simple_cmd->args[i], FT_TRUE);
-    else
-        rv = exec_echo(&simple_cmd->args[i], FT_FALSE);
-    if (rv == -1)
-        rv = EXIT_FAILURE;
-    else
-        rv = EXIT_SUCCESS;
-    return (rv);
+	i = 0;
+	if (simple_cmd->args[1] == NULL)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	while (n_option_confirm(simple_cmd->args[++i]))
+		continue ;
+	if (i > 1)
+		rv = exec_echo(&simple_cmd->args[i], FT_TRUE, 0);
+	else
+		rv = exec_echo(&simple_cmd->args[i], FT_FALSE, 0);
+	if (rv == -1)
+		rv = EXIT_FAILURE;
+	else
+		rv = EXIT_SUCCESS;
+	return (rv);
 }

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:13:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 12:51:02 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,52 @@
 #include "meta_command.h"
 #include "error.h"
 #include <errno.h>
-// OLDPWD - option
-// HOME default 
-// cd sdfsd sdfs<- 무시하고 진행함. 
 
-// cd에 인자가 주어져 있지 않은 경우 `$HOME`가 기본적으로 앞에 있는 것처럼 동작한다.
-// 슬래시 `(/)`  가 첫번째 인자로 들어오면 절대경로로 동작한다. 
-// 점 `(.) or (..)` 으로 시작하면 상대경로로 동작한다.
-
-t_bool  exec_cd(char *cur_path)
+t_bool	exec_cd(char *cur_path)
 {
-    t_hash_elem *elem;
-    char    *path;
+	t_hash_elem	*elem;
+	char		*path;
 
-    if (cur_path == NULL || ft_strcmp(cur_path, "~") == 0)
-    {
-        elem = get_envp_elem("HOME");
-        if (path == NULL)
-            return (prt_built_in_err("cd","HOME", ERR_NOT_SET, EXIT_FAILURE));
-        path = elem->val;
-    }
-    else if (ft_strncmp(cur_path, "-", ft_strlen(cur_path)) == 0)
-    {
-        elem = get_envp_elem("OLDPWD");
-        if (elem == NULL)
-            return (prt_built_in_err("cd", "OLDPWD", ERR_NOT_SET, EXIT_FAILURE));
-        path = elem->val;
-    }
-    else
-        path = cur_path;
-    if(chdir(path) == -1)
-        return (prt_err(strerror(errno), errno));
-    return (FT_TRUE);
+	if (cur_path == NULL || ft_strcmp(cur_path, "~") == 0)
+	{
+		elem = get_envp_elem("HOME");
+		if (path == NULL)
+			return (prt_built_in_err("cd", "HOME", ERR_NOT_SET, EXIT_FAILURE));
+		path = elem->val;
+	}
+	else if (ft_strncmp(cur_path, "-", ft_strlen(cur_path)) == 0)
+	{
+		elem = get_envp_elem("OLDPWD");
+		if (elem == NULL)
+			return (\
+				prt_built_in_err("cd", "OLDPWD", ERR_NOT_SET, EXIT_FAILURE));
+		path = elem->val;
+	}
+	else
+		path = cur_path;
+	if (chdir(path) == -1)
+		return (prt_err(strerror(errno), errno));
+	return (FT_TRUE);
 }
 
-int ft_cd(t_simple_cmd *simple_cmd)
+int	ft_cd(t_simple_cmd *simple_cmd)
 {
-    t_hash_elem *pwd;
-    char *cwd;
+	t_hash_elem	*pwd;
+	char		*cwd;
 
-    if (exec_cd(simple_cmd->args[1]) == BUILT_IN_EXEC_OK)
-    {
-        pwd = get_envp_elem("PWD");
-        if (pwd)
-            set_envp_elem(ft_strdup("OLDPWD"), ft_strdup(pwd->val));
-        cwd = getcwd(NULL, 0);
-        if (cwd == NULL)
-        {
-            prt_err(strerror(errno), errno);
-            return (EXIT_FAILURE);
-        }
-        set_envp_elem(ft_strdup("PWD"), cwd);
-        return (EXIT_SUCCESS);
-    }
-    return (EXIT_FAILURE);
+	if (exec_cd(simple_cmd->args[1]) == BUILT_IN_EXEC_OK)
+	{
+		pwd = get_envp_elem("PWD");
+		if (pwd)
+			set_envp_elem(ft_strdup("OLDPWD"), ft_strdup(pwd->val));
+		cwd = getcwd(NULL, 0);
+		if (cwd == NULL)
+		{
+			prt_err(strerror(errno), errno);
+			return (EXIT_FAILURE);
+		}
+		set_envp_elem(ft_strdup("PWD"), cwd);
+		return (EXIT_SUCCESS);
+	}
+	return (EXIT_FAILURE);
 }
-
-// pwd oldpwd 
-//      x
-//      

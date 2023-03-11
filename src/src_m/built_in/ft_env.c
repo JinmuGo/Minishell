@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:18 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 11:34:00 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:47:55 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "error.h"
 #include <errno.h>
 
-int ft_env(t_simple_cmd *simple_cmd)
+int	ft_env(t_simple_cmd *simple_cmd)
 {
 	const int	len = ft_arrlen((void **)simple_cmd->args);
 

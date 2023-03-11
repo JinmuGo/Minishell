@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/09 15:55:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 11:48:05 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_bool	judge_args(char *str)
 	return (FT_TRUE);
 }
 
-int ft_exit(t_simple_cmd *simple_cmd)
+int	ft_exit(t_simple_cmd *simple_cmd)
 {
 	const int	len = ft_arrlen((void **)simple_cmd->args);
 	int			exit_status;
