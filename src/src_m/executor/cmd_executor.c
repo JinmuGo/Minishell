@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 22:46:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 09:33:01 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	s_cmd_executor(t_tree_node *node, const char **path_arr,const char **envp_a
 		if (path_arr == NULL)
 		{
 			prt_err(ERR_CMD_NOT_FOUND, 127);
-			return ; // path 가 env에서 unset됨. command not found 
+			exit(127);
 		}
 		abs_path = make_abs_path(simple_cmd->cmd, path_arr);
 		execve(abs_path, simple_cmd->args, (char **)envp_arr);
@@ -87,6 +87,8 @@ void	direction_handler(t_executor *execute, t_sequence sequence)
 {
 	if (sequence == FIRST)
 	{
+		if (execute->cur_fd[WRITE] == -1)
+			return ;
 		dup2(execute->cur_fd[WRITE], STDOUT_FILENO);
 		close(execute->cur_fd[READ]);
 	}

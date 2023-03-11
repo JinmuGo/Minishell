@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 10:11:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 09:23:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		open_file(t_rdr *rdr)
 		return (open(rdr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	else if (rdr->rdr_type == APPEND)
 		return (open(rdr->file, O_WRONLY | O_CREAT | O_APPEND, 0644));
-	return (-1);
+	return (0);
 }
 
 void    rdr_executor(t_tree_node *node, t_executor *execute)
@@ -60,6 +60,11 @@ void    rdr_executor(t_tree_node *node, t_executor *execute)
 		return ;
 	rdr = ((t_token *)(node->value))->cmd_val.rdr;
 	fd = open_file(rdr);
+	if (fd == -1)
+	{
+		prt_built_in_err(rdr->file, NULL, ERR_NO_SUCH_FILE, 1);
+		return ;
+	}
 	if (rdr->rdr_type == IN)
 		 prt_sc_err(dup2(fd, STDIN_FILENO));
 	else if (rdr->rdr_type == HEREDOC)

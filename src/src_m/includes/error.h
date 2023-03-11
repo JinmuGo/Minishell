@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 14:09:19 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/11 09:07:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define ERR_NOT_SET "not set"
 # define ERR_INVALID_IDENT "not a valid identifier"
 # define ERR_CMD_NOT_FOUND "command not found"
+# define ERR_NO_SUCH_FILE "No such file or directory"
 
 //  File name too long 255 글자기준.
 # define ERR_SYN_QUOTE "syntax error: unclosed quote"

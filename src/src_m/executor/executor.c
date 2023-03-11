@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 21:59:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 09:37:53 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void    executor(t_tree *tree)
 		cmd_executor(tree->root->right, &execute, FIRST);
 	else
 		recursive_exec(tree->root->right, &execute, FIRST);
+	printf("hihi\n");
 	if (execute.child_lst)
 		wait_child(&execute);
 	rdr_restore(&execute);

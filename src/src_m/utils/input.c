@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 22:11:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/11 09:01:08 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	prompt(void)
 		if (meta->err == ERR_NOTHING)
 		{
 			expander(&tree);
-			print_tree_node(tree.root, 0, "root");
 			executor(&tree);
+			print_tree_node(tree.root, 0, "root");
 		}
 		err_handler(meta);
 		clear_asset(line, &tree, meta);
