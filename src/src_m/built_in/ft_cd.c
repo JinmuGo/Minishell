@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:51:02 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 14:33:13 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_bool	exec_cd(char *cur_path)
 	else
 		path = cur_path;
 	if (chdir(path) == -1)
-		return (prt_err(strerror(errno), errno));
+		return (prt_built_in_err(path, NULL, strerror(errno), errno));
 	return (FT_TRUE);
 }
 
