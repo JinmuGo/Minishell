@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:16:00 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:00:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:54:52 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,21 @@ char	*make_abs_path(char *cmd, const char **path_arr)
 const char	**make_envp_arr(t_tree_node *node)
 {
 	t_simple_cmd	*simple_cmd;
+	t_hash_elem		*elem;
 	int				val;
 
 	if (node == NULL)
 		return (NULL);
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
-	if (ft_strcmp(simple_cmd->cmd, "./minishell") == 0)
+	if (simple_cmd == NULL || ft_strcmp(simple_cmd->cmd, "./minishell"))
+		return (NULL);
+	elem = get_envp_elem("SHLVL");
+	if (elem)
 	{
-		val = ft_atoi(get_envp_elem("SHLVL")->val);
-		set_envp_elem("SHLVL", ft_itoa(val + 1));
+		val = ft_atoi(elem->val);
+		set_envp_elem(ft_strdup("SHLVL"), ft_itoa(val + 1));
 	}
+	else
+		set_envp_elem(ft_strdup("SHLVL"), ft_itoa(1));
 	return ((const char **)convert_char_arr());
 }

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:03:30 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:37:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:54:51 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,15 @@ t_bool	is_single(t_tree_node *root)
 
 void	shlvl_control(char *proc_name)
 {
+	t_hash_elem *elem;
 	int	val;
 
 	if (ft_strcmp(proc_name, "./minishell"))
 		return ;
-	val = ft_atoi(get_envp_elem("SHLVL")->val);
-	set_envp_elem("SHLVL", ft_itoa(val - 1));
+	elem = get_envp_elem("SHLVL");
+	if (elem)
+	{
+		val = ft_atoi(elem->val);
+		set_envp_elem(ft_strdup("SHLVL"), ft_itoa(val - 1));
+	}
 }
