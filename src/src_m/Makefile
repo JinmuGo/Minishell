@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 19:16:00 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/12 18:18:59 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ HEADS = minishell.h \
 		error.h \
 		signal_controller.h
 
-SRCS = minishell.c
+SRCS = main.c
 
 LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
