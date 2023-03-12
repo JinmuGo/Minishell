@@ -1,0 +1,88 @@
+cd ~
+
+export AAA="abc"
+1$AAA'1'
+
+export ABC="a b c"
+env | grep ABC
+
+tree를 순회하며 quote_removal
+$를 expanding할때는 quote_removal작동 안해야함.
+
+---------- error ----------
+
+5.
+export a='algo"algo'
+echo "$a"
+quote remover 확인 필요.
+
+6.
+exit 1a
+exit
+bash: exit: 1a: numeric argument required
+❯ echo $?
+255
+
+255로 나와야함 echo $? 우리는 1로 나옴
+
+7.
+ls | exit | wc
+STDERR_NUM 에 안쓰고 넘어가는 법 필요
+
+8.
+ echo "$=TEST" -> =TEST 로 출력됨 / bash -> $=TEST
+ echo "$" -> $ 출력 안됨 / bash -> $
+ echo "$?TEST" -> 출력 안됨 / bash -> 0TEST
+ echo "$1TEST" -> 출력 안됨 / bash -> TEST
+
+9.
+export TEST -> 터짐;;
+export TEST=LOL; export TEST+=LOL ; echo $TEST -> +=연산자까지 구현 범위일지 고민
+
+10.
+--
+ENV_SHOW="env | grep SHLVL"
+EXPORT_SHOW="export | grep SHLVL"
+$ENV_SHOW  -> subject분야가아니라 안함
+$EXPORT_SHOW
+--> 이걸 해야함? expanding해서 다시 트리를 만들어야한다고?
+
+11.
+exit -9223372036854775808 -> 255 나옴 / bash -> 0
+exit -9223372036854775810 -> bash: exit: -9223372036854775810: numeric argument required
+
+12.
+/bin/ls
+/bin/echo
+/bin/cat
+/adsasdasd/sadasd/ls
+--> 절대경로에 대한 처리가 없는듯? -> make_abs_path 에 '/' 조건문하나 추가함
+
+13.
+echo $? -> expand_and_dup(char *dst, char *key, int j) -> const t_hash_elem	*elem = get_envp_elem(key);
+						-> elem == NULL 이라서 ? 를 expanding 못한다.
+
+0 : success (/bin/ls -l . -> echo $?) -> $? 출력 안됨
+1 : file not found (/bin/ls -l invalid -> echo $?)
+127 : cmd not found (asdf)
+126 : is dir (/bin)
+258 : syntax error (>>>>>)
+130 : child int (cat -> Ctrl-C)
+131 : child quit (cat -> Ctrl-\\)
+
+14.
+export TEST2 -> get_env_val 에서 tmp = "" -> ft_strdup() -> ft_strlen(tmp) 에서 s[0] 접근 에러 발생
+
+15.
+ls -> unset PATH -> ls
+(bash: ls: No such file or directory)
+- [ ] PATH에 가장 왼쪽에 있는 디렉터리 (path1 & path2)
+unset PATH이후
+--> grt_path_arr() -> get_env_elem("PATH")->val NULL참조에러
+
+16.
+mkdir test
+cd test
+rm -rf ../test
+pwd
+--> pwd 부분 수정필요.

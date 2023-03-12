@@ -1,0 +1,30 @@
+parser.c
+
+부모노드를 만드는 함수내부에서 자식노드를 만드는 함수 실행 (left를 끝까지 만들고 right를 끝까지 만들기)
+make_tree(tk_list)
+	root_pipe()
+	파이프가 있으면 파이프 노드 left생성
+	make_child(node)
+		insert_left(CMD);
+			CMD
+				make_rdr()
+					rdr (rdr 전체 한번에 처리), (rdr 다음 word를 file로 처리)
+				make_simple_cmd()
+					simple_cmd (cmd_name(첫번째 word), cmd_args(남은 word 처리 char **))
+		if (pipe가 또 있으면)			
+			insert_right(PIPE)
+				make_child(node)
+	return (tree);
+
+-------------------------------------------------------------------------------------------------------------
+
+pipe노드를 먼저 처리하면 
+
+| cat > a | echo a
+
+root |
+cat -> que ('|'를 만나거나 next가 널일때까지 que에 담는다)
+> -> que
+a -> que
+| -> 파싱
+que -> 파싱

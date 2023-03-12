@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 11:22:13 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/11 18:04:22 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,19 +17,22 @@ endif
 include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
-SRCS = signal.c
+SRCS = expander.c \
+		quote_removal.c \
+		shell_parameter_expansion.c \
+		shell_parameter_expansion_utils.c \
+		here_doc_expansion.c \
+		expander_utils.c \
+		field_split.c \
+		ft_mini_strchr.c
 
-NAME = $(addsuffix .a, $(notdir $(CURDIR)))
-
-CPPFLAGS = -I$(TOPDIR)/includes -I../includes
-LDFLAGS = -L$(TOPDIR)/lib
-LDLIBS = -lft
+NAME = expander.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
-all bonus : 
+all bonus :
 	$(Q)$(call color_printf,$(CYAN),$(NAME),🎯 starting compile $(NAME))
 	$(Q)$(MAKE) $(NAME)
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)

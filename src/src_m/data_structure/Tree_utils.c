@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   declaration.h                                      :+:      :+:    :+:   */
+/*   Tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/25 17:57:50 by jgo              ###   ########.fr       */
+/*   Created: 2023/03/06 16:57:08 by sanghwal          #+#    #+#             */
+/*   Updated: 2023/03/06 16:57:21 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DECLARATION_H
-# define DECLARATION_H
+#include "minishell.h"
+#include "defines.h"
+#include "data_structure.h"
 
-# define LOOP TRUE
-
-#endif
+void	destroy(t_tree *tree)
+{
+	pre_order_traversal(tree->root, delete_node);
+}

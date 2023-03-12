@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/01/28 15:28:39 by jgo              ###   ########.fr        #
+#    Updated: 2023/02/23 19:16:00 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ..)
+		TOPDIR = $(abspath ../../)
 endif
 
 include $(TOPDIR)/config/Rules.mk
@@ -19,40 +19,41 @@ include $(TOPDIR)/config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 
-CPPFLAGS = -I$(TOPDIR)/includes -I./includes
-LDFLAGS = -L$(TOPDIR)/lib
-LDLIBS = -lft -lreadline
-
-DIRS = signal \
-		# lexer \
-		# parser \
-		# expander \
-		# executor \
-		# utils 
-
-LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
+DIRS = utils \
+		data_structure \
+		envp_command \
+		meta_command \
+		expander \
+		tokenize \
+		parser \
+		signal_controller \
+		executor \
+		built_in
 
 HEADS = minishell.h \
-		signal.h \
+		utils.h \
 		lexer.h \
 		parser.h \
 		expander.h \
 		executor.h \
-		declaration.h \
-		utils.h \
-		error.h
+		defines.h \
+		data_structure.h \
+		error.h \
+		signal_controller.h
 
 SRCS = minishell.c
+
+LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 -include $(DEPS)
 
 all bonus :
-		$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
-		$(Q)$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
-		$(MAKE) $(NAME)
-		$(Q)$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
+	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
+	$(Q)$(call color_printf,$(YELLOW),$(NAME),🎯 Start compiling)
+	$(MAKE) $(NAME)
+	$(Q)$(call color_printf,$(GREEN),$(NAME),✨ compiled!)
 
 $(NAME): $(OBJS) $(LIBS)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
@@ -73,4 +74,5 @@ re: fclean
 	$(Q)$(foreach dir, $(DIRS), $(MAKE) TOPDIR=$(TOPDIR) -C $(dir) $@;)
 	$(MAKE)
 
-.PHONY: all clean fclean re bonus
+
+.PHONY: all clean fclean re bonus 

@@ -6,28 +6,26 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/01/25 17:50:42 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 18:10:05 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <sys/errno.h>
-#include <curses.h>
-#include <term.h>
-#include <termios.h>
+/* singleton.c */
+t_meta	*singleton(void);
 
-// 전부 다 사용할지는 모르겠지만 include 추가
+/* input.c */
+void	prompt(t_meta *meta, t_tree *tree);
+
+/* utils.c */
+void	close_unlink_list(void *content);
+char	*redef_cur_dir(char *prev_dir);
+void	free_parser_node(t_tree_node *node);
+void	clear_asset(char *line, t_tree *tree, t_meta *meta);
+
+/* prompt. c*/
+char	*make_prompt(char *prev_prompt);
 
 #endif
