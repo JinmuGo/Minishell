@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 22:11:13 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:27:51 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	make_tree(
 t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
 	const t_err_type	err_num = get_err_num();
-	char				*token_str;
 
 	if (err_num == ERR_PIPE || err_num == ERR_MULTI_PIPE)
 	{

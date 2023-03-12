@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:17:06 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 15:39:28 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:42:18 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 
 void	lexer_pipe(t_list *token, t_list **tk_list)
 {
-	const t_meta	*meta = get_meta();
-
 	if (((t_tokenize *)(*tk_list)->content)->type == PIPE)
 		set_err_num(ERR_FIRST_PIPE);
 	else if (((t_tokenize *)(token->content))->size > 1)

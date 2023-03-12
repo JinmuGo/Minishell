@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:36 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/09 20:25:44 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:41:18 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	insert_root(t_tree *tree)
 }
 
 t_tree_node	*insert_pipe_node(
-	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+	t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token		*value;
 	t_tokenize	*token;
@@ -45,10 +45,9 @@ t_tree_node	*insert_pipe_node(
 }
 
 t_tree_node	*insert_cmd_node(
-	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+	t_tree *tree, t_tree_node *cur_node)
 {
 	t_token		*value;
-	t_tokenize	*token;
 	t_tree_node	*new_node;
 
 	value = ft_malloc(sizeof(t_token));
@@ -62,7 +61,7 @@ t_tree_node	*insert_cmd_node(
 }
 
 t_tree_node	*insert_rdr_node(
-	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+	t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token		*value;
 	t_tokenize	*token;
@@ -76,7 +75,7 @@ t_tree_node	*insert_rdr_node(
 }
 
 t_tree_node	*insert_s_cmd_node(
-	t_tree *tree, t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
+	t_list **tk_list, t_tree_node *cur_node, t_deque *dque)
 {
 	t_token		*value;
 	t_tokenize	*token;

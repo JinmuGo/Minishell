@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:01:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:28:45 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_pwd(t_simple_cmd *simple_cmd)
 	static char	*prev_cwd;
 	char		*cwd;
 
+	(void)simple_cmd;
 	cwd = get_cur_dir();
 	if (cwd)
 	{

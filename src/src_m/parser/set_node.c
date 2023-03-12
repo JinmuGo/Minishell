@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:43:01 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/09 20:30:57 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:41:42 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	set_pipe(t_list **tk_list, t_tokenize *token, t_token *value)
 void	set_simple_cmd(
 	t_list **tk_list, t_deque *dque, t_tokenize *token, t_token *value)
 {
-	t_tokenize	*tmp;
-
 	value->type = S_CMD;
 	value->cmd_val.simple_cmd->cmd = ft_strdup(token->str);
 	value->cmd_val.simple_cmd->args = NULL;

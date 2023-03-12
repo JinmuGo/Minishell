@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_write.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:20:14 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:11:50 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:42:11 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ void	write_util(int fd, char *line, t_bool	expand)
 void	here_doc_write(int fd, char *delimter, t_bool expand)
 {
 	const int	del_len = ft_strlen(delimter);
-	char	*line;
-	char	*tmp;
-	int		len;
+	char		*line;
+	int			len;
 
 	while (FT_TRUE)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break;
+			break ;
 		len = ft_strlen(line);
 		if ((ft_strncmp(line, delimter, len) == 0 && \
 			len == del_len))
@@ -64,7 +63,7 @@ void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
 	t_tokenize	*token;
 	char		*delimter;
 	char		*new_delimter;
-	t_bool	expand;
+	t_bool		expand;
 
 	token = ((t_list *)(dque->pop_front(dque)))->content;
 	delimter = token->str;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   field_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:44:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 17:44:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:26:29 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	cmd_field_split(t_simple_cmd *cmd)
 {
 	char	**splited_arr;
 	int		origin_len;
-	int		i;
 
 	splited_arr = ft_split(cmd->cmd, ' ');
 	origin_len = ft_arrlen((void *)cmd->args);

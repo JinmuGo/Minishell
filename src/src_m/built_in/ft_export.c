@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:00:31 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:31:58 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@
 
 void	append_val(char *tmp, char *src)
 {
-	const char	*key = ft_strtrim(tmp, "+");
-	const char	*dst = get_envp_elem(key)->val;
-	const char	*val = ft_strjoin(dst, src);
-	const char	*prev_key = get_envp_elem(key)->key;
+	const char			*key = ft_strtrim(tmp, "+");
+	const t_hash_elem	*elem = get_envp_elem(key);
+	char				*val;
 
-	set_envp_elem(key, val);
+	if (elem)
+	{
+		val = ft_strjoin(elem->val, src);
+		set_envp_elem(key, val);
+	}
 	free(tmp);
 	free(src);
 }
