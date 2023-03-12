@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:41:46 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:17:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	s_cmd_executor(\
 	if (node == NULL || node->value == NULL)
 		exit(EXIT_FAILURE);
 	simple_cmd = ((t_token *)(node->value))->cmd_val.simple_cmd;
+	if (simple_cmd == NULL)
+		exit(EXIT_FAILURE);
 	type = is_built_in_cmd(simple_cmd->cmd);
 	if (type != FT_EXTERNAL)
 		exit(built_in(simple_cmd, type));

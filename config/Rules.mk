@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/05 14:02:20 by jgo               #+#    #+#              #
-#    Updated: 2023/03/11 17:29:17 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/12 17:01:07 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,12 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP
 Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
 
 CPPFLAGS = -I$(TOPDIR)/includes -I$(TOPDIR)/src/src_m/includes -I$(shell brew --prefix readline)/include/readline
-LDFLAGS = -L$(TOPDIR)/lib -L$(shell brew --prefix readline)/lib -fsanitize=address
+LDFLAGS = -L$(TOPDIR)/lib -L$(shell brew --prefix readline)/lib
 LDLIBS = -lft -lreadline
 
 # debug
 ifdef DEBUG
-	CFLAGS = -g3 -MMD -MP -fsanitize=address
+	CFLAGS = -g3 -MMD -MP
 	LDFLAGS += -g3
 endif
 
