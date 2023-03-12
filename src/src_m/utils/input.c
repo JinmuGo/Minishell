@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:51:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 18:09:44 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,10 @@
 #include "data_structure.h"
 #include "error.h"
 
-void	prompt(void)
+void	prompt(t_meta *meta, t_tree *tree)
 {
 	char	*line;
-	t_tree	tree;
-	t_meta	*meta;
 
-	meta = get_meta();
-	tree_init(&tree);
 	while (FT_TRUE)
 	{
 		signal_controller(SIG_INIT, 0);
@@ -41,12 +37,11 @@ void	prompt(void)
 			clear_history();
 			exit(EXIT_SUCCESS);
 		}
-		if (line && *line)
-			add_history(line);
+		add_history(line);
 		parser(line, &tree);
 		if (meta->err == ERR_NOTHING)
 		{
-			expander(tree.root);
+			expander(tree->root);
 			executor(&tree);
 		}
 		err_handler(meta);

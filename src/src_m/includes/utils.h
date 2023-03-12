@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:43:58 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 18:10:05 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_meta	*singleton(void);
 
 /* input.c */
-void	prompt(void);
+void	prompt(t_meta *meta, t_tree *tree);
 
 /* utils.c */
 void	close_unlink_list(void *content);
