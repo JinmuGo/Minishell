@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 14:16:22 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:11:48 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_tree_node	*make_rdr_node(
 {
 	t_list			*token;
 	int				re_cnt;
-	const t_meta	*meta = get_meta();
 
 	if (dque->use_size > 0)
 	{
@@ -65,17 +64,14 @@ t_tree_node	*make_rdr_node(
 		if (((t_tokenize *)(token->content))->type == RDR)
 		{
 			lexer_rdr(token);
-			if (re_cnt > 0 && dque->use_size == 2 && get_err_num() != ERR_NL)
-				set_err_num(ERR_PIPE);
-			else if (meta->err == ERR_NOTHING || validation_heredoc(token))
+			if (validation_heredoc(token, dque) || get_err_num() == ERR_NOTHING)
 			{
 				cur_node = insert_rdr_node(tree, tk_list, cur_node, dque);
 				recover_dque(dque, re_cnt);
 			}
-			if (meta->err != ERR_NOTHING)
+			if (get_err_num() != ERR_NOTHING)
 			{
-				while (dque->use_size > 0)
-					dque->pop_front(dque);
+				dq_clear(dque);
 				return (NULL);
 			}
 		}

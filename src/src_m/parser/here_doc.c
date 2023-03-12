@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 14:33:44 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:11:12 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,13 @@ void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path)
 	exit(EXIT_SUCCESS);
 }
 
-t_bool	validation_heredoc(t_list *token)
+t_bool	validation_heredoc(t_list *token, t_deque *dque)
 {
 	const int	err = get_err_num();
 
+	if (token->next != dque->nodes[(dque->front + 1) % dque->capacity] \
+		&& err != ERR_NL)
+		set_err_num(ERR_PIPE);
 	if (ft_strncmp(((t_tokenize *)(token->content))->str, "<<", 3))
 		return (FT_FALSE);
 	if (token->next == NULL || (err >= ERR_RDR_IN && err <= ERR_RDR_APPEND))

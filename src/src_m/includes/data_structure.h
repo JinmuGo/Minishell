@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structure.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 22:27:09 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/18 17:33:39 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:47:13 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void    *dq_pop_rear(t_deque *dque);
 void    *dq_peek_front(const t_deque *dque);
 void    *dq_peek_rear(const t_deque *dque);
 void    dq_free(const t_deque *dque);
+void	dq_clear(t_deque *dque);
 
 
 #endif

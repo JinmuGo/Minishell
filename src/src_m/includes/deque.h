@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:10:04 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/08 19:54:56 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 15:47:03 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ void	dq_push_front(t_deque *dque, void *data);
 void	dq_push_rear(t_deque *dque, void *data);
 void	*dq_pop_front(t_deque *dque);
 void	*dq_pop_rear(t_deque *dque);
+void	dq_clear(t_deque *dque);
 
 #endif
