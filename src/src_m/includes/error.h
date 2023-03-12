@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 09:07:36 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:41:34 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define ERR_SYN_PIPE "syntax error: near unexpected token `|'"
 # define ERR_SYN_RDR_HERE "syntax error near unexpected token `<<'"
 # define ERR_SYN_RDR_APPEND "syntax error near unexpected token `>>'"
-
 
 t_bool	prt_err(const char *str, int exit_status);
 t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status);

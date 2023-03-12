@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 17:10:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:53:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	close_unlink_list(void *content)
 	}
 }
 
-char *redef_cur_dir(char *prev_dir)
+char	*redef_cur_dir(char *prev_dir)
 {
 	char	*buffer;
 	char	*dst;

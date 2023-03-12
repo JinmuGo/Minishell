@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:54:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:51:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void	prompt(void)
 {
-	char *line;
+	char	*line;
 	t_tree	tree;
 	t_meta	*meta;
 
@@ -39,7 +39,6 @@ void	prompt(void)
 		{
 			printf("exit\n");
 			clear_history();
-			// free_all_asset
 			exit(EXIT_SUCCESS);
 		}
 		if (line && *line)
@@ -49,12 +48,9 @@ void	prompt(void)
 		{
 			expander(tree.root);
 			executor(&tree);
-			// print_tree_node(tree.root, 0, "root");
 		}
 		err_handler(meta);
 		clear_asset(line, &tree, meta);
 		meta->err = ERR_NOTHING;
 	}
 }
-
-// leak이 어디서 나는거야?!

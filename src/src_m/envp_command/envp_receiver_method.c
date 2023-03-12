@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:20:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:33:33 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	hash_insert(t_hash_table *ht, const char *key, const char *val)
 	}
 }
 
-void	hash_delete(t_hash_table *ht,const char *key)
+void	hash_delete(t_hash_table *ht, const char *key)
 {
 	t_hash_elem	*target;
 

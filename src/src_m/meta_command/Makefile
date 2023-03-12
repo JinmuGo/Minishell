@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/22 15:30:09 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/12 18:01:57 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ include $(TOPDIR)/config/Rules.mk
 include $(TOPDIR)/config/color_rules.mk
 
 SRCS = meta_invoker.c \
+		meta_invoker2.c \
 		meta_receiver.c
 
 NAME = meta_command.a

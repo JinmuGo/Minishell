@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:42:45 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 17:24:00 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:39:22 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,23 @@
 #include "data_structure.h"
 #include "expander.h"
 
-int cal_remove_len(char *str)
+char	is_same_quote_len(char quote, char c, int *len, char initial)
+{
+	if (quote != initial)
+	{
+		if (quote == c)
+			return (initial);
+		else
+		{
+			(*len)++;
+			return (quote);
+		}
+	}
+	else
+		return (c);
+}
+
+int	cal_remove_len(char *str)
 {
 	char	quote;
 	int		len;

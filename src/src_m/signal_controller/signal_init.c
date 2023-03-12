@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 16:03:25 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:49:45 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 #include "error.h"
 #include <errno.h>
 
-void    set_signal_init(int signum)
+void	set_signal_init(int signum)
 {
-    (void)signum;
+	(void)signum;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void    signal_init(struct sigaction *s_int, struct sigaction *s_quit)
+void	signal_init(struct sigaction *s_int, struct sigaction *s_quit)
 {
 	sigset_t	mask;
 

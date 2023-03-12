@@ -6,21 +6,17 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:59:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:54:08 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "utils.h"
-#include "data_structure.h"
-#include "expander.h"
-#include "meta_command.h"
 #include "envp_command.h"
-#include "signal_controller.h"
 #include "error.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	(void)argv;
 	if (argc != 1)

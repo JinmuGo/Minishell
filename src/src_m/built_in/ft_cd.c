@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:21:43 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:58:04 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	exec_cd(char *cur_path)
 	if (cur_path == NULL || ft_strcmp(cur_path, "~") == 0)
 	{
 		elem = get_envp_elem("HOME");
-		if (path == NULL)
+		if (path == NULL && elem == NULL)
 			return (prt_built_in_err("cd", "HOME", ERR_NOT_SET, EXIT_FAILURE));
 		path = elem->val;
 	}

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:33:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 16:05:46 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:49:42 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	set_signal_child(int sig)
 	}
 }
 
-void signal_child(pid_t	pid)
+void	signal_child(pid_t	pid)
 {
-    sigset_t			mask;
+	sigset_t			mask;
 	struct sigaction	s_int;
 	struct sigaction	s_quit;
 

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 20:44:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 17:40:18 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:39:15 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,6 @@ int	try_expand_and_cal_len(char *str, int i, int tmp)
 		len = elem->val_len;
 	free((void *)dst);
 	return (len);
-}
-
-char	is_same_quote_len(char quote, char c, int *len, char initial)
-{
-	if (quote != initial)
-	{
-		if (quote == c)
-			return (initial);
-		else
-		{
-			(*len)++;
-			return (quote);
-		}
-	}
-	else
-		return (c);
 }
 
 char	is_same_quote(char quote, char c, char initial)

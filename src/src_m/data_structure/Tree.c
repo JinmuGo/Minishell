@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:56:53 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 16:57:26 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:31:31 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	insert(t_tree_node *node, t_tree_edge edge, t_tree_node *child)
 		node->right = child;
 }
 
-void	pre_order_traversal(t_tree_node *node, void(*f)(t_tree_node*))
+void	pre_order_traversal(t_tree_node *node, void (*f)(t_tree_node*))
 {
 	t_tree_node	*left;
 	t_tree_node	*right;

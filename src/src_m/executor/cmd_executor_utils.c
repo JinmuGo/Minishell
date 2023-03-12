@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:16:00 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 16:54:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:34:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 const char	**get_path_arr(void)
 {
-	const t_hash_elem *elem = get_envp_elem("PATH");
-	
+	const t_hash_elem	*elem = get_envp_elem("PATH");
+
 	if (elem)
 		return ((const char **)ft_split(elem->val, ':'));
 	else

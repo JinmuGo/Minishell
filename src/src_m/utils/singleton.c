@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:23:33 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 23:05:53 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:51:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "defines.h"
 #include "utils.h"
 
-static void    init_hash_table(t_hash_table *ht)
+static void	init_hash_table(t_hash_table *ht)
 {
 	ht->size = ft_find_prev_prime(H_INITIAL_SIZE);
 	ht->cnt = 0;
@@ -30,16 +30,16 @@ static void    init_hash_table(t_hash_table *ht)
  *  free(meta);
  * 
 */
-t_meta  *singleton(void)
+t_meta	*singleton(void)
 {
-	static t_meta *meta;
+	static t_meta	*meta;
 
 	if (meta != NULL)
 		return (meta);
 	meta = ft_calloc(1, sizeof(t_meta));
 	meta->envp = ft_malloc(sizeof(t_hash_table));
 	meta->exit_status = EXIT_SUCCESS;
-    init_hash_table(meta->envp);
+	init_hash_table(meta->envp);
 	meta->err = ERR_NOTHING;
 	meta->unlink_lst = ft_calloc(1, sizeof(t_list));
 	meta->cur_dir = redef_cur_dir(NULL);
