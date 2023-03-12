@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/02/28 19:17:04 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:20:15 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "defines.h"
 #include "data_structure.h"
 #include "parser.h"
-#include "utils.h"
 
 void	in_quote(char *line, t_tokenize *token, t_stack *qte)
 {

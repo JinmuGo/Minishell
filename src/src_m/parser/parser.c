@@ -6,14 +6,13 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:46:50 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 16:27:51 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:05:04 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
 #include "data_structure.h"
 #include "meta_command.h"
 #include "error.h"
@@ -50,7 +49,6 @@ void	make_tree(
 		t_tree *tree, t_list **tk_list, t_list *cur_list, t_tree_node *cur_node)
 {
 	t_deque		*dque;
-	t_err_type	err;
 
 	if (!cur_list)
 		return ;
@@ -66,17 +64,14 @@ void	make_tree(
 	free(dque->nodes);
 	free((void *)dque);
 	dque = NULL;
-	err = get_err_num();
-	if (err != ERR_NOTHING)
+	if (get_err_num() != ERR_NOTHING)
 		return ;
 	make_tree(tree, tk_list, cur_list, cur_node->right);
 }
 
 t_deque	*save_dque(t_list *tk_list, t_list **cur_list, t_deque *dque)
 {
-	const t_err_type	err_num = get_err_num();
-
-	if (err_num == ERR_PIPE || err_num == ERR_MULTI_PIPE)
+	if (get_err_num() == ERR_PIPE || get_err_num() == ERR_MULTI_PIPE)
 	{
 		set_err_num(ERR_PIPE);
 		err_handler(get_meta());

@@ -6,16 +6,14 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/09 20:29:17 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:03:18 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
 #include "data_structure.h"
-#include "meta_command.h"
 
 t_list	*delete_lst_node(t_list **tk_list, t_tokenize *token)
 {

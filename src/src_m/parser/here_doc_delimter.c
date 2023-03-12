@@ -3,22 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_delimter.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:21:42 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 18:00:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:56:11 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
 #include "data_structure.h"
 #include "meta_command.h"
-#include "expander.h"
-#include "signal_controller.h"
-#include "error.h"
 
 char	*edit_delimter(char *delimter)
 {

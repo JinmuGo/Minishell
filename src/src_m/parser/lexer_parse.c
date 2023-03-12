@@ -6,17 +6,14 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:17:06 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:42:18 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:01:46 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
-#include "data_structure.h"
 #include "meta_command.h"
-#include "error.h"
 
 void	lexer_pipe(t_list *token, t_list **tk_list)
 {
@@ -33,13 +30,11 @@ void	lexer_pipe(t_list *token, t_list **tk_list)
 
 void	lexer_rdr(t_list *token)
 {
-	const t_meta	*meta = get_meta();
-
 	if (token->next == NULL)
 	{
-		if (meta->err == ERR_MULTI || meta->err == ERR_MULTI_PIPE)
+		if (get_err_num() == ERR_MULTI || get_err_num() == ERR_MULTI_PIPE)
 			set_err_num(ERR_PIPE);
-		else if (meta->err == ERR_NOTHING)
+		else if (get_err_num() == ERR_NOTHING)
 			set_err_num(ERR_NL);
 	}
 	else if (((t_tokenize *)(token->next->content))->type == RDR)

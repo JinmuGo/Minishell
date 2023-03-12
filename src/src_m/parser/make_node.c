@@ -6,14 +6,13 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:40:52 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:40:51 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:02:16 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
 #include "data_structure.h"
 #include "meta_command.h"
 

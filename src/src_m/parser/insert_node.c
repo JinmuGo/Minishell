@@ -6,14 +6,13 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:41:36 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:41:18 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:00:21 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
 #include "data_structure.h"
 
 void	insert_root(t_tree *tree)

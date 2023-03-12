@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:22:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 17:11:57 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 #include "parser.h"
-#include "utils.h"
-#include "data_structure.h"
 #include "meta_command.h"
-#include "expander.h"
 #include "signal_controller.h"
 #include "error.h"
 

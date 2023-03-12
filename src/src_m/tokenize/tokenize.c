@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:27:36 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:20:56 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "data_structure.h"
 #include "parser.h"
 #include "utils.h"
-#include "error.h"
 #include "meta_command.h"
 
 t_list	*tokenize(char *line)
@@ -30,7 +29,6 @@ t_list	*tokenize(char *line)
 		tmp = tk_list->next;
 		free(tk_list);
 		tk_list = tmp;
-		// print_tokenize(tk_list);
 	}
 	else
 		set_err_num(ERR_QUOTE);
