@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:25:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:50:19 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 14:58:43 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_bool	n_option_confirm(char *target_str)
 	int	i;
 
 	if (target_str[0] != '-')
+		return (FT_FALSE);
+	if (target_str[0] == '-' && target_str[1] == '\0')
 		return (FT_FALSE);
 	i = 1;
 	while (target_str[i])

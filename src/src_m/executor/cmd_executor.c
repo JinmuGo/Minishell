@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 15:30:37 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 10:18:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:41:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ void	s_cmd_executor(\
 		exit(built_in(simple_cmd, type));
 	else
 	{
-		if (path_arr == NULL)
-		{
-			prt_err(ERR_CMD_NOT_FOUND, 127);
-			exit(127);
-		}
 		abs_path = make_abs_path(simple_cmd->cmd, path_arr);
 		execve(abs_path, simple_cmd->args, (char **)envp_arr);
 		prt_built_in_err(simple_cmd->cmd, NULL, ERR_CMD_NOT_FOUND, 127);
@@ -100,9 +95,9 @@ void	cmd_executor(\
 	}
 	else
 	{
-		signal_controller(SIG_INIT);
 		post_process(execute, node->right, pid);
-		ft_free_all_arr((void *)path_arr);
+		if (path_arr)
+			ft_free_all_arr((void *)path_arr);
 		if (envp_arr)
 			ft_free_all_arr((void *)envp_arr);
 	}

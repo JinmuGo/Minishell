@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/04 10:27:28 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:03:25 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,10 @@
 
 void    set_signal_init(int signum)
 {
-    if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	if (signum == SIGQUIT)
-		rl_on_new_line();
+    (void)signum;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 10:04:34 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:54:11 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "built_in.h"
 #include "meta_command.h"
 #include "envp_command.h"
+#include "signal_controller.h"
 
 void	recursive_exec(
 	t_tree_node *node, t_executor *execute, t_sequence sequence)

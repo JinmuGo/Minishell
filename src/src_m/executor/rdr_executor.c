@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:51:55 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 10:20:13 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:21:32 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	rdr_heredoc(t_rdr *rdr)
 	t_list		*lst;
 	t_here_doc	*here_doc;
 
+	(void)rdr;
 	unlink_lst = get_unlink_lst();
 	lst = *unlink_lst;
 	here_doc = ((t_here_doc *)(lst->content));
-
 	prt_sc_err(dup2(here_doc->fd, STDIN_FILENO));
 	edit_unlink_list();
 	close(here_doc->fd);

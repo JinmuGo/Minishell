@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:53:21 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/06 22:09:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:59:57 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argv;
 	if (argc != 1)
+	{
 		prt_err(ERR_ARGS, ERR_ARGS_NUM);
+		exit(EXIT_FAILURE);
+	}
 	envp_init(envp);
 	prompt();
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:11:12 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 16:22:07 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 	else
 	{
 		heredoc_wait(pid);
-		signal_controller(SIG_INIT);
 		set_heredoc(file_path, value);
 		delete_lst_node(tk_list, ((t_list *)(dque->pop_front(dque)))->content);
 	}

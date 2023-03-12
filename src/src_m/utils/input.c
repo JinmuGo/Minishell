@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 17:14:39 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:54:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	prompt(void)
 	t_meta	*meta;
 
 	meta = get_meta();
-	signal_controller(SIG_INIT);
 	tree_init(&tree);
 	while (FT_TRUE)
 	{
+		signal_controller(SIG_INIT, 0);
 		meta->cur_dir = redef_cur_dir(meta->cur_dir);
 		meta->prompt = make_prompt(meta->prompt);
 		line = readline(meta->prompt);
@@ -49,7 +49,7 @@ void	prompt(void)
 		{
 			expander(tree.root);
 			executor(&tree);
-			print_tree_node(tree.root, 0, "root");
+			// print_tree_node(tree.root, 0, "root");
 		}
 		err_handler(meta);
 		clear_asset(line, &tree, meta);

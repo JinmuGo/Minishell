@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:20:14 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/10 18:11:25 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 16:11:50 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,12 @@ void	here_doc_write(int fd, char *delimter, t_bool expand)
 	char	*tmp;
 	int		len;
 
-	printf("del : %s", delimter);
-	while (1)
+	while (FT_TRUE)
 	{
 		line = readline("> ");
+		if (line == NULL)
+			break;
 		len = ft_strlen(line);
-		printf("line %s\n", line);
-
 		if ((ft_strncmp(line, delimter, len) == 0 && \
 			len == del_len))
 			break ;

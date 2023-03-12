@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:44:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:35:14 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:20:14 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	hash_print_all(const char *option, t_hash_table *ht)
 
 char	**hash_convert_arr(t_hash_table *ht)
 {
-	t_hash_elem	elem;
 	char		**arr;
 	int			i;
 	int			j;

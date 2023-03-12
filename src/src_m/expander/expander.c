@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 18:03:30 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 15:20:21 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	cmd_expander(t_simple_cmd *cmd)
 {
 	const char	*dup_cmd = (const char *)ft_strdup(cmd->cmd);
 	const char	**dup_args = (const char **)ft_arrdup((const char **)cmd->args);
-	t_bool		expanded;
 	int			i;
 
 	if (cmd == NULL)
