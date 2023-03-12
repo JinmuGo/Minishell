@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:11:57 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:41:19 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 	char		*file_path;
 
 	file_path = creat_file();
-
 	pid = fork();
 	signal_controller(SIG_CHILD, pid);
 	if (pid == 0)

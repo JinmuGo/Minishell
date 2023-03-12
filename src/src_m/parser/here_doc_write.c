@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:20:14 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:13:10 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 17:41:37 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	here_doc_write(int fd, char *delimter, t_bool expand)
 	}
 	free(line);
 }
-
 
 void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
 {
