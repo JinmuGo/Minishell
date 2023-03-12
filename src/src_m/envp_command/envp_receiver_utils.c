@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:45:27 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:33:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/12 14:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_bool	hash_put(t_hash_elem *elem, const char *key, const char *val)
 			free(elem->val);
 		elem->key = (char *)key;
 		elem->val = (char *)val;
+		elem->val_len = ft_strlen(val);
 		return (FT_TRUE);
 	}
 	return (FT_FALSE);
