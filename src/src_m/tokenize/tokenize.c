@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:37 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:20:56 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/13 13:50:32 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	treat_word(t_list **tk_list, char *line, t_tokenize *token, t_stack *qte)
 		token = tokenize_init(token, WORD);
 	if (line[token->size] == D_QUOTE || line[token->size] == S_QUOTE)
 		in_quote(line, token, qte);
-	if (qte->size == 0 && (line[token->size] == '|' || \
+	if ((qte->size == 0 && (line[token->size] == '|' || \
 		line[token->size] == '<' || \
-		line[token->size] == '>' || ft_isspace(line[token->size]) || \
-		line[token->size] == '\0'))
+		line[token->size] == '>' || ft_isspace(line[token->size]))) || \
+		line[token->size] == '\0')
 		return (token_node_add(tk_list, line, token));
 	token->size++;
 	treat_word(tk_list, line, token, qte);
