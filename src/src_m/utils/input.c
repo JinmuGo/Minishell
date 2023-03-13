@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 18:09:44 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/13 12:57:40 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	prompt(t_meta *meta, t_tree *tree)
 			exit(EXIT_SUCCESS);
 		}
 		add_history(line);
-		parser(line, &tree);
+		parser(line, tree);
 		if (meta->err == ERR_NOTHING)
 		{
 			expander(tree->root);
-			executor(&tree);
+			executor(tree);
 		}
 		err_handler(meta);
-		clear_asset(line, &tree, meta);
+		clear_asset(line, tree, meta);
 		meta->err = ERR_NOTHING;
 	}
 }

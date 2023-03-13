@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 19:16:00 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/13 12:58:16 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ HEADS = minishell.h \
 		error.h \
 		signal_controller.h
 
-SRCS = minishell.c
+SRCS = main.c
 
 LIBS = $(addsuffix .a, $(addprefix lib/, $(DIRS)))
 
