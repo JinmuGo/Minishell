@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 16:31:58 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/16 19:55:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	append_val(char *tmp, char *src)
 		val = ft_strjoin(elem->val, src);
 		set_envp_elem(key, val);
 	}
+	else
+		set_envp_elem(key, ft_strdup(src));
 	free(tmp);
 	free(src);
 }

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:47:10 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:53:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/16 20:41:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void	clear_asset(char *line, t_tree *tree, t_meta *meta)
 	tree->root = NULL;
 	ft_lstclear(get_unlink_lst(), close_unlink_list);
 	meta->unlink_lst = ft_calloc(1, sizeof(t_list));
+	meta->err = ERR_NOTHING;
 }

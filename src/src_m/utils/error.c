@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/10 14:05:01 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/16 20:37:07 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ void	err_handler(t_meta *meta)
 void	parsing_error(t_err_type err)
 {
 	if (err == ERR_QUOTE)
-		prt_err(ERR_SYN_QUOTE, 128);
+		prt_err(ERR_SYN_QUOTE, 258);
 	if (err == ERR_MULTI)
-		prt_err(ERR_SYN_ML, 128);
+		prt_err(ERR_SYN_ML, 258);
 	if (err == ERR_PIPE)
-		prt_err(ERR_SYN_PIPE, 128);
+		prt_err(ERR_SYN_PIPE, 258);
 	if (err == ERR_MULTI_PIPE)
-		prt_err(ERR_SYN_PIPE, 128);
+		prt_err(ERR_SYN_PIPE, 258);
 	if (err == ERR_FIRST_PIPE)
-		prt_err(ERR_SYN_PIPE, 128);
+		prt_err(ERR_SYN_PIPE, 258);
 	if (err == ERR_RDR_IN)
-		prt_err(ERR_SYN_RDR_IN, 128);
+		prt_err(ERR_SYN_RDR_IN, 258);
 	if (err == ERR_RDR_OUT)
-		prt_err(ERR_SYN_RDR_OUT, 128);
+		prt_err(ERR_SYN_RDR_OUT, 258);
 	if (err == ERR_RDR_HERE)
-		prt_err(ERR_SYN_RDR_HERE, 128);
+		prt_err(ERR_SYN_RDR_HERE, 258);
 	if (err == ERR_RDR_APPEND)
-		prt_err(ERR_SYN_RDR_APPEND, 128);
+		prt_err(ERR_SYN_RDR_APPEND, 258);
 	if (err == ERR_NL)
-		prt_err(ERR_SYN_RDR_NL, 128);
+		prt_err(ERR_SYN_RDR_NL, 258);
 }
