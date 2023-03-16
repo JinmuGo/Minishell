@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:41:19 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/16 17:50:43 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ t_bool	validation_heredoc(t_list *token, t_deque *dque)
 
 	if (token->next != dque->nodes[(dque->front + 1) % dque->capacity] \
 		&& err != ERR_NL)
+	{
 		set_err_num(ERR_PIPE);
+		return (FT_FALSE);
+	}
 	if (ft_strncmp(((t_tokenize *)(token->content))->str, "<<", 3))
 		return (FT_FALSE);
 	if (token->next == NULL || (err >= ERR_RDR_IN && err <= ERR_RDR_APPEND))
