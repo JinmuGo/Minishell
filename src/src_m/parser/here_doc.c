@@ -6,7 +6,7 @@
 /*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/16 17:50:43 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/17 16:55:27 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	here_doc(t_list **tk_list, t_deque *dque, t_token *value)
 
 	file_path = creat_file();
 	pid = fork();
-	signal_controller(SIG_CHILD, pid);
+	signal_controller(SIG_HERE, pid);
 	if (pid == 0)
 		exe_here_doc(tk_list, dque, file_path);
 	else
@@ -58,6 +58,7 @@ void	heredoc_wait(pid_t pid)
 
 	meta = get_meta();
 	waitpid(pid, &(meta->exit_status), 0);
+	signal_controller(SIG_INIT, 0);
 	meta->exit_status = WEXITSTATUS(meta->exit_status);
 }
 

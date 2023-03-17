@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
+/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:55:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 14:56:20 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 17:00:00 by sanghwal         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ enum	e_err_type
 enum	e_signal_flags
 {
 	SIG_INIT = 0,
-	SIG_CHILD = 1
+	SIG_CHILD = 1,
+	SIG_HERE = 2
 };
 
 enum	e_sequence

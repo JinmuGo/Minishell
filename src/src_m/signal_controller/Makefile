@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
+#    By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 17:58:21 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/17 16:10:40 by sanghwal         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ include $(TOPDIR)/config/color_rules.mk
 
 SRCS = signal_controller.c \
 	signal_init.c \
-	signal_child.c
+	signal_child.c \
+	signal_heredoc.c
 
 NAME = signal_controller.a
 	
