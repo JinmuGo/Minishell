@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:26 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:20:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 20:18:39 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 #include "defines.h"
 #include "expander.h"
 
-void	rdr_expander(t_rdr	*rdr)
+static void	rdr_expander(t_rdr	*rdr)
 {
 	if (rdr == NULL)
 		return ;
 	if (rdr->rdr_type != HEREDOC)
 	{
-		rdr->file = shell_param_expand(rdr->file);
+		rdr->file = shell_param_expand(rdr->file, NULL);
 		if (rdr->file[0] != S_QUOTE || rdr->file[0] != D_QUOTE)
 			return ;
 		rdr->file = quote_removal(rdr->file);
 	}
 }
 
-void	arg_expand(t_simple_cmd *cmd, char *str, int idx)
+static void	arg_expand(t_simple_cmd *cmd, char *str, int idx)
 {
 	t_list	*lst;
 	t_list	*begin;
@@ -42,7 +42,7 @@ void	arg_expand(t_simple_cmd *cmd, char *str, int idx)
 	while (lst)
 	{
 		tmp = ft_strdup(lst->content);
-		lst->content = shell_param_expand(lst->content);
+		lst->content = shell_param_expand(lst->content, lst->next);
 		if (ft_strcmp(lst->content, tmp) == 0 || is_in_quote(tmp))
 			lst->content = quote_removal(lst->content);
 		free(tmp);
@@ -56,32 +56,34 @@ void	arg_expand(t_simple_cmd *cmd, char *str, int idx)
 	cmd->args[idx] = rv;
 }
 
-void	arg_field_split_proc(\
-	t_simple_cmd *cmd, char **splited_cmd, const int origin_len)
+static void	cmd_expand(t_simple_cmd *cmd, char *str)
 {
-	const int	len = ft_arrlen((void *)splited_cmd);
-	char		**args;
-	int			i;
-	int			idx;
+	t_list	*lst;
+	t_list	*begin;
+	char	*tmp;
+	char	*rv;
 
-	if (*splited_cmd == NULL)
+	lst = split_node(str, ft_strlen(str));
+	begin = lst;
+	rv = ft_strdup("\0");
+	if (lst == NULL)
 		return ;
+	while (lst)
+	{
+		tmp = ft_strdup(lst->content);
+		lst->content = shell_param_expand(lst->content, lst->next);
+		free(tmp);
+		tmp = rv;
+		rv = ft_strjoin(tmp, lst->content);
+		free(tmp);
+		lst = lst->next;
+	}
+	ft_lstclear(&begin, free);
 	free(cmd->cmd);
-	cmd->cmd = ft_strdup(splited_cmd[0]);
-	args = ft_malloc(sizeof(char *) * (len + origin_len));
-	i = -1;
-	idx = 0;
-	while (++i < len)
-		args[idx++] = ft_strdup(splited_cmd[i]);
-	i = 0;
-	while (cmd->args[++i])
-		args[idx++] = ft_strdup(cmd->args[i]);
-	ft_free_all_arr(cmd->args);
-	args[idx] = NULL;
-	cmd->args = args;
+	cmd->cmd = rv;
 }
 
-void	cmd_expander(t_simple_cmd *cmd)
+static void	cmd_expander(t_simple_cmd *cmd)
 {
 	const char	*dup_cmd = (const char *)ft_strdup(cmd->cmd);
 	const char	**dup_args = (const char **)ft_arrdup((const char **)cmd->args);
@@ -89,10 +91,10 @@ void	cmd_expander(t_simple_cmd *cmd)
 
 	if (cmd == NULL)
 		return ;
-	cmd->cmd = shell_param_expand(cmd->cmd);
+	cmd_expand(cmd, cmd->cmd);
+	cmd_field_split(cmd, dup_cmd);
 	if (ft_strcmp(cmd->cmd, dup_cmd) == 0 || is_in_quote(dup_cmd))
 		cmd->cmd = quote_removal(cmd->cmd);
-	cmd_field_split(cmd);
 	i = 0;
 	while (cmd->args[++i])
 	{

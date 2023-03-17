@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:27:08 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:26 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 20:24:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	expander(t_tree_node *node);
 /* expander_utils.c */
 
 /* shell_parameter_expansion.c */
-char	*shell_param_expand(char *str);
+char	*shell_param_expand(char *str, t_list *next);
 
 /* quote_removal.c */
 char	*quote_removal(char *str);
@@ -41,12 +41,16 @@ char	is_same_quote(char quote, char c, char initial);
 t_bool	is_in_quote(const char *str);
 
 /* ft_field_split.c */
-void	cmd_field_split(t_simple_cmd *cmd);
-t_list	*split_node(char *str, const int str_len);
+void	cmd_field_split(t_simple_cmd *cmd, const char *dup_cmd);
 void	arg_field_split(\
 	t_simple_cmd *cmd, char *str, int cur_idx, const int origin_len);
 
 /* ft_mini_strchr.c */
 char	*ft_mini_strchr(const char *s, int c);
+char	*ft_imin_strchr(const char *s, int c);
+
+/* field_split_utils.c */
+void	fill_arg(t_simple_cmd *cmd, char **args, char **tmp, int cur_idx);
+t_list	*split_node(char *str, const int str_len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:16:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:35:43 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 17:14:06 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	adjust_param_idx(char *str, int *i)
 	if (str[*i] == '?' || ft_isdigit(str[*i]))
 		(*i)++;
 	else
-		while (is_shell_var(str[*i]))
+		while (\
+			is_shell_var(str[*i]) && (str[*i] != S_QUOTE && str[*i] != D_QUOTE))
 			(*i)++;
 }

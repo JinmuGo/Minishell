@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:24:51 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 19:51:17 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,18 @@ int	cal_expand_len(char *str, t_deque *deque, int i)
 	return (len);
 }
 
-char	*shell_param_expand(char *str)
+char	*shell_param_expand(char *str, t_list *next)
 {
-	const int	expand_len = cal_expand_len(str, deque_init(ft_strlen(str)), 0);
-	char		*dst;
+	int		expand_len;
+	char	*dst;
 
+	if (str == NULL)
+		return (NULL);
+	if (((str[0] == DOLLAR && str[1] == '\0' && next && \
+		((((char *)(next->content))[0] == D_QUOTE || \
+		((char *)(next->content))[0] == S_QUOTE)))))
+		return (ft_strdup("\0"));
+	expand_len = cal_expand_len(str, deque_init(ft_strlen(str)), 0);
 	dst = ft_malloc(sizeof(char) * (expand_len + 1));
 	dst = expand_variable(dst, str, deque_init(ft_strlen(str)), 0);
 	free(str);
