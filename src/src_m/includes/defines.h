@@ -3,51 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:52:14 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/17 16:32:54 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define LOOP TRUE
-# define ROOT 0
-# define MY_PROMPT " ❯ "
-# define S_QUOTE '\''
-# define D_QUOTE '\"'
-# define DOLLAR	 '$'
-# define BUILT_IN_EXEC_OK 1
-# define BUILT_IN_EXEC_FAIL 0
-# define READ 0
-# define WRITE 1
-
-/* color */
-# define BOLD "\e[1m"
-# define MAGENTA "\e[35m"
-# define CYAN "\e[36m"
-# define GREEN "\e[92m"
-# define GRAY "\e[90m"
-# define RED "\e[91m"
-# define BLUE "\e[94m"
-# define RESET "\e[0m"
-
-# define H_INITIAL_SIZE 100
-# define H_GROWTH_FACTOR 2
-
-/* enum typedef */
-
-typedef enum e_token_type		t_token_type;
-typedef enum e_rdr_type			t_rdr_type;
-typedef enum e_tree_edge		t_tree_edge;
-typedef enum e_simple_cmd_type	t_simple_cmd_type;
-typedef enum e_envp_flags		t_envp_flags;
-typedef enum e_meta_flags		t_meta_flags;
-typedef enum e_err_type			t_err_type;
-typedef enum e_signal_flags		t_signal_flags;
-typedef enum e_sequence			t_sequence;
+# include "constants.h"
+# include "enum.h"
 
 /* struct typedef */
 
@@ -78,105 +45,15 @@ typedef struct s_stack			t_stack;
 typedef struct s_tree			t_tree;
 
 /* hash_table typedef */
+
 typedef struct s_hash_table		t_hash_table;
 typedef struct s_hash_asset		t_hash_asset;
 typedef struct s_hash_elem		t_hash_elem;
 
 /* func_ptr typedef */
+
 typedef int						(*t_built_in_func)(t_simple_cmd *);
 typedef void					(*t_rdr_func)(t_rdr *);
-
-enum e_token_type
-{
-	NONE = -1,
-	RDR = 0,
-	PIPE = 1,
-	CMD = 2,
-	WORD = 3,
-	S_CMD = 4
-};
-
-enum e_rdr_type
-{
-	IN = 0,
-	OUT = 1,
-	APPEND = 2,
-	HEREDOC = 3
-};
-
-enum	e_tree_edge
-{
-	LEFT = 0,
-	RIGHT = 1
-};
-
-enum	e_simple_cmd_type
-{
-	FT_ECHO = 0,
-	FT_CD = 1,
-	FT_PWD = 2,
-	FT_EXPORT = 3,
-	FT_UNSET = 4,
-	FT_ENV = 5,
-	FT_EXIT = 6,
-	FT_EXTERNAL = 7
-};
-
-enum	e_envp_flags
-{
-	SET = 0,
-	GET = 1,
-	DEL = 2,
-	PRINT = 3,
-	CHAR = 4
-};
-
-enum	e_meta_flags
-{
-	META = 0,
-	ENVP = 1,
-	UNLINK = 2,
-	ERR_NUM = 3,
-	PID = 4,
-	EXIT_STATUS = 5,
-	SET_ERR_NUM = 6,
-	SET_EXIT_STATUS = 7,
-	GET_CUR_DIR = 8,
-	SET_CUR_DIR = 9
-};
-
-enum	e_err_type
-{
-	ERR_NOTHING = 0,
-	ERR_QUOTE = 100,
-	ERR_MULTI = 101,
-	ERR_PIPE = 102,
-	ERR_MULTI_PIPE = 103,
-	ERR_FIRST_PIPE = 104,
-	ERR_RDR_IN = 110,
-	ERR_RDR_OUT = 111,
-	ERR_RDR_HERE = 112,
-	ERR_RDR_APPEND = 113,
-	ERR_RDR_MULTI = 114,
-	ERR_NL = 120,
-	ERR_HEREDOC = 200,
-	ERR_HD_WRITE = 201,
-	ERR_HD_OPEN = 203,
-	ERR_ARGS_NUM = 300
-};
-
-enum	e_signal_flags
-{
-	SIG_INIT = 0,
-	SIG_CHILD = 1
-};
-
-enum	e_sequence
-{
-	FIRST = 0,
-	MIDDLE = 1,
-	LAST = 2
-};
 
 struct s_meta
 {

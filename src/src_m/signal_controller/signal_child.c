@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:33:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/16 21:12:01 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 15:58:20 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	set_signal_child(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		// exit(130);
+		exit(EXIT_SIGINT);
 	}
 	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		// exit(131);
+		exit(EXIT_SIGQUIT);
 	}
 }
 
@@ -41,6 +41,8 @@ void	signal_child(pid_t	pid)
 	sigaddset(&mask, SIGQUIT);
 	s_int.sa_mask = mask;
 	s_quit.sa_mask = mask;
+	s_int.sa_flags = 0;
+	s_quit.sa_flags = 0;
 	if (pid == 0)
 	{
 		s_int.sa_handler = set_signal_child;

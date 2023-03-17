@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 10:17:57 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 14:53:10 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,5 @@ void				shlvl_control(char *proc_name);
 const char			**get_path_arr(void);
 char				*make_abs_path(char *cmd, const char **path_arr);
 const char			**make_envp_arr(t_tree_node *node);
-
-/* exit status */
-# define EXIT_COM_NOT_FOUND 127
-# define EXIT_SIGINT 130 // 128 + 2
-# define EXIT_SIGQUIT 131 // 128 + 3
-# define EXIT_SIGTERM 143 // 128 + 15
-
-// rdr실행할 때 error 처리 
-# define ERR_TOO_LONG ": File name too long"
 
 #endif

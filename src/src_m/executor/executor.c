@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 15:54:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 16:31:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	wait_child(t_executor *execute)
 	{
 		tmp = node;
 		waitpid(((t_child_proc *)(tmp->content))->pid, &exit_status, 0);
-		set_exit_status(WEXITSTATUS(exit_status));
+		if (WIFSIGNALED(exit_status))
+			set_exit_status(exit_status + 128);
+		else
+			set_exit_status(WEXITSTATUS(exit_status));
 		shlvl_control(((t_child_proc *)(tmp->content))->name);
 		node = node->next;
 		ft_lstdelone(tmp, free);

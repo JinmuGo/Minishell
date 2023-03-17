@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 14:05:59 by jgo               #+#    #+#              #
-#    Updated: 2023/03/12 18:18:59 by jgo              ###   ########.fr        #
+#    Updated: 2023/03/17 14:57:55 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ HEADS = minishell.h \
 		expander.h \
 		executor.h \
 		defines.h \
+		constants.h \
+		enum.h \
 		data_structure.h \
 		error.h \
 		signal_controller.h
