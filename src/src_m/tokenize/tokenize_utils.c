@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:14:27 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:20:15 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/17 17:05:49 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,33 +72,4 @@ void	free_token_str(t_tokenize *content)
 		free(content);
 		content = NULL;
 	}
-}
-
-void	print_tokenize(t_list *tk_list)
-{
-	char		*type;
-	int			cnt;
-	t_tokenize	*token;
-	t_list		*tmp = tk_list;
-
-	printf("\n-----token_info-----\n");
-	cnt = 1;
-	while (tmp)
-	{
-		token = tmp->content;
-		if (token->type == 0)
-			type = "RDR";
-		if (token->type == 1)
-			type = "PIPE";
-		if (token->type == 2)
-			type = "CMD";
-		if (token->type == 3)
-			type = "WORD";
-		printf("--token_%d--\ntoken_str : %s\ntoken_type: %s\ntoken_size : %d\n\n", \
-			cnt, token->str, type, token->size);
-		tmp = tmp->next;
-		cnt++;
-	}
-	printf("\n\n\n");
-	return ;
 }

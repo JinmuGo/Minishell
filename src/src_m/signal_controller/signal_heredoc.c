@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:00:54 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/17 16:55:33 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/17 17:06:35 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 
 void	set_signal_heredoc(int sig)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		exit(1);
-	}
+	(void)sig;
+	printf("\n");
+	exit(1);
 }
 
 void	signal_heredoc(pid_t	pid)

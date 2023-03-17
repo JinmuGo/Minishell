@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 21:55:44 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 16:54:21 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 17:06:15 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	set_signal_init(int signum)
 
 void	signal_init(struct sigaction *s_int, struct sigaction *s_quit)
 {
-	sigset_t	mask;
-	struct termios term_attr;
+	sigset_t		mask;
+	struct termios	term_attr;
 
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGINT);
@@ -39,6 +39,6 @@ void	signal_init(struct sigaction *s_int, struct sigaction *s_quit)
 	sigaction(SIGINT, s_int, NULL);
 	sigaction(SIGQUIT, s_quit, NULL);
 	tcgetattr(STDIN_FILENO, &term_attr);
-    term_attr.c_lflag &= ~ECHOCTL;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term_attr);
+	term_attr.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term_attr);
 }

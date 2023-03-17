@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 18:21:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:49:59 by jgo              ###   ########.fr       */
+/*   Updated: 2023/03/17 17:04:29 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	signal_controller(t_signal_flags flag, pid_t pid)
 		signal_init(&s_int, &s_quit);
 	else if (flag == SIG_CHILD)
 		signal_child(pid);
+	else if (flag == SIG_HERE)
+		signal_heredoc(pid);
 }

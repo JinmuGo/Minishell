@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:46:05 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:03:18 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/03/17 17:05:59 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,4 @@ void	recover_dque(t_deque *dque, int re_cnt)
 		dque->push_front(dque, token);
 		re_cnt--;
 	}
-}
-
-void	print_tree_node(t_tree_node *node, int level, char *direct)
-{
-	if (node == NULL)
-		return ;
-	printf("cur direct: %s\n", direct);
-	printf("%*s", level * 4, "|");
-	if (((t_token *)(node->value))->type == RDR)
-		printf("_RDR_node_\nrdr_type: %u, file: %s", (t_rdr_type)(((t_token *)(node->value))->cmd_val.rdr->rdr_type), ((t_token *)(node->value))->cmd_val.rdr->file);
-	else if(((t_token *)(node->value))->type == PIPE)
-		printf("_PIPE_node_\nfd[0][1]: %d, %d", ((t_token *)(node->value))->cmd_val.pipe->fd[0], ((t_token *)(node->value))->cmd_val.pipe->fd[1]);
-	else if(((t_token *)(node->value))->type == CMD)
-		printf("_CMD_node_\n ");
-	else if(((t_token *)(node->value))->type == S_CMD)
-	{
-		printf("_S_CMD_node_\ncmd: %s, ",((t_token *)(node->value))->cmd_val.simple_cmd->cmd);
-		int i = 0;
-		printf("args: ");
-		while (((t_token *)(node->value))->cmd_val.simple_cmd->args[i] != 0)
-			printf("%s,", ((t_token *)(node->value))->cmd_val.simple_cmd->args[i++]);
-	}
-	printf("\n");
-	print_tree_node(node->left, level + 1, "left");
-	print_tree_node(node->right, level + 1, "right");
 }
