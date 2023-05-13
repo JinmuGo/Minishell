@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 16:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/16 20:41:52 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	prompt(t_meta *meta, t_tree *tree)
 {
 	char	*line;
 
-	while (FT_TRUE)
+	while (true)
 	{
 		signal_controller(SIG_INIT, 0);
 		meta->cur_dir = redef_cur_dir(meta->cur_dir);

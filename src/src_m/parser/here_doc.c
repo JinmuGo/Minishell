@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:48:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/17 16:55:27 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path)
 	exit(EXIT_SUCCESS);
 }
 
-t_bool	validation_heredoc(t_list *token, t_deque *dque)
+bool	validation_heredoc(t_list *token, t_deque *dque)
 {
 	const int	err = get_err_num();
 
@@ -82,11 +82,11 @@ t_bool	validation_heredoc(t_list *token, t_deque *dque)
 		&& err != ERR_NL)
 	{
 		set_err_num(ERR_PIPE);
-		return (FT_FALSE);
+		return (false);
 	}
 	if (ft_strncmp(((t_tokenize *)(token->content))->str, "<<", 3))
-		return (FT_FALSE);
+		return (false);
 	if (token->next == NULL || (err >= ERR_RDR_IN && err <= ERR_RDR_APPEND))
-		return (FT_FALSE);
-	return (FT_TRUE);
+		return (false);
+	return (true);
 }

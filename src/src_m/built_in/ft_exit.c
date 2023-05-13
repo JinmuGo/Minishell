@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:19 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 11:48:05 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "meta_command.h"
 #include "error.h"
 
-static t_bool	judge_args(char *str)
+static bool	judge_args(char *str)
 {
 	int	i;
 
@@ -25,10 +25,10 @@ static t_bool	judge_args(char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (FT_FALSE);
+			return (false);
 		i++;
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
 int	ft_exit(t_simple_cmd *simple_cmd)

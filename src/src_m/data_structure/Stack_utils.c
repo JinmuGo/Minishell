@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:51:28 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/06 16:51:44 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "defines.h"
 #include "data_structure.h"
 
-t_bool	stack_is_empty(t_stack *stack)
+bool	stack_is_empty(t_stack *stack)
 {
 	if (stack->size)
 		return (FALSE);

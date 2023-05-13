@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 17:05:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ struct s_executor
 {
 	t_token_type	child[2];
 	t_list			*child_lst;
-	t_bool			built_in;
-	t_bool			single;
+	bool			built_in;
+	bool			single;
 	int				cur_fd[2];
 	int				prev_fd[2];
 	int				in_fd;
@@ -159,7 +159,7 @@ struct s_stack
 	void	*(*pop)(t_stack *);
 	void	*(*peek)(t_stack *);
 	void	(*destory)(t_stack *);
-	t_bool	(*is_empty)(t_stack *);
+	bool	(*is_empty)(t_stack *);
 };
 
 struct	s_hash_table

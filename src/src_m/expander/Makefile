@@ -6,7 +6,7 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/03/17 20:23:04 by jgo              ###   ########.fr        #
+#    Updated: 2023/05/14 08:53:00 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ ifndef TOPDIR
 		TOPDIR = $(abspath ../../../)
 endif
 
-include $(TOPDIR)/config/Rules.mk
-include $(TOPDIR)/config/color_rules.mk
+include $(TOPDIR)/make_config/Rules.mk
+include $(TOPDIR)/make_config/color_rules.mk
 
 SRCS = expander.c \
 		quote_removal.c \

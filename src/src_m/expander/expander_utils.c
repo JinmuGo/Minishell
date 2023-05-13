@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 20:44:35 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:39:15 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	is_same_quote(char quote, char c, char initial)
 		return (c);
 }
 
-t_bool	is_in_quote(const char *str)
+bool	is_in_quote(const char *str)
 {
 	int	i;
 
@@ -101,8 +101,8 @@ t_bool	is_in_quote(const char *str)
 	while (str[i])
 	{
 		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-			return (FT_TRUE);
+			return (true);
 		i++;
 	}
-	return (FT_FALSE);
+	return (false);
 }

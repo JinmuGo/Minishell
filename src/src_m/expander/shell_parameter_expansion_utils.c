@@ -6,20 +6,20 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:16:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 17:14:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "defines.h"
 
-t_bool	is_shell_var(char c)
+bool	is_shell_var(char c)
 {
 	if (c == '_' || c == '?')
-		return (FT_TRUE);
+		return (true);
 	if (ft_isspecial(c) || c == '\0')
-		return (FT_FALSE);
-	return (FT_TRUE);
+		return (false);
+	return (true);
 }
 
 void	quote_control(const t_deque *deque, char c)

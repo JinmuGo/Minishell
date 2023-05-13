@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:22 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/11 12:51:11 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@
 #include "envp_command.h"
 #include "built_in.h"
 
-t_bool	is_valid_arg(char *arg, t_bool *is_fail)
+bool	is_valid_arg(char *arg, bool *is_fail)
 {
 	int	i;
 
 	i = -1;
 	while (arg[++i])
 	{
-		if (is_valid_params(arg[i]) == FT_FALSE)
+		if (is_valid_params(arg[i]) == false)
 		{
 			prt_built_in_err("unset ", arg, ERR_INVALID_IDENT, EXIT_FAILURE);
 			*is_fail = EXIT_FAILURE;
-			return (FT_FALSE);
+			return (false);
 		}
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
 int	ft_unset(t_simple_cmd *simple_cmd)
 {
-	t_bool	is_fail;
+	bool	is_fail;
 	int		i;
 
 	if (simple_cmd->args[1] == NULL)

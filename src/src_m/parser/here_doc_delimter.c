@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_delimter.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:21:42 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:56:11 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*edit_delimter(char *delimter)
 	return (make_new_delimter(delimter, size));
 }
 
-t_bool	validation_delimter(char *delimter, char **new_delimter)
+bool	validation_delimter(char *delimter, char **new_delimter)
 {
-	t_bool	quote;
+	bool	quote;
 
 	quote = check_heredoc_quote(delimter);
 	*new_delimter = edit_delimter(delimter);

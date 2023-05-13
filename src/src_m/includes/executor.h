@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:51:16 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 14:53:10 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void				cmd_executor(\
 
 /* executor_utils.c */
 t_token_type		check_token_type(t_tree_node *node);
-t_bool				is_built_in(t_tree_node *root);
-t_bool				is_single(t_tree_node *root);
+bool				is_built_in(t_tree_node *root);
+bool				is_single(t_tree_node *root);
 void				shlvl_control(char *proc_name);
 
 /* cmd_executor_utils.c */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_write.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:20:14 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:41:37 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "expander.h"
 #include "error.h"
 
-void	write_util(int fd, char *line, t_bool	expand)
+void	write_util(int fd, char *line, bool	expand)
 {
 	char	*tmp;
 
@@ -33,13 +33,13 @@ void	write_util(int fd, char *line, t_bool	expand)
 	}
 }
 
-void	here_doc_write(int fd, char *delimter, t_bool expand)
+void	here_doc_write(int fd, char *delimter, bool expand)
 {
 	const int	del_len = ft_strlen(delimter);
 	char		*line;
 	int			len;
 
-	while (FT_TRUE)
+	while (true)
 	{
 		line = readline("> ");
 		if (line == NULL)
@@ -58,7 +58,7 @@ void	write_to_file(t_list **tk_list, t_deque *dque, int fd)
 	t_tokenize	*token;
 	char		*delimter;
 	char		*new_delimter;
-	t_bool		expand;
+	bool		expand;
 
 	token = ((t_list *)(dque->pop_front(dque)))->content;
 	delimter = token->str;

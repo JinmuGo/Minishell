@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 10:55:00 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:45:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char			**hash_convert_arr(t_hash_table *ht);
 
 /* envp_receiver_utils.c */
 void			free_bucket(t_hash_table *ht);
-t_bool			hash_put(t_hash_elem *elem, const char *key, const char *val);
-t_bool			is_same_key(const char *origin, const char *judge);
+bool			hash_put(t_hash_elem *elem, const char *key, const char *val);
+bool			is_same_key(const char *origin, const char *judge);
 t_hash_asset	hash_asset_init(t_hash_table *ht, const char *str);
 void			hash_resize(t_hash_table *ht);
 

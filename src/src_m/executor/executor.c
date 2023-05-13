@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:44:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 16:31:49 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	execute_init(t_tree *tree, t_executor *execute)
 	if (execute->single)
 		execute->built_in = is_built_in(tree->root);
 	else
-		execute->built_in = FT_FALSE;
+		execute->built_in = false;
 	execute->in_fd = dup(STDIN_FILENO);
 	execute->out_fd = dup(STDOUT_FILENO);
 	execute->cur_fd[0] = -1;

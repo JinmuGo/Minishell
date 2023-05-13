@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:06:12 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 17:28:10 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void		heredoc_wait(pid_t pid);
 void		exe_here_doc(t_list **tk_list, t_deque *dque, char *file_path);
 char		*creat_file(void);
 void		write_to_file(t_list **tk_list, t_deque *dque, int fd);
-t_bool		check_heredoc_quote(char *str);
-t_bool		validation_delimter(char *delimter, char **new_delimter);
+bool		check_heredoc_quote(char *str);
+bool		validation_delimter(char *delimter, char **new_delimter);
 char		*edit_delimter(char *delimter);
 int			get_new_delimter_size(char *delimter);
 char		*make_new_delimter(char *delimter, int size);
-t_bool		validation_heredoc(t_list *token, t_deque *dque);
+bool		validation_heredoc(t_list *token, t_deque *dque);
 void		edit_unlink_list(void);
 void		set_heredoc(char *file_path, t_token *value);
 

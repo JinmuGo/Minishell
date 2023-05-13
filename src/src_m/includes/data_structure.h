@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 22:27:09 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:33:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		stack_push(t_stack *stack, void *value);
 void		*stack_pop(t_stack *stack);
 void		*stack_peek(t_stack *stack);
 void		stack_destory(t_stack *stack);
-t_bool		stack_is_empty(t_stack *stack);
+bool		stack_is_empty(t_stack *stack);
 
 /* tree.c */
 void		tree_init(t_tree *tree);

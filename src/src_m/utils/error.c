@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:47:14 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/16 20:37:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@
 #include <errno.h>
 #include "utils.h"
 
-t_bool	prt_err(const char *str, int exit_status)
+bool	prt_err(const char *str, int exit_status)
 {
 	prt_sc_err(write(STDERR_FILENO, "Minishell: ", 12));
 	prt_sc_err(write(STDERR_FILENO, str, ft_strlen(str)));
 	prt_sc_err(write(STDERR_FILENO, "\n", 2));
 	set_exit_status(exit_status);
-	return (FT_FALSE);
+	return (false);
 }
 
-t_bool	prt_sc_err(int rv)
+bool	prt_sc_err(int rv)
 {
 	if (rv == -1)
 	{
 		prt_err(strerror(errno), errno);
-		return (FT_FALSE);
+		return (false);
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
 // bash: cd: OLDPWD not set
-t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status)
+bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status)
 {
 	const char	*add_colon = ft_strjoin(cmd, ": ");
 	const char	*line;
@@ -48,7 +48,7 @@ t_bool	prt_built_in_err(char *cmd, char *key, char *msg, int exit_status)
 		line = ft_strcombine(2, add_colon, msg);
 	prt_err(line, exit_status);
 	ft_free_n(2, add_colon, line);
-	return (FT_FALSE);
+	return (false);
 }
 
 /**

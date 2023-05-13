@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghwal <sanghwal@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:55 by sanghwal          #+#    #+#             */
-/*   Updated: 2023/03/12 16:57:14 by sanghwal         ###   ########seoul.kr  */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*creat_file(void)
 	return (file_path);
 }
 
-t_bool	check_heredoc_quote(char *str)
+bool	check_heredoc_quote(char *str)
 {
 	int	idx;
 
@@ -44,8 +44,8 @@ t_bool	check_heredoc_quote(char *str)
 	while (str && str[idx])
 	{
 		if (str[idx] == S_QUOTE || str[idx] == D_QUOTE)
-			return (FT_TRUE);
+			return (true);
 		idx++;
 	}
-	return (FT_FALSE);
+	return (false);
 }

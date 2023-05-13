@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:40:05 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/16 19:55:47 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	append_val(char *tmp, char *src)
 	free(src);
 }
 
-t_bool	judge_export_param(char *arg, char *key, const int len)
+bool	judge_export_param(char *arg, char *key, const int len)
 {
 	int	i;
 
@@ -55,27 +55,27 @@ t_bool	judge_export_param(char *arg, char *key, const int len)
 				"export ", arg, ERR_INVALID_IDENT, EXIT_FAILURE));
 		}
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
-t_bool	exec_export(char *arg, char *key)
+bool	exec_export(char *arg, char *key)
 {
 	const int	len = ft_strlen(key);
 	char		*val;
 
-	if (judge_export_param(arg, key, len) == FT_FALSE)
-		return (FT_FALSE);
+	if (judge_export_param(arg, key, len) == false)
+		return (false);
 	val = get_envp_val(arg);
 	if (val == NULL)
 	{
 		free((void *)key);
-		return (FT_TRUE);
+		return (true);
 	}
 	if (key[len - 1] == '+')
 		append_val(key, val);
 	else if (ft_strchr(arg, '='))
 		set_envp_elem(key, val);
-	return (FT_TRUE);
+	return (true);
 }
 
 int	ft_export(t_simple_cmd *simple_cmd)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:15:15 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:58:04 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:28 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "error.h"
 #include <errno.h>
 
-t_bool	exec_cd(char *cur_path)
+bool	exec_cd(char *cur_path)
 {
 	t_hash_elem	*elem;
 	char		*path;
@@ -42,7 +42,7 @@ t_bool	exec_cd(char *cur_path)
 		path = cur_path;
 	if (chdir(path) == -1)
 		return (prt_built_in_err(path, NULL, strerror(errno), errno));
-	return (FT_TRUE);
+	return (true);
 }
 
 int	ft_cd(t_simple_cmd *simple_cmd)

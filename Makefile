@@ -6,12 +6,12 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 20:10:46 by jgo               #+#    #+#              #
-#    Updated: 2023/02/23 19:24:28 by jgo              ###   ########.fr        #
+#    Updated: 2023/05/14 08:53:00 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-include ./config/Rules.mk
-include ./config/color_rules.mk
+include ./make_config/Rules.mk
+include ./make_config/color_rules.mk
 
 NAME = $(PROJECT_NAME)
 

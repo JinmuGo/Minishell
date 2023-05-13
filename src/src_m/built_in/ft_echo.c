@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:25:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/16 20:13:54 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,32 @@
 #include "meta_command.h"
 #include "error.h"
 
-t_bool	n_option_confirm(char *target_str)
+bool	n_option_confirm(char *target_str)
 {
 	int	i;
 
 	if (target_str == NULL)
-		return (FT_FALSE);
+		return (false);
 	if (target_str[0] != '-')
-		return (FT_FALSE);
+		return (false);
 	if (target_str[0] == '-' && target_str[1] == '\0')
-		return (FT_FALSE);
+		return (false);
 	i = 1;
 	while (target_str[i])
 	{
 		if (target_str[i] != 'n')
-			return (FT_FALSE);
+			return (false);
 		i++;
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
-int	exec_echo(char **args, t_bool n_option, int i)
+int	exec_echo(char **args, bool n_option, int i)
 {
 	char	tmp;
 	int		rv;
 
-	rv = FT_TRUE;
+	rv = true;
 	while (args[i])
 	{
 		rv = write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
@@ -50,7 +50,7 @@ int	exec_echo(char **args, t_bool n_option, int i)
 			tmp = ' ';
 			rv = write(STDOUT_FILENO, &tmp, 1);
 		}
-		if (prt_sc_err(rv) == FT_FALSE)
+		if (prt_sc_err(rv) == false)
 			return (rv);
 		i++;
 	}
@@ -59,7 +59,7 @@ int	exec_echo(char **args, t_bool n_option, int i)
 		tmp = '\n';
 		rv = write(STDOUT_FILENO, &tmp, 1);
 	}
-	if (prt_sc_err(rv) == FT_FALSE)
+	if (prt_sc_err(rv) == false)
 		return (rv);
 	return (rv);
 }
@@ -78,9 +78,9 @@ int	ft_echo(t_simple_cmd *simple_cmd)
 	while (n_option_confirm(simple_cmd->args[++i]))
 		continue ;
 	if (i > 1)
-		rv = exec_echo(&simple_cmd->args[i], FT_TRUE, 0);
+		rv = exec_echo(&simple_cmd->args[i], true, 0);
 	else
-		rv = exec_echo(&simple_cmd->args[i], FT_FALSE, 0);
+		rv = exec_echo(&simple_cmd->args[i], false, 0);
 	if (rv == -1)
 		rv = EXIT_FAILURE;
 	else

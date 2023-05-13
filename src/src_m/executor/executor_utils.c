@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 17:03:30 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/12 17:34:07 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,28 @@ t_token_type	check_token_type(t_tree_node *node)
 	return (((t_token *)(node->value))->type);
 }
 
-t_bool	is_built_in(t_tree_node *root)
+bool	is_built_in(t_tree_node *root)
 {
 	t_simple_cmd_type	s_type;
 
 	if (root == NULL || root->right == NULL || root->right->right == NULL)
-		return (FT_FALSE);
+		return (false);
 	s_type = is_built_in_cmd(\
 	(((t_token *)(root->right->right->value))->cmd_val.simple_cmd)->cmd);
 	if (s_type != FT_EXTERNAL)
-		return (FT_TRUE);
+		return (true);
 	else
-		return (FT_FALSE);
+		return (false);
 }
 
-t_bool	is_single(t_tree_node *root)
+bool	is_single(t_tree_node *root)
 {
 	const t_token_type	t_type = ((t_token *)(root->right->value))->type;
 
 	if (t_type != PIPE)
-		return (FT_TRUE);
+		return (true);
 	else
-		return (FT_FALSE);
+		return (false);
 }
 
 void	shlvl_control(char *proc_name)

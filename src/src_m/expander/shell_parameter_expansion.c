@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:13:40 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/17 19:51:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 08:54:36 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 #include "expander.h"
 #include "meta_command.h"
 
-t_bool	dollar_control(char c, char *rear, char next)
+bool	dollar_control(char c, char *rear, char next)
 {
 	if (c == DOLLAR)
 	{
 		if (rear != NULL && *rear != S_QUOTE)
-			return (FT_TRUE);
+			return (true);
 		else if (next == ' ' || next == '\0')
-			return (FT_FALSE);
+			return (false);
 		else if (rear == NULL)
-			return (FT_TRUE);
+			return (true);
 	}
-	return (FT_FALSE);
+	return (false);
 }
 
 char	*expand_variable(char *dst, char *str, t_deque *deque, int i)
