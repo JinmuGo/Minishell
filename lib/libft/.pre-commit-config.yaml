@@ -1,0 +1,11 @@
+# https://github.com/vcwild/norminette-hook
+# pre-commit install --install-hooks --overwrite
+
+default_language_version:
+  python: python3
+
+repos:
+  - repo: https://github.com/vcwild/norminette-hook
+    rev: v0.1.1
+    hooks:
+    - id: norminette-hook

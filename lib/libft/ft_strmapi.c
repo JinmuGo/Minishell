@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:15:52 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/17 11:07:06 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:08:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	if (!f)
 		return ((char *)s);
 	if (!s)
-		return ((void *)0);
+		return (NULL);
 	i = 0;
 	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!str)

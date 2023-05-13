@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:49:25 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/17 11:06:17 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:08:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 	unsigned char		*tmp;
 
 	if (!dest && !src)
-		return ((void *)0);
+		return (NULL);
 	if (dest <= src)
 	{
 		s = (const unsigned char *)src;

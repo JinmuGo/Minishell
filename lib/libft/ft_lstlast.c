@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 12:40:33 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/17 11:05:08 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:08:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
-		return ((void *)0);
+		return (NULL);
 	while (lst -> next)
 		lst = lst -> next;
 	return (lst);

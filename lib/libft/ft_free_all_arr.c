@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:43:34 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/09 19:05:40 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:08:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ char	**ft_free_all_arr(char **arr)
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
-	return ((void *)0);
+	return (NULL);
 }

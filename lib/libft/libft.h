@@ -6,27 +6,30 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 12:55:42 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:33:35 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/18 22:48:46 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+/*------------- INCLUDE --------------*/
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdbool.h>
 
-typedef enum e_bool {
-	FT_TRUE = 1,
-	FT_FALSE = 0
-}	t_bool;
+/*------------- TYPEDEF --------------*/
+typedef struct s_list	t_list;
 
-typedef struct s_list
+/*-------------- STRUCT --------------*/
+struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}	t_list;
+};
 
+/*-------- PROTOTYPE_FUNCTION --------*/
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -36,7 +39,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
-t_bool	ft_isspecial(int c);
+bool	ft_isspecial(int c);
 char	*ft_itoa(int n);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -85,7 +88,7 @@ char	*ft_strcombine(int n, ...);
 char	*ft_strcat(char *dest, char *src);
 char	**ft_arrdup(const char **src);
 
-// GNL
+/*-------- GET_NEXT_LINE --------*/
 char	*get_next_line(int fd);
 
 #endif

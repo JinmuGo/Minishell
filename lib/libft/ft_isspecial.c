@@ -6,17 +6,17 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:29:34 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/13 10:19:56 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:09:48 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_bool	ft_isspecial(int c)
+bool	ft_isspecial(int c)
 {
 	if ((32 <= c && c <= 47) || (58 <= c && c <= 64) \
 		|| (91 <= c && c <= 96) || (123 <= c && c <= 126) \
 		|| ft_isspace(c))
-		return (FT_TRUE);
-	return (FT_FALSE);
+		return (true);
+	return (false);
 }

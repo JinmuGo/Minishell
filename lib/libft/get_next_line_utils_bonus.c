@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:06:51 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/17 11:04:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/18 16:43:47 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*free_lst_elem(t_buf **buf_lst, t_buf *buf)
 	return (NULL);
 }
 
-size_t	get_total_len(t_buf *buf)
+static size_t	get_total_len(t_buf *buf)
 {
 	size_t		total_len;
 	const int	first_fd = buf->fd;
@@ -55,7 +55,8 @@ size_t	get_total_len(t_buf *buf)
 	return (total_len);
 }
 
-size_t	put_in_str2(char *str, size_t iter, t_buf *buf, size_t total_len)
+static size_t	\
+	put_in_str2(char *str, size_t iter, t_buf *buf, size_t total_len)
 {
 	while (iter <= buf->endpoint && buf->buf_str[iter] != '\0')
 	{
@@ -65,7 +66,8 @@ size_t	put_in_str2(char *str, size_t iter, t_buf *buf, size_t total_len)
 	return (iter);
 }
 
-char	*put_in_str(t_buf **buf_lst, t_buf *buf, char *str, size_t total_len)
+static char	\
+	*put_in_str(t_buf **buf_lst, t_buf *buf, char *str, size_t total_len)
 {
 	size_t		endpoint;
 	t_buf		*temp_buf;

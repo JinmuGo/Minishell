@@ -6,13 +6,13 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 14:04:31 by jgo               #+#    #+#             */
-/*   Updated: 2023/02/11 09:12:32 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:09:48 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_bool	is_prime(int nb)
+bool	is_prime(int nb)
 {
 	int	i;
 
@@ -20,10 +20,10 @@ t_bool	is_prime(int nb)
 	while (i * i <= nb)
 	{
 		if (nb % i == 0)
-			return (FT_FALSE);
+			return (false);
 		i++;
 	}
-	return (FT_TRUE);
+	return (true);
 }
 
 int	ft_find_prev_prime(int nb)

@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 20:29:22 by jgo               #+#    #+#             */
-/*   Updated: 2023/03/08 20:32:35 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:08:23 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**ft_arrdup(const char **src)
 	char			**dst;
 	size_t			i;
 
+	if (len == 0)
+		return (NULL);
 	dst = ft_malloc(sizeof(char *) * (len + 1));
 	i = -1;
 	while (src[++i])

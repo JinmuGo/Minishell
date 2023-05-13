@@ -6,15 +6,15 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 12:56:36 by jgo               #+#    #+#              #
-#    Updated: 2023/03/08 20:33:16 by jgo              ###   ########.fr        #
+#    Updated: 2023/04/10 17:21:27 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../..)
+		TOPDIR = $(abspath ../)
 endif
-include $(TOPDIR)/config/Rules.mk
-include $(TOPDIR)/config/color_rules.mk
+include $(TOPDIR)/make_config/Rules.mk
+include $(TOPDIR)/make_config/Color_rules.mk
 
 NAME = libft.a
 HEAD = libft.h \
@@ -91,22 +91,25 @@ all bonus:
 	$(Q)$(call color_printf,$(GREEN),$(NAME),🔰 done!)
 
 $(NAME): $(OBJS)
-		$(Q)$(call color_printf,$(GREEN),$(NAME),📚 archive object)
-		$(AR) $(ARFLAGS) $@ $^
-		$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/lib link_files
-		$(Q)$(MAKE) files="$(HEAD)" src_dir=`pwd` dst_dir=$(TOPDIR)/includes link_files
-		
+	$(Q)$(call color_printf,$(GREEN),$(NAME),📚 archive object)
+	$(AR) $(ARFLAGS) $@ $^
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/lib link_files
+	$(Q)$(MAKE) files="$(HEAD)" src_dir=`pwd` dst_dir=$(TOPDIR)/includes link_files
+	
 clean:
-		$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/lib unlink_files
-		$(Q)$(MAKE) files="$(HEAD)" src_dir=`pwd` dst_dir=$(TOPDIR)/includes unlink_files
-		$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove Objects && Dependency file)
-		$(RM) $(OBJS) $(DEPS)
+	$(Q)$(MAKE) files="$(NAME)" src_dir=`pwd` dst_dir=$(TOPDIR)/lib unlink_files
+	$(Q)$(MAKE) files="$(HEAD)" src_dir=`pwd` dst_dir=$(TOPDIR)/includes unlink_files
+	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove Objects && Dependency file)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-		$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
-		$(RM) $(NAME)
+	$(Q)$(call color_printf,$(RED),$(NAME),🗑️  remove $(NAME))
+	$(RM) $(NAME)
 
 re: fclean
-		$(MAKE) all
+	$(MAKE) all
 
-.PHONY: all clean fclean re bonus
+norm : 
+	norminette .
+
+.PHONY: all clean fclean re bonus norm

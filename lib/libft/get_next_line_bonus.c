@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgo <jgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 03:06:38 by jgo               #+#    #+#             */
-/*   Updated: 2022/11/17 11:04:29 by jgo              ###   ########.fr       */
+/*   Updated: 2023/04/10 17:22:45 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-t_buf	*add_new_buf(t_buf *buf, int fd)
+static t_buf	*add_new_buf(t_buf *buf, int fd)
 {
 	t_buf	*new_buf;
 
@@ -33,7 +33,8 @@ t_buf	*add_new_buf(t_buf *buf, int fd)
 	return (new_buf);
 }
 
-t_buf	*find_fd_or_create(t_buf **head, t_buf *cur, t_buf *node, int fd)
+static t_buf	\
+	*find_fd_or_create(t_buf **head, t_buf *cur, t_buf *node, int fd)
 {
 	while (cur)
 	{
@@ -60,7 +61,7 @@ t_buf	*find_fd_or_create(t_buf **head, t_buf *cur, t_buf *node, int fd)
 	return (node);
 }
 
-t_buf	*read_untill_endpoint(t_buf *buf)
+static t_buf	*read_untill_endpoint(t_buf *buf)
 {
 	size_t	idx;
 	t_buf	*prev;
@@ -85,7 +86,8 @@ t_buf	*read_untill_endpoint(t_buf *buf)
 	return (buf);
 }
 
-void	restore_buf(t_buf **head, t_buf *buf, t_buf *restore_buf, size_t iter)
+static void	\
+	restore_buf(t_buf **head, t_buf *buf, t_buf *restore_buf, size_t iter)
 {
 	if (buf->buf_str[buf->endpoint] == '\0')
 		return ;
