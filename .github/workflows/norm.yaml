@@ -1,18 +1,11 @@
-# .github/workflows/norm.yml
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  build:
+  norminette_job:
     runs-on: ubuntu-latest
-
+    name: norminette
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Check Norminette
-        run: |
-          docker build -t norminette .
-          docker run -v $PWD:/code norminette /code
+    - uses: actions/checkout@v2
+    - uses: alexandregv/norminette-action@v3
+      with:
+        flags: '.'
