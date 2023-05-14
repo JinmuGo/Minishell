@@ -6,7 +6,7 @@
 /*   By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:38:28 by jgo               #+#    #+#             */
-/*   Updated: 2023/05/14 08:54:16 by jgo              ###   ########.fr       */
+/*   Updated: 2023/05/14 09:31:37 by jgo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_hash_elem		t_hash_elem;
 
 /* func_ptr typedef */
 
-typedef int						(*t_built_in_func)(t_simple_cmd *);
-typedef void					(*t_rdr_func)(t_rdr *);
+typedef int						(*t_built_in_func)	(t_simple_cmd *);
+typedef void					(*t_rdr_func)	(t_rdr *);
 
 struct s_meta
 {
