@@ -1,6 +1,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
-	url = https://github.com/jgo-42/libft
+	url = https://github.com/jgodv/libft
 	branch = main
 [submodule "make_config"]
 	path = make_config
