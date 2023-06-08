@@ -2,7 +2,3 @@
 	path = lib/libft
 	url = https://github.com/jgodv/libft
 	branch = main
-[submodule "make_config"]
-	path = make_config
-	url = https://github.com/jgodv/make_config
-	branch = minishell
