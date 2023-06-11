@@ -20,9 +20,8 @@ jobs:
                   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
                   SUBMODULE_PATHS: ${{ secrets.SUBMODULE_PATHS }}
               run: |
-                  git pull
                   git submodule sync
-                  git submodule update --remote
+                  git pull -prune --recurse-submodules --force
                   git config --global user.name 'jgo-42'
                   git config --global user.email 'jingmuio@gmail.com'
                   git submodule foreach 'git fetch && if ! git merge --ff-only origin/main; then git merge -Xtheirs origin/main; fi'
