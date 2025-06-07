@@ -60,4 +60,5 @@ void	envp_init(char **envp)
 		else
 			ft_free_n(2, key, val);
 	}
+	set_envp_elem(ft_strdup("SHELL"), ft_strdup("minishell"));
 }

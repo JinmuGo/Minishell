@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../)
+		TOPDIR = $(abspath ../../)
 endif
 
 include $(TOPDIR)/make_config/src/Rules.mk

@@ -6,25 +6,27 @@
 #    By: jgo <jgo@student.42seoul.fr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/05 08:31:25 by jgo               #+#    #+#              #
-#    Updated: 2023/06/06 15:56:28 by jgo              ###   ########.fr        #
+#    Updated: 2023/06/06 15:56:06 by jgo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ifndef TOPDIR
-		TOPDIR = $(abspath ../../../)
+		TOPDIR = $(abspath ../../)
 endif
 
 include $(TOPDIR)/make_config/src/Rules.mk
 include $(TOPDIR)/make_config/com/ColorRules.mk
 
-SRCS =	Deque.c \
-		Deque_utils.c \
-		Stack.c \
-		Stack_utils.c \
-		Tree.c \
-		Tree_utils.c
+SRCS =	expander.c \
+		quote_removal.c \
+		shell_parameter_expansion.c \
+		shell_parameter_expansion_utils.c \
+		here_doc_expansion.c \
+		expander_utils.c \
+		field_split.c \
+		field_split_utils.c
 
-NAME = data_structure.a
+NAME = expander.a
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
